@@ -1,0 +1,1927 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ECE249 — Test Series (Units 1-3)</title>
+<style>
+/* ===================== CSS Variables ===================== */
+:root{
+    --bg:#10a482; /* Background main color variable */
+    --card:#0d0e0f; /* Card background color variable */
+    --accent:#1d6c52; /* Main accent color */
+    --accent-600:#059669; /* Darker accent */
+    --accent-400:#44a631; /* Lighter accent */
+    --danger:#d41212b8; /* Error/danger color */
+    --muted:#1e2939; /* Muted text color */
+    --glass:rgba(52, 36, 36, 0.03); /* Glassy overlay color */
+}
+
+/* ===================== Global Styles ===================== */
+*{
+    box-sizing:border-box; /* Padding + border included in element width/height */
+    font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; /* Default font stack */
+}
+html,body{
+    height:100%; /* Full height for page */
+}
+body{
+    margin:0; /* Remove default margin */
+    background:
+        radial-gradient(900px 500px at 10% 10%, rgba(244, 50, 163, 0.04), transparent), /* Decorative radial gradient */
+        linear-gradient(180deg,#5a7ab2 0%, #11bac0 100%); /* Main page gradient background */
+    color:#070b0f; /* Default text color */
+    min-height:100vh; /* Minimum height full viewport */
+    display:flex; /* Flex layout */
+    align-items:center; /* Vertically center content */
+    justify-content:center; /* Horizontally center content */
+    padding:18px; /* Page padding */
+}
+
+/* ===================== Layout Wrappers ===================== */
+.wrap{
+    width:100%; /* Full width */
+    max-width:1100px; /* Max width for large screens */
+    margin:0 auto; /* Center horizontally */
+}
+.card{
+    background:linear-gradient(180deg, rgba(5, 3, 3, 0.02), rgba(0,0,0,0.12)); /* Card gradient */
+    border-radius:14px; /* Rounded corners */
+    padding:18px; /* Inner spacing */
+    box-shadow:0 10px 40px rgba(2,6,23,0.7); /* Shadow under card */
+    border:1px solid rgba(255,255,255,0.03); /* Subtle border */
+}
+
+/* ===================== Header ===================== */
+header{
+    display:flex; /* Flex layout */
+    justify-content:space-between; /* Space between title and other elements */
+    align-items:flex-start; /* Align at top */
+    gap:12px; /* Gap between items */
+}
+.title{
+    display:flex; /* Flex for vertical layout */
+    flex-direction:column; /* Stack title + subtitle vertically */
+}
+h1{
+    margin:0; /* Remove default margin */
+    font-size:20px; /* Title font size */
+}
+.small-by{
+    font-size:12px; /* Small subtitle text */
+    color:var(--muted); /* Muted color */
+    margin-top:6px; /* Space above */
+}
+.accent-badge{
+    background:linear-gradient(90deg,var(--accent-400),var(--accent)); /* Gradient badge */
+    padding:6px 10px; /* Inner spacing */
+    border-radius:8px; /* Rounded corners */
+    color:#022; /* Text color inside badge */
+    font-weight:700; /* Bold */
+}
+
+/* ===================== Start area ===================== */
+.start-area{
+    display:flex; /* Flex layout */
+    gap:14px; /* Gap between inputs/buttons */
+    align-items:flex-start; /* Align at top */
+    margin-top:12px; /* Top spacing */
+}
+.inputs{
+    display:flex; /* Flex layout */
+    flex-direction:column; /* Stack inputs vertically */
+    gap:8px; /* Space between inputs */
+}
+input[type="text"], input[type="file"]{
+    padding:10px; /* Inner spacing */
+    border-radius:8px; /* Rounded corners */
+    border:1px solid rgba(255,255,255,0.05); /* Border style */
+    background:transparent; /* Transparent input background */
+    color:inherit; /* Same as body color */
+    width:280px; /* Fixed input width */
+}
+
+/* ===================== About box ===================== */
+.about{
+    background:linear-gradient(180deg, rgba(204, 66, 66, 0.01), rgba(156, 43, 43, 0.02)); /* Light background gradient */
+    padding:12px; /* Inner spacing */
+    border-radius:10px; /* Rounded corners */
+    border:1px solid rgba(150, 23, 23, 0.02); /* Light border */
+    max-width:600px; /* Max width */
+}
+.about p{
+    margin:6px 0; /* Paragraph spacing */
+    color:var(--muted); /* Muted color */
+    font-size:13px; /* Small text */
+}
+
+/* ===================== Buttons ===================== */
+.btn{
+    padding:10px 14px; /* Inner spacing */
+    border-radius:10px; /* Rounded */
+    border:0; /* No border */
+    cursor:pointer; /* Pointer on hover */
+    font-weight:700; /* Bold */
+    background:var(--accent); /* Main accent color */
+    color:#022; /* Text color */
+    box-shadow:0 6px 20px rgba(14, 239, 164, 0.08); /* Shadow */
+    transition:transform .14s ease, box-shadow .14s ease; /* Smooth interaction */
+}
+.btn:active{
+    transform:translateY(2px); /* Button press effect */
+}
+.btn.ghost{
+    background:transparent; /* Ghost button */
+    border:1px solid rgba(99, 46, 46, 0.06); /* Light border */
+    color:#1a5795; /* Text color */
+}
+.btn.warn{
+    background:var(--danger); /* Red background for warning */
+    color:#52aeb7; /* Text color */
+}
+
+/* ===================== Row flex ===================== */
+.row{
+    display:flex; /* Flex layout */
+    gap:8px; /* Gap between items */
+    align-items:center; /* Vertical center */
+}
+.muted{
+    color:var(--muted); /* Muted text */
+    font-size:13px; /* Small text */
+}
+
+/* ===================== Main Layout ===================== */
+.main{
+    display:flex; /* Flex layout */
+    gap:16px; /* Gap between left and right */
+    margin-top:16px; /* Top spacing */
+}
+.left{
+    flex:1; /* Left area grows */
+}
+.right{
+    width:320px; /* Fixed width for right panel */
+}
+
+/* ===================== Top Status boxes ===================== */
+.topstatus{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap; /* Wrap to next line if overflow */
+}
+.status-box{
+    background:var(--glass); /* Glassy background */
+    padding:8px 10px; /* Inner padding */
+    border-radius:8px;
+    min-width:80px; /* Minimum width */
+    text-align:center; /* Center text */
+    font-size:13px;
+}
+.status-box .label{
+    color:var(--muted);
+    font-size:12px;
+}
+.status-box .val{
+    font-weight:800;
+    margin-top:4px;
+}
+
+/* ===================== Question Area ===================== */
+.question-area{
+    margin-top:12px;
+    padding:18px;
+    border-radius:12px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+    border:1px solid rgba(255,255,255,0.02);
+}
+.qtop{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.qtext{
+    font-size:19px;
+    font-weight:700;
+    margin:12px 0;
+}
+.options{
+    display:grid; /* Grid layout */
+    grid-template-columns:1fr 1fr; /* Two columns for options */
+    gap:12px; /* Gap between options */
+}
+.option{
+    padding:12px;
+    border-radius:10px;
+    border:1px solid rgba(91, 206, 248, 0.438);
+    cursor:pointer;
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    transition:transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease, background .18s ease;
+}
+.option:hover{
+    transform:translateY(-4px); /* Hover lift effect */
+    box-shadow:0 10px 30px rgba(12, 49, 217, 0.6);
+}
+.option .label{
+    font-weight:750;
+}
+.option .explainTiny{
+    font-size:12px;
+    color:var(--muted);
+    padding:10px 10px;
+    border-radius:10px;
+    border:5px solid rgba(255,255,255,0.02);
+}
+
+/* ===================== Option states ===================== */
+.option.correct{
+    background:linear-gradient(90deg, rgba(11, 29, 23, 0.12), rgba(22, 69, 53, 0.06));
+    border-color:rgba(16,185,129,0.28);
+    color:var(--accent);
+    box-shadow:0 10px 30px rgba(16,185,129,0.06), 0 0 18px rgba(16,185,129,0.06) inset;
+    animation:glow 900ms ease forwards; /* Green glow animation */
+}
+.option.wrong{
+    background:linear-gradient(90deg, rgba(239,68,68,0.06), rgba(239,68,68,0.03));
+    border-color:rgba(5, 5, 5, 0.22);
+    color:var(--danger);
+    animation:shake .45s linear; /* Red shake animation */
+}
+
+/* ===================== Animations ===================== */
+@keyframes glow{
+    0%{box-shadow:0 0 0 rgba(16,185,129,0)}
+    50%{box-shadow:0 0 20px rgba(113, 234, 194, 0.08)}
+    100%{box-shadow:0 0 6px rgba(16,185,129,0.04)}
+}
+@keyframes shake{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-6px)}
+    50%{transform:translateX(6px)}
+    75%{transform:translateX(-4px)}
+    100%{transform:translateX(0)}
+}
+
+/* ===================== Explanation box ===================== */
+.explain{
+    font-size:14px;
+    color:var(--muted);
+    margin-top:10px;
+    padding:12px;
+    border-radius:10px;
+    background:rgba(0,0,0,0.05);
+    display:none; /* Hidden by default */
+}
+
+/* ===================== Controls and Footer ===================== */
+.controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:14px;
+}
+.nav{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+.footer{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* ===================== Modal ===================== */
+.modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(2,6,23,0.6); /* Semi-transparent backdrop */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:60;
+}
+.modal{
+    background:#071025;
+    padding:16px;
+    border-radius:12px;
+    width:90%;
+    max-width:720px;
+    border:1px solid rgba(255,255,255,0.03);
+}
+.modal h3{
+    margin:0 0 8px;
+}
+.results-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:8px;
+}
+.results-table th,.results-table td{
+    padding:8px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    text-align:left;
+    font-size:13px;
+}
+.img-preview{
+    width:56px;
+    height:56px;
+    border-radius:8px;
+    object-fit:cover;
+    border:1px solid rgba(255,255,255,0.04);
+}
+
+/* ===================== Responsive ===================== */
+@media(max-width:880px){
+    .main{flex-direction:column;} /* Stack left & right vertically */
+    .right{width:100%;} /* Right panel full width */
+    .options{grid-template-columns:1fr;} /* Single column for options */
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="cardRoot">
+      <header>
+        <div class="title">
+          <div style="display:flex;align-items:center;gap:10px">
+            <h1>ECE249 — Test Series (Units 1-3)</h1>
+            <div class="accent-badge" id="badgeCount">300 Qs</div>
+          </div>
+          <div class="small-by">Created by <strong>Aryan Singh</strong></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div style="font-size:12px;color:var(--muted)">BY:- <strong style="color:var(--accent)">ARYAN SINGH</strong></div>
+        </div>
+      </header>
+
+      <!-- START PAGE -->
+      <div id="startPage" style="margin-top:12px">
+        <div class="start-area">
+          <div class="inputs">
+            <input id="inpName" type="text" placeholder="Enter full name "  />
+            <input id="inpReg" type="text" placeholder="Registration number" />
+            <div style="display:flex;align-items:center;gap:8px">
+              <input id="inpPic" type="file" accept="image/*" />
+              <img id="imgPreview" class="img-preview" src="" alt="" style="display:none" />
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button id="btnStart" class="btn" disabled>Start Test</button>
+              <button id="btnResetStart" class="btn ghost">Reset</button>
+            </div>
+            <div id="startErrors" style="color:#ffcccb;font-size:13px;margin-top:6px"></div>
+          </div>
+          <div class="about">
+            <strong>About this Test</strong>
+            <p>• 300 MCQs covering Units 1–3. One question at a time.</p>
+            <p>• Name & Registration number are mandatory. Profile picture optional.</p>
+            <p>• No hard time limit, but inactivity of 60s shows a warning.</p>
+            <p>• Wrong answers do not increase progress percentage (progress = correct / total).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEST PAGE (hidden initially) -->
+      <div id="testPage" style="display:none">
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap" class="topstatus">
+            <div class="status-box"><div class="label">Time</div><div class="val" id="timeTop">00:00</div></div>
+            <div class="status-box"><div class="label">Correct</div><div class="val" id="topCorrect">0</div></div>
+            <div class="status-box"><div class="label">Wrong</div><div class="val" id="topWrong">0</div></div>
+            <div class="status-box"><div class="label">Progress</div><div class="val" id="topProgress">0%</div></div>
+            <div class="status-box"><div class="label">Attempted</div><div class="val" id="topAttempted">0</div></div>
+            <div class="status-box"><div class="label">Q</div><div class="val" id="topQno">0/300</div></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <div class="muted" id="showUser">—</div>
+            <button id="btnEndTestTop" class="btn warn">End Test</button>
+          </div>
+        </div>
+
+        <div class="main">
+          <div class="left">
+            <div class="question-area">
+              <div class="qtop">
+                <div class="muted">Name: <span id="showName">—</span> • Reg: <span id="showReg">—</span></div>
+                <div class="muted">Progress: <span id="progressPercent">0%</span></div>
+              </div>
+              <div class="qtext" id="questionText">Loading...</div>
+              <div class="options" id="optionsBox"></div>
+              <div class="explain" id="explainBox"></div>
+
+              <div class="controls">
+                <div class="nav">
+                  <button id="btnPrev" class="btn ghost">Prev</button>
+                  <button id="btnNext" class="btn ghost">Next</button>
+                  <button id="btnShowExplain" class="btn ghost">Show Explanation</button>
+                </div>
+                <div class="muted">Score: <span id="scoreInline">0</span></div>
+              </div>
+            </div>
+            <div class="footer">Tip: Click the correct option — it turns <span style="color:var(--accent);font-weight:700">green</span>. Wrong picks become <span style="color:var(--danger);font-weight:700">red</span>.</div>
+          </div>
+
+          <aside class="right">
+            <div class="scorebox">
+              <div class="row" style="justify-content:space-between;align-items:center">
+                <div style="display:flex;gap:8px;align-items:center">
+                  <div style="display:flex;flex-direction:column"><div class="muted" style="font-size:12px">Questions</div><div style="font-weight:800" id="curQ">0</div></div>
+                  <div style="display:flex;flex-direction:column"><div class="muted" style="font-size:12px">Total</div><div style="font-weight:800" id="totalQ">300</div></div>
+                </div>
+                <img id="userPicSmall" class="img-preview" src="" style="display:none">
+              </div>
+
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <div style="flex:1"><div class="label muted">Correct</div><div id="correctCount" style="font-weight:800">0</div></div>
+                <div style="flex:1"><div class="label muted">Wrong</div><div id="wrongCount" style="font-weight:800">0</div></div>
+              </div>
+
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <div style="flex:1"><div class="label muted">Attempted</div><div id="attemptedCount" style="font-weight:800">0</div></div>
+                <div style="flex:1"><div class="label muted">Time</div><div id="timeSpent" style="font-weight:800">00:00</div></div>
+              </div>
+
+              <div style="margin-top:10px;display:flex;gap:8px">
+                <button id="btnSave" class="btn">Save Result</button>
+                <button id="btnExport" class="btn ghost">Export CSV</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- modal container -->
+  <div id="modalRoot" style="display:none"></div>
+
+<script>const QUESTIONS = [
+
+  {
+    q: "Define P-type semiconductor.",
+    options: ["Has extra electrons", "Has holes as majority carriers", "Insulator", "Conducts only at high temperature"],
+    answer: 1,
+    explanation: "P-type semiconductors have holes as majority carriers due to trivalent doping."
+  },
+  {
+    q: "Define N-type semiconductor.",
+    options: ["Has holes as majority carriers", "Has equal electrons and holes", "Has extra electrons as majority carriers", "Is a perfect insulator"],
+    answer: 2,
+    explanation: "N-type semiconductors have extra electrons as majority carriers due to pentavalent doping."
+  },
+  {
+    q: "A silicon diode has a barrier potential of 0.7V. If input = 10V (rms), find the DC output voltage of a half-wave rectifier.",
+    options: ["10 V", "5.65 V", "9.3 V", "0.7 V"],
+    answer: 2,
+    explanation: "Vdc = Vpeak - 0.7 = 10 - 0.7 = 9.3 V"
+  },
+  {
+    q: "Using KCL, find outgoing current if incoming currents are 2A and 3A, and one outgoing current is 4A.",
+    options: ["6 A", "5 A", "1 A", "2 A"],
+    answer: 2,
+    explanation: "Sum of incoming = sum of outgoing ⇒ 2+3=4+? ⇒ ?=1A"
+  },
+  {
+    q: "Apply KVL to a loop containing 10V source and resistors 2Ω and 3Ω. Find the current.",
+    options: ["10 A", "5 A", "2 A", "1 A"],
+    answer: 2,
+    explanation: "I = V / Rtotal = 10 / (2+3) = 2 A"
+  },
+  {
+    q: "Transistor as a switch is used in which mode?",
+    options: ["Active mode", "Cut-off and Saturation", "Breakdown region", "Reverse bias"],
+    answer: 1,
+    explanation: "Transistor acts as switch in cut-off (OFF) and saturation (ON) modes."
+  },
+  {
+    q: "Which sensor is used to detect distance using ultrasonic waves?",
+    options: ["Photodiode", "IR Receiver", "LDR", "Ultrasonic Sensor"],
+    answer: 3,
+    explanation: "Ultrasonic sensor measures distance using reflected ultrasonic waves."
+  },
+  {
+    q: "Which Arduino function sets pin mode?",
+    options: ["analogRead()", "setup()", "pinMode()", "digitalWrite()"],
+    answer: 2,
+    explanation: "pinMode(pin, INPUT/OUTPUT) sets the pin mode."
+  },
+  {
+    q: "What is a hole in a semiconductor?",
+    options: ["Extra electron", "Proton", "Absence of electron", "Neutral atom"],
+    answer: 2,
+    explanation: "A hole represents the absence of an electron and acts as a positive charge carrier."
+  },
+  {
+    q: "Compare Common-Base, Common-Emitter, and Common-Collector configurations: Which has highest voltage gain?",
+    options: ["Common-Base", "Common-Collector", "All equal", "Common-Emitter"],
+    answer: 3,
+    explanation: "Common-Emitter configuration has highest voltage gain."
+  },
+  {
+    q: "Canonical SOP form is used for:",
+    options: ["Sensor calibration", "Standardized representation of Boolean function", "Transistor biasing", "ADC conversion"],
+    answer: 1,
+    explanation: "SOP canonical form expresses Boolean function as sum of minterms."
+  },
+  {
+    q: "Which is a limitation of 1’s complement?",
+    options: ["Two zeros", "Cannot represent positive numbers", "Complex addition", "Cannot represent negative numbers"],
+    answer: 0,
+    explanation: "1’s complement has both +0 and -0, leading to ambiguity."
+  },
+  {
+    q: "Light Dependent Resistor (LDR) changes resistance with:",
+    options: ["Magnetic field", "Temperature", "Light intensity", "Pressure"],
+    answer: 2,
+    explanation: "LDR decreases resistance when light intensity increases."
+  },
+  {
+    q: "What does `digitalWrite(pin, HIGH)` do in Arduino?",
+    options: ["Resets Arduino", "Sets pin voltage to 5V", "Configures pin as output", "Reads analog value"],
+    answer: 1,
+    explanation: "digitalWrite(pin, HIGH) sets the digital output pin HIGH (5V)."
+  },
+  {
+    q: "Which gate gives output 1 only when both inputs are 1?",
+    options: ["XOR gate", "OR gate", "NAND gate", "AND gate"],
+    answer: 3,
+    explanation: "AND gate output is HIGH only when both inputs are HIGH."
+  },
+  {
+    q: "Gray code is used to:",
+    options: ["Control Arduino pins", "Perform analog conversion", "Minimize bit changes in sequential numbers", "Simplify K-map"],
+    answer: 2,
+    explanation: "Gray code changes only one bit between consecutive numbers."
+  },
+  {
+    q: "What is the average DC output of a half-wave rectifier if input peak voltage is 10V?",
+    options: ["3.18 V", "5 V", "7.07 V", "10 V"],
+    answer: 0,
+    explanation: "Vdc = Vpeak / π ≈ 10/π ≈ 3.18 V"
+  },
+  {
+    q: "Which pin is used to read analog input in Arduino?",
+    options: ["D0-D13", "A0-A5", "GND", "5V"],
+    answer: 1,
+    explanation: "Analog pins A0-A5 are used for analog input readings."
+  },
+  {
+    q: "Difference between Analog and Digital signals:",
+    options: ["Digital is continuous, Analog is discrete", "Analog is continuous, Digital is discrete", "Both are continuous", "Both are discrete"],
+    answer: 1,
+    explanation: "Analog signals vary continuously; Digital signals have discrete levels."
+  },
+  {
+    q: "What is the function of depletion region in a PN junction?",
+    options: ["Blocks current flow in reverse bias", "Acts as a heat sink", "Stores charge like a capacitor", "Enhances current flow in forward bias"],
+    answer: 0,
+    explanation: "The depletion region prevents current flow under reverse bias by creating a barrier."
+  },
+  {
+    q: "Transistor biasing: Which configuration has high input impedance?",
+    options: ["Common-Base", "Common-Emitter", "Common-Collector", "All equal"],
+    answer: 2,
+    explanation: "Common-Collector (Emitter Follower) has high input impedance."
+  },
+  {
+    q: "Arduino function to read analog input is:",
+    options: ["digitalRead()", "analogWrite()", "analogRead()", "pinMode()"],
+    answer: 2,
+    explanation: "analogRead(pin) reads voltage from analog pins."
+  },
+  {
+    q: "Which sensor detects light intensity?",
+    options: ["IR Receiver", "LDR", "Ultrasonic Sensor", "Photodiode"],
+    answer: 1,
+    explanation: "LDR resistance decreases when light increases."
+  },
+  {
+    q: "Which Boolean algebra law states A + 0 = A?",
+    options: ["Identity Law", "Complement Law", "Distributive Law", "Associative Law"],
+    answer: 0,
+    explanation: "Identity law: adding 0 leaves A unchanged."
+  },
+  {
+    q: "K-map is used for:",
+    options: ["Sensor calibration", "Boolean function simplification", "Voltage measurement", "Digital to Analog conversion"],
+    answer: 1,
+    explanation: "K-map helps minimize Boolean expressions."
+  },
+  {
+    q: "Which is the main difference between SOP and POS?",
+    options: ["SOP uses AND of ORs, POS uses OR of ANDs", "SOP uses OR of ANDs, POS uses AND of ORs", "Both are same", "Neither of these"],
+    answer: 1,
+    explanation: "SOP = OR of AND terms, POS = AND of OR terms."
+  },
+  {
+    q: "Limitations of 2’s complement include:",
+    options: ["Cannot represent negative numbers", "Complex subtraction", "Overflow problem", "Cannot represent zero"],
+    answer: 2,
+    explanation: "2’s complement arithmetic may cause overflow if result exceeds bit size."
+  },
+  {
+    q: "Which Arduino pin outputs PWM signal?",
+    options: ["Digital pins with ~", "All analog pins", "Only pin 13", "GND"],
+    answer: 0,
+    explanation: "Pins marked with ~ can output PWM using analogWrite()."
+  },
+  {
+    q: "Which gate gives 0 only when both inputs are 1?",
+    options: ["AND", "OR", "NAND", "XOR"],
+    answer: 2,
+    explanation: "NAND gate output is LOW only when both inputs are HIGH."
+  },
+  {
+    q: "IR sensor is used for:",
+    options: ["Obstacle detection", "Temperature measurement", "Humidity detection", "Distance using ultrasonic waves"],
+    answer: 0,
+    explanation: "IR sensors detect obstacles using infrared reflection."
+  },
+  {
+    q: "Photodiode converts:",
+    options: ["Sound to voltage", "Light to current", "Heat to voltage", "Pressure to current"],
+    answer: 1,
+    explanation: "Photodiode generates current when exposed to light."
+  },
+  {
+    q: "Ultrasonic sensor measures:",
+    options: ["Light intensity", "Temperature", "Distance", "Current"],
+    answer: 2,
+    explanation: "Ultrasonic sensors measure distance using reflected ultrasonic waves."
+  },
+  {
+    q: "Sum of 1’s and 2’s complement limitation:",
+    options: ["Two zeros in 1's complement", "Cannot represent negative in 2's complement", "Overflow in both", "Cannot represent positive in 1's complement"],
+    answer: 0,
+    explanation: "1’s complement has both +0 and -0, which is a limitation."
+  },
+  {
+    q: "Conversion from minimal SOP to canonical SOP requires:",
+    options: ["Expanding all minterms", "Simplifying further", "Adding redundant terms", "None of the above"],
+    answer: 0,
+    explanation: "Canonical SOP includes all minterms of the function."
+  },
+  {
+    q: "Conversion from minimal POS to canonical POS requires:",
+    options: ["Expanding all maxterms", "Simplifying further", "Adding redundant terms", "None of the above"],
+    answer: 0,
+    explanation: "Canonical POS includes all maxterms of the function."
+  },
+  {
+    q: "Arduino function to set pin HIGH is:",
+    options: ["pinMode()", "digitalWrite(pin,HIGH)", "analogRead()", "analogWrite()"],
+    answer: 1,
+    explanation: "digitalWrite(pin,HIGH) sets the pin voltage HIGH."
+  },
+  {
+    q: "DC output of full-wave rectifier with RMS 10V is:",
+    options: ["8.99 V", "5 V", "7 V", "10 V"],
+    answer: 0,
+    explanation: "Vdc ≈ 0.9 * Vrms = 0.9 * 10 = 8.99 V"
+  },
+  {
+    q: "NPN transistor biasing diagram is used to:",
+    options: ["Show current flow", "Set operating point", "Show voltage drop", "Measure resistance"],
+    answer: 1,
+    explanation: "Biasing sets the transistor operating point in active region."
+  },
+  {
+    q: "Convert (1011)₂ to decimal.",
+    options: ["12", "11", "13", "10"],
+    answer: 1,
+    explanation: "Binary to decimal: 1*2³ + 0*2² + 1*2¹ + 1*2⁰ = 8 + 0 + 2 + 1 = 11"
+  },
+  { 
+  q: "What does an IR (Infrared) sensor detect?", 
+  options: ["Temperature", "Light intensity", "Obstacle / Object presence", "Sound"], 
+  answer: 2,  // "Obstacle / Object presence"
+  explanation: "IR sensors emit infrared light and detect reflected signals to sense objects or obstacles." 
+   },
+  {
+    q: "3. Convert (319)₁₀ to octal.",
+    options: ["477", "507", "487", "617"],
+    answer: 2,
+    explanation: "Divide by 8 repeatedly: 319/8=39R7, 39/8=4R7, 4/8=0R4 ⇒ (479)₈"
+  },
+  {
+    q: "4. If V = 12V and I = 2A, find R.",
+    options: ["6Ω", "5Ω", "8Ω", "4Ω"],
+    answer: 0,
+    explanation: "R = V/I = 12/2 = 6Ω"
+  },
+  {
+    q: "5. Simplify Boolean expression A + AB.",
+    options: ["A", "AB", "0", "B"],
+    answer: 0,
+    explanation: "A + AB = A(1 + B) = A*1 = A"
+  },
+  {
+    q: "6. Find the output voltage of a full-wave rectifier if Vpeak = 10V.",
+    options: ["6.36V", "7.07V", "5V", "10V"],
+    answer: 1,
+    explanation: "Vdc = 0.636*Vpeak = 0.636*10 ≈ 6.36V"
+  },
+  {
+    q: "7. Convert (47)₁₀ to binary.",
+    options: ["101111", "101101", "111011", "110111"],
+    answer: 0,
+    explanation: "47 ÷ 2 = 23R1, 23 ÷ 2 = 11R1, 11 ÷ 2 = 5R1, 5 ÷ 2 = 2R1, 2 ÷ 2 = 1R0, 1 ÷ 2 = 0R1 ⇒ 101111₂"
+  },
+  {
+    q: "8. An AC voltage has RMS value 220V. Find peak voltage.",
+    options: ["311V", "220V", "154V", "440V"],
+    answer: 0,
+    explanation: "Vp = Vrms * √2 = 220 * 1.414 ≈ 311V"
+  },
+  {
+    q: "9. The K-map has minterms m1, m3, m7. Find simplified expression.",
+    options: ["B'C + AC", "A + B", "AB + C", "A'C'B"],
+    answer: 0,
+    explanation: "Combine minterms: B'C + AC"
+  },
+  {
+    q: "10. If I = 0.25A, V = 5V, find R.",
+    options: ["20Ω", "10Ω", "25Ω", "15Ω"],
+    answer: 0,
+    explanation: "R = V/I = 5/0.25 = 20Ω"
+  },
+  {
+    q: "11. Find total impedance of series R=8Ω, L=20H, C=14μF at f = 50Hz.",
+    options: ["40.807Ω", "408.07Ω", "49Ω", "35Ω"],
+    answer: 0,
+    explanation: "XL=2πfL=2*3.1416*50*20≈6283Ω, XC=1/(2πfC)=1/(2*3.1416*50*14e-6)≈227.32Ω, Z=√(R²+(XL-XC)²)≈40.807Ω"
+  },
+  {
+    q: "12. Convert (1110)₂ to decimal.",
+    options: ["14", "12", "13", "15"],
+    answer: 0,
+    explanation: "1*2³+1*2²+1*2¹+0=8+4+2+0=14"
+  },
+  {
+    q: "13. Calculate voltage across R=10Ω if I=3A in series RLC.",
+    options: ["30V", "15V", "20V", "25V"],
+    answer: 0,
+    explanation: "V = I*R = 3*10 = 30V"
+  },
+  {
+    q: "14. Find RMS current if Ipeak = 5A.",
+    options: ["3.536A", "5A", "7.07A", "2.5A"],
+    answer: 0,
+    explanation: "Irms = Ipeak/√2 = 5/1.414 ≈ 3.536A"
+  },
+  {
+    q: "15. Simplify Boolean: AB + A'B.",
+    options: ["B", "A", "0", "1"],
+    answer: 0,
+    explanation: "AB + A'B = B(A + A') = B*1 = B"
+  },
+  {
+    q: "16. Arduino digital pin outputs HIGH 5V. Current drawn = 20mA. Find power.",
+    options: ["0.1W", "0.5W", "0.2W", "1W"],
+    answer: 2,
+    explanation: "P=VI=5*0.02=0.1W"
+  },
+  {
+    q: "17. For RC series, R=10Ω, C=100μF, f=50Hz, find XC.",
+    options: ["31.83Ω", "20Ω", "50Ω", "15Ω"],
+    answer: 0,
+    explanation: "XC=1/(2πfC)=1/(2*3.1416*50*100e-6)≈31.83Ω"
+  },
+  {
+    q: "18. Convert (85)₁₀ to hexadecimal.",
+    options: ["55", "5F", "56", "54"],
+    answer: 0,
+    explanation: "85 ÷ 16 = 5R5 ⇒ 55₁₆"
+  },
+  {
+    q: "19. A diode conducts 10mA at 0.7V. Power dissipated?",
+    options: ["7mW", "70mW", "0.07W", "0.7W"],
+    answer: 1,
+    explanation: "P = V*I = 0.7*0.01 = 0.007W = 7mW"
+  },
+  {
+    q: "20. Convert (255)₁₀ to binary.",
+    options: ["11111111", "11111011", "11110111", "11101111"],
+    answer: 0,
+    explanation: "Divide by 2 repeatedly ⇒ 11111111"
+  },
+  {
+    q: "21. An AC source: Vpeak=50V, find Vrms.",
+    options: ["35.36V", "50V", "25V", "70.7V"],
+    answer: 0,
+    explanation: "Vrms = Vp/√2 = 50/1.414 ≈ 35.36V"
+  },
+  {
+    q: "22. RLC series: R=5Ω, L=0.2H, C=100μF, f=60Hz, find Z.",
+    options: ["5.97Ω", "10Ω", "6Ω", "5Ω"],
+    answer: 0,
+    explanation: "XL=2πfL=2*3.1416*60*0.2≈75.4Ω, XC=1/(2πfC)=1/(2*3.1416*60*100e-6)≈26.5Ω, Z=√(R²+(XL-XC)²)=√(5²+(75.4-26.5)²)=≈50.9Ω"
+  },
+  {
+    q: "23. Convert (1010)₂ to decimal.",
+    options: ["10", "12", "11", "9"],
+    answer: 0,
+    explanation: "1*2³+0*2²+1*2¹+0*2⁰=8+0+2+0=10"
+  },
+  {
+    q: "24. Arduino analog read gives 512. Find voltage if Vref=5V.",
+    options: ["2.5V", "5V", "1V", "0.5V"],
+    answer: 0,
+    explanation: "V = (512/1023)*5 ≈ 2.5V"
+  },
+  {
+    q: "25. Find current in R=8Ω if V=24V.",
+    options: ["3A", "2A", "4A", "5A"],
+    answer: 0,
+    explanation: "I=V/R=24/8=3A"
+  },
+  {
+    q: "26. Convert (1001)₂ to decimal.",
+    options: ["9", "8", "10", "11"],
+    answer: 0,
+    explanation: "1*2³+0*2²+0*2¹+1=8+0+0+1=9"
+  },
+  {
+    q: "27. A 12V battery, resistor 4Ω. Find current.",
+    options: ["3A", "2A", "4A", "1A"],
+    answer: 0,
+    explanation: "I=V/R=12/4=3A"
+  },
+  {
+    q: "28. Rectifier: Vpeak=20V, find Vdc (full-wave).",
+    options: ["12.72V", "14.14V", "10V", "20V"],
+    answer: 0,
+    explanation: "Vdc=0.636*Vpeak=0.636*20≈12.72V"
+  },
+  {
+    q: "29. Logic gate: A=1, B=0. Output of A AND B?",
+    options: ["0", "1", "A", "B"],
+    answer: 0,
+    explanation: "AND: 1 AND 0 = 0"
+  },
+  {
+    q: "30. Logic gate: A=1, B=0. Output of A OR B?",
+    options: ["1", "0", "A", "B"],
+    answer: 0,
+    explanation: "OR: 1 OR 0 = 1"
+  },
+  {
+    q: "31. Convert (77)₁₀ to octal.",
+    options: ["115", "107", "77", "117"],
+    answer: 0,
+    explanation: "77 ÷ 8 = 9R5, 9 ÷ 8 = 1R1 ⇒ 115₈"
+  },
+  {
+    q: "32. Arduino PWM 50% duty, Vmax=5V. Find Vavg.",
+    options: ["2.5V", "5V", "1V", "0V"],
+    answer: 0,
+    explanation: "Vavg = duty*Vmax=0.5*5=2.5V"
+  },
+  {
+    q: "33. RLC series: R=10Ω, L=0.1H, C=100μF, f=50Hz, find reactance difference XL-XC.",
+    options: ["21.83Ω", "10Ω", "25Ω", "20Ω"],
+    answer: 0,
+    explanation: "XL=2πfL≈31.4Ω, XC=1/(2πfC)≈15.9Ω, XL-XC≈15.5Ω"
+  },
+  {
+    q: "34. Find voltage across 5Ω resistor if current = 2A.",
+    options: ["10V", "5V", "8V", "12V"],
+    answer: 0,
+    explanation: "V=IR=2*5=10V"
+  },
+  {
+    q: "35. Convert (123)₁₀ to binary.",
+    options: ["1111011", "1111101", "1011111", "1110111"],
+    answer: 0,
+    explanation: "123 ÷2 repeatedly ⇒ 1111011₂"
+  },
+  {
+    q: "36. AC voltage Vrms=120V. Find Vpeak.",
+    options: ["169.7V", "120V", "240V", "100V"],
+    answer: 0,
+    explanation: "Vpeak=Vrms*√2≈120*1.414≈169.7V"
+  },
+  {
+    q: "37. RLC series: R=20Ω, L=0.1H, C=50μF, f=60Hz. Find Z.",
+    options: ["20.4Ω", "30Ω", "25Ω", "22Ω"],
+    answer: 0,
+    explanation: "XL=2πfL≈37.7Ω, XC≈53Ω, Z=√(R²+(XL-XC)²)=√(400+(-15.3)²)≈22.66Ω"
+  },
+  {
+    q: "38. Simplify Boolean: A + AB + AC",
+    options: ["A", "AB", "AC", "ABC"],
+    answer: 0,
+    explanation: "A + AB + AC = A(1 + B + C) = A"
+  },
+  {
+    q: "39. Logic gate XOR: A=1, B=0, output?",
+    options: ["1", "0", "A", "B"],
+    answer: 0,
+    explanation: "XOR: 1⊕0=1"
+  },
+  {
+    q: "40. Arduino sensor output 1.8V, Vref=5V, find digital value (10-bit ADC).",
+    options: ["368", "512", "1023", "256"],
+    answer: 0,
+    explanation: "Digital = (V/Vref)*1023 = (1.8/5)*1023≈368"
+  },
+  {
+    q: "41. Convert (231)₁₀ to hexadecimal.",
+    options: ["E7", "F3", "DF", "D7"],
+    answer: 0,
+    explanation: "231 ÷16=14R7 ⇒ E7₁₆"
+  },
+  {
+    q: "42. Rectifier full-wave: Vpeak=15V, find Vdc.",
+    options: ["9.54V", "10V", "7.5V", "15V"],
+    answer: 0,
+    explanation: "Vdc=0.636*Vpeak=0.636*15≈9.54V"
+  },
+  {
+    q: "43. R=12Ω, I=0.5A, find voltage.",
+    options: ["6V", "12V", "24V", "8V"],
+    answer: 0,
+    explanation: "V=IR=0.5*12=6V"
+  },
+  {
+    q: "44. Logic gate: NAND, A=1, B=1, output?",
+    options: ["0", "1", "A", "B"],
+    answer: 0,
+    explanation: "NAND: 1 NAND 1 = 0"
+  },
+  {
+    q: "45. Convert (64)₁₀ to binary.",
+    options: ["1000000", "111111", "110000", "101010"],
+    answer: 0,
+    explanation: "64 ÷2 repeatedly ⇒ 1000000₂"
+  },
+  {
+    q: "46. AC circuit: Ipeak=10A, find Irms.",
+    options: ["7.07A", "10A", "5A", "14.14A"],
+    answer: 0,
+    explanation: "Irms=Ipeak/√2=10/1.414≈7.07A"
+  },
+  {
+    q: "47. RLC series: R=15Ω, L=0.05H, C=200μF, f=50Hz, find Z.",
+    options: ["15.68Ω", "20Ω", "16Ω", "18Ω"],
+    answer: 0,
+    explanation: "XL=2πfL≈15.7Ω, XC≈15.9Ω, Z=√(15²+(15.7-15.9)²)≈15.68Ω"
+  },
+  {
+    q: "48. Convert (45)₁₀ to hexadecimal.",
+    options: ["2D", "3C", "2C", "2E"],
+    answer: 0,
+    explanation: "45 ÷16=2R13 ⇒ 2D₁₆"
+  },
+  {
+    q: "49. Rectifier half-wave: Vpeak=10V, find Vdc.",
+    options: ["3.18V", "5V", "6V", "10V"],
+    answer: 0,
+    explanation: "Vdc=0.318*Vpeak=0.318*10≈3.18V"
+  },
+  {
+    q: "50. Find power if V=10V, I=2A.",
+    options: ["20W", "10W", "15W", "25W"],
+    answer: 0,
+    explanation: "P=VI=10*2=20W"
+  },
+  {
+    q: "The material commonly used for making semiconductor devices is —",
+    options: ["Copper", "Silicon", "Mica", "Silver"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "When a PN junction is forward biased, the width of depletion layer —",
+    options: ["Increases", "Decreases", "Remains same", "Becomes zero"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "A diode conducts current in —",
+    options: ["Both directions", "Reverse direction only", "Forward direction only", "None of these"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "In a Zener diode, breakdown occurs due to —",
+    options: ["High current", "Heavy doping", "Reverse bias", "High temperature"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Which of the following is an example of an extrinsic semiconductor?",
+    options: ["Pure silicon", "Pure germanium", "Silicon doped with phosphorus", "Diamond"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Arduino Uno is based on which microcontroller?",
+    options: ["8051", "ATmega328P", "PIC16F877A", "ARM Cortex-M3"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "How many digital I/O pins are available on Arduino Uno?",
+    options: ["10", "12", "14", "20"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Which function in Arduino code runs only once?",
+    options: ["loop()", "setup()", "main()", "start()"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "Which sensor is used to measure distance?",
+    options: ["PIR sensor", "LDR sensor", "Ultrasonic sensor", "IR flame sensor"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "What does PWM stand for in Arduino?",
+    options: ["Pulse Width Modulation", "Power Wave Modulation", "Pulse Wave Management", "Power Width Mode"],
+    answer: 0,
+    explanation: ""
+  },
+  {
+    q: "(1011)₂ = ? (in decimal)",
+    options: ["10", "11", "12", "13"],
+    answer: 1,
+    explanation: "1*2^3 + 0*2^2 + 1*2^1 + 1*2^0 = 8 + 0 + 2 + 1 = 11"
+  },
+  {
+    q: "(47)₁₀ = ? (in octal)",
+    options: ["47", "56", "57", "67"],
+    answer: 1,
+    explanation: "47 ÷ 8 = 5 remainder 7, 5 ÷ 8 = 0 remainder 5 → (57)₈"
+  }, 
+  {
+    q: "1. Convert (1011)₂ to decimal.",
+    options: ["12", "11", "13", "10"],
+    answer: 1,
+    explanation: "Binary to decimal: 1*2³ + 0*2² + 1*2¹ + 1*2⁰ = 8 + 0 + 2 + 1 = 11"
+  },
+  {
+    q: "2. A series circuit has R = 10Ω, L = 0.5H, f = 50Hz. Find XL.",
+    options: ["157.08Ω", "125.6Ω", "50Ω", "78.5Ω"],
+    answer: 0,
+    explanation: "XL = 2πfL = 2*3.1416*50*0.5 = 157.08Ω"
+  },
+  {
+    q: "3. Convert (319)₁₀ to octal.",
+    options: ["477", "507", "487", "617"],
+    answer: 2,
+    explanation: "Divide by 8 repeatedly: 319/8=39R7, 39/8=4R7, 4/8=0R4 ⇒ (479)₈"
+  },
+  {
+    q: "4. If V = 12V and I = 2A, find R.",
+    options: ["6Ω", "5Ω", "8Ω", "4Ω"],
+    answer: 0,
+    explanation: "R = V/I = 12/2 = 6Ω"
+  },
+  {
+    q: "5. Simplify Boolean expression A + AB.",
+    options: ["A", "AB", "0", "B"],
+    answer: 0,
+    explanation: "A + AB = A(1 + B) = A*1 = A"
+  },
+  {
+    q: "The material commonly used for making semiconductor devices is —",
+    options: ["Copper", "Silicon", "Mica", "Silver"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "When a PN junction is forward biased, the width of depletion layer —",
+    options: ["Increases", "Decreases", "Remains same", "Becomes zero"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "A diode conducts current in —",
+    options: ["Both directions", "Reverse direction only", "Forward direction only", "None of these"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "In a Zener diode, breakdown occurs due to —",
+    options: ["High current", "Heavy doping", "Reverse bias", "High temperature"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Which of the following is an example of an extrinsic semiconductor?",
+    options: ["Pure silicon", "Pure germanium", "Silicon doped with phosphorus", "Diamond"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Arduino Uno is based on which microcontroller?",
+    options: ["8051", "ATmega328P", "PIC16F877A", "ARM Cortex-M3"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "How many digital I/O pins are available on Arduino Uno?",
+    options: ["10", "12", "14", "20"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Which function in Arduino code runs only once?",
+    options: ["loop()", "setup()", "main()", "start()"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "Which sensor is used to measure distance?",
+    options: ["PIR sensor", "LDR sensor", "Ultrasonic sensor", "IR flame sensor"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "What does PWM stand for in Arduino?",
+    options: ["Pulse Width Modulation", "Power Wave Modulation", "Pulse Wave Management", "Power Width Mode"],
+    answer: 0,
+    explanation: ""
+  },
+  {
+    q: "(1011)₂ = ? (in decimal)",
+    options: ["10", "11", "12", "13"],
+    answer: 1,
+    explanation: "1×2^3 + 0×2^2 + 1×2^1 + 1×2^0 = 11"
+  },
+  {
+    q: "(47)₁₀ = ? (in octal)",
+    options: ["47", "56", "57", "67"],
+    answer: 2,
+    explanation: "47 ÷ 8 = 5 remainder 7 → (57)₈"
+  },
+  {
+    q: "(A3)₁₆ = ? (in binary)",
+    options: ["10100011", "10101100", "11001100", "10100001"],
+    answer: 0,
+    explanation: ""
+  },
+  {
+    q: "2’s complement of (1101)₂ is —",
+    options: ["0010", "1110", "0101", "0011"],
+    answer: 3,
+    explanation: ""
+  },
+  {
+    q: "A K-map is used to —",
+    options: ["Convert binary to decimal", "Simplify Boolean expressions", "Store binary data", "Design microprocessors"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "The resistance of a semiconductor —",
+    options: ["Increases with temperature", "Decreases with temperature", "Remains same", "Becomes zero"],
+    answer: 1,
+    explanation: "Higher temperature releases more charge carriers → conductivity increases"
+  },
+  {
+    q: "In N-type semiconductor, the majority charge carriers are —",
+    options: ["Holes", "Electrons", "Protons", "None"],
+    answer: 1,
+    explanation: "Donor impurities add extra electrons"
+  },
+  {
+    q: "Forward biased diode acts as —",
+    options: ["Open switch", "Closed switch", "Amplifier", "Oscillator"],
+    answer: 1,
+    explanation: "It conducts current easily in forward bias"
+  },
+  {
+    q: "The barrier potential of a silicon diode is approximately —",
+    options: ["0.1 V", "0.3 V", "0.7 V", "1.1 V"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Which device converts AC to DC?",
+    options: ["Transformer", "Rectifier", "Amplifier", "Oscillator"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "Which language is used for Arduino programming?",
+    options: ["Python", "C / C++", "Assembly", "Java"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "The pin number used for built-in LED on Arduino Uno is —",
+    options: ["10", "11", "12", "13"],
+    answer: 3,
+    explanation: ""
+  },
+  {
+    q: "Which command is used to send data from Arduino to the serial monitor?",
+    options: ["Serial.print()", "Print()", "Monitor()", "SendData()"],
+    answer: 0,
+    explanation: ""
+  },
+  {
+    q: "A temperature sensor like LM35 gives output in —",
+    options: ["Ohms", "Volts", "Amperes", "Bits"],
+    answer: 1,
+    explanation: "LM35 gives 10 mV per °C output"
+  },
+  {
+    q: "A PIR sensor detects —",
+    options: ["Temperature", "Motion", "Light", "Distance"],
+    answer: 1,
+    explanation: "PIR = Passive Infrared Sensor, detects movement of heat-emitting objects"
+  },
+  {
+    q: "Convert (1001)₂ to decimal:",
+    options: ["9", "7", "5", "11"],
+    answer: 0,
+    explanation: "1×2^3 + 0×2^2 + 0×2^1 + 1×2^0 = 9"
+  },
+  {
+    q: "(65)₁₀ = ? (in hexadecimal)",
+    options: ["40", "41", "42", "43"],
+    answer: 1,
+    explanation: "65 ÷ 16 = 4 remainder 1 → (41)₁₆"
+  },
+  {
+    q: "1’s complement of (101100)₂ is —",
+    options: ["010011", "101101", "001101", "110011"],
+    answer: 0,
+    explanation: "In 1’s complement, change all 1→0 and 0→1"
+  },
+  {
+    q: "Which logic gate gives output 1 only when all inputs are 1?",
+    options: ["OR", "NOR", "AND", "XOR"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "In a 3-variable K-map, how many cells are there?",
+    options: ["4", "6", "8", "16"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "The Boolean expression of an OR gate is —",
+    options: ["A + B", "A·B", "A’B", "A⊕B"],
+    answer: 0,
+    explanation: ""
+  },
+  {
+    q: "Simplify: A + A·B = ?",
+    options: ["AB", "A", "B", "A + B"],
+    answer: 1,
+    explanation: "Using absorption law: A + AB = A"
+  },
+  {
+    q: "(256)₁₀ = ? (in binary)",
+    options: ["11111111", "100000000", "10101010", "11000000"],
+    answer: 1,
+    explanation: "2^8 = 256 → 1 followed by 8 zeros"
+  },
+  {
+    q: "The minimal form of A’B + AB’ is —",
+    options: ["A⊕B", "A+B", "A·B", "(A+B)’"],
+    answer: 0,
+    explanation: "XOR definition"
+  },
+  {
+    q: "K-map is mainly used for —",
+    options: ["Designing CPUs", "Minimizing logic expressions", "Multiplying binary numbers", "Programming microcontrollers"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "Which logic gate gives output 1 only when inputs are different?",
+    options: ["AND", "OR", "XOR", "NOR"],
+    answer: 2,
+    explanation: "XOR = 1 when inputs are unequal"
+  },
+  {
+    q: "The output of NOR gate is the complement of —",
+    options: ["AND gate", "OR gate", "XOR gate", "NAND gate"],
+    answer: 1,
+    explanation: "NOR = NOT(OR)"
+  },
+  {
+    q: "The Boolean expression of a NAND gate is —",
+    options: ["(A + B)’", "(A·B)’", "(A’ + B)", "(A + B’)"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "A logic circuit that gives a HIGH output only when all inputs are LOW is —",
+    options: ["OR", "AND", "NOR", "NAND"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Which law is represented by the equation A + A’B = A + B?",
+    options: ["Demorgan’s Law", "Distributive Law", "Absorption Law", "Associative Law"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "What is the output of A + \\bar{A}B?",
+    options: ["B", "A", "A + B", "AB"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "Simplify A\\bar{B} + AB",
+    options: ["A", "B", "A ⊕ B", "\\bar{B}"],
+    answer: 0,
+    explanation: "A(\\bar{B} + B) = A"
+  },
+  {
+    q: "Which logic gate has the output expression Y = \\bar{A} + \\bar{B}?",
+    options: ["AND", "NOR", "NAND", "OR"],
+    answer: 2,
+    explanation: "Y = (A·B)’ = \\bar{A} + \\bar{B}"
+  },
+  {
+    q: "Which one of the following gates is called a “universal gate”?",
+    options: ["AND", "OR", "XOR", "NAND"],
+    answer: 3,
+    explanation: ""
+  },
+  {
+    q: "The truth table of an AND gate shows output 1 for —",
+    options: ["All inputs = 0", "Any one input = 1", "All inputs = 1", "Alternate 1 and 0"],
+    answer: 2,
+    explanation: ""
+  },
+  {
+    q: "If I = 0.5 A and R = 10 Ω, then V = ?",
+    options: ["2.5 V", "5 V", "10 V", "20 V"],
+    answer: 1,
+    explanation: "V = IR = 0.5 × 10 = 5 V"
+  },
+  {
+    q: "A resistor of 100 Ω carries 0.2 A current. Find power.",
+    options: ["2 W", "4 W", "1 W", "0.5 W"],
+    answer: 2,
+    explanation: "P = I^2 × R = 0.2^2 × 100 = 4 W? Correction: P = 0.2^2×100 = 4 → Actually 4 W"
+  },
+  {
+    q: "A 12 V battery supplies current 3 A for 2 hours. Energy consumed = ?",
+    options: ["72 Wh", "24 Wh", "36 Wh", "18 Wh"],
+    answer: 0,
+    explanation: "E = V × I × t = 12 × 3 × 2 = 72 Wh"
+  },
+  {
+    q: "If V = 5V and I = 0.25A, find R.",
+    options: ["10 Ω", "15 Ω", "20 Ω", "25 Ω"],
+    answer: 2,
+    explanation: "R = V/I = 5 / 0.25 = 20 Ω"
+  },
+  {
+    q: "For a half-wave rectifier, if input = 10 V (rms), output DC voltage ≈ ?",
+    options: ["3.18 V", "6.36 V", "7.07 V", "9 V"],
+    answer: 0,
+    explanation: "V_dc = 0.318 × V_m, V_m = 10 × √2 = 14.14 → 0.318×10 = 3.18V"
+  },
+  {
+    q: "For a full-wave rectifier with V_m = 20V, DC output ≈ ?",
+    options: ["6.36 V", "12.7 V", "18 V", "20 V"],
+    answer: 1,
+    explanation: "V_dc = 0.636 × V_m = 0.636 × 20 = 12.72 V"
+  },
+  {
+    q: "A diode conducts when —",
+    options: ["Reverse biased", "Forward biased", "No bias", "Both"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "If a 220 V AC source has frequency 50 Hz, its time period is —",
+    options: ["0.01 s", "0.02 s", "0.05 s", "0.5 s"],
+    answer: 1,
+    explanation: "T = 1/f = 1/50 = 0.02 s"
+  },
+  {
+    q: "An AC voltage V = 50 sin(100πt). Find frequency.",
+    options: ["25 Hz", "50 Hz", "100 Hz", "150 Hz"],
+    answer: 1,
+    explanation: "ω = 100π → f = ω / 2π = 50 Hz"
+  },
+  {
+    q: "Calculate the impedance of a series circuit with R = 8Ω, X_L = 6Ω.",
+    options: ["2 Ω", "8 Ω", "10 Ω", "14 Ω"],
+    answer: 2,
+    explanation: "Z = √(R^2 + X_L^2) = √(8^2 + 6^2) = 10 Ω"
+  },
+  {
+    q: "Input: 110 V AC across R=8Ω, L=20 H, C=14 μF. Find approximate impedance magnitude.",
+    options: ["40.8 Ω", "408 Ω", "490 Ω", "800 Ω"],
+    answer: 0,
+    explanation: "Z ≈ 40.8 Ω as per RLC formula"
+  },
+  {
+    q: "Arduino Uno has analog resolution of —",
+    options: ["8-bit", "10-bit", "12-bit", "16-bit"],
+    answer: 1,
+    explanation: "Converts 0–5V → 0–1023 levels"
+  },
+  {
+    q: "A 5 V Arduino pin outputs 20 mA. Power delivered = ?",
+    options: ["50 mW", "100 mW", "0.1 W", "1 W"],
+    answer: 0,
+    explanation: "P = V×I = 5×0.02 = 0.1 W = 100 mW"
+  },
+  {
+    q: "LED forward voltage drop = 2 V, resistor = 330 Ω, supply = 5 V. Find current.",
+    options: ["5 mA", "9 mA", "12 mA", "15 mA"],
+    answer: 1,
+    explanation: "I = (5-2)/330 = 9 mA"
+  },
+  {
+    q: "The frequency of output waveform from Arduino tone(pin,1000) is —",
+    options: ["100 Hz", "1 kHz", "10 kHz", "1000 Hz"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "For a 4-input AND gate, output is HIGH when —",
+    options: ["Any input is HIGH", "All inputs HIGH", "One input LOW", "None"],
+    answer: 1,
+    explanation: ""
+  },
+  {
+    q: "Power dissipated in a 5 Ω resistor with 2 A current = ?",
+    options: ["5 W", "10 W", "15 W", "20 W"],
+    answer: 3,
+    explanation: "P = I^2 R = 2^2 × 5 = 20 W"
+  },
+  {
+    q: "If 12 V DC is applied across 6 Ω resistor, find current.",
+    options: ["1 A", "2 A", "3 A", "4 A"],
+    answer: 1,
+    explanation: "I = V/R = 12/6 = 2 A"
+  },
+  {
+    q: "In an RC circuit, R=10 kΩ, C=100 μF. Find time constant.",
+    options: ["0.1 s", "0.5 s", "1 s", "2 s"],
+    answer: 2,
+    explanation: "τ = RC = 10,000 × 100×10⁻⁶ = 1 s"
+  },
+  {
+    q: "When a diode has V_p = 0.7 V and input = 5 V, output = ?",
+    options: ["0.7 V", "4.3 V", "5.7 V", "0 V"],
+    answer: 1,
+    explanation: "Output = V_in - V_drop = 5 - 0.7 = 4.3 V"
+  },{q:"Full-wave rectifier converts:", options:["AC to DC","DC to AC","AC to AC","DC to DC"], answer:0, explanation:"Full-wave rectifier converts AC to DC by inverting negative half-cycles."},
+  {q:"RMS value of sinusoidal AC voltage Vpeak=10V is:", options:["7.07 V","5 V","10 V","3.18 V"], answer:0, explanation:"Vrms = Vpeak / √2 ≈ 10/1.414 ≈ 7.07 V"},
+  {q:"Ohm’s law is:", options:["V = I × R","P = VI","I = V / R²","V = I / R"], answer:0, explanation:"Ohm’s law states V = I × R."},
+  {q:"Which Arduino function runs once at start?", options:["loop()","setup()","pinMode()","analogRead()"], answer:1, explanation:"setup() executes once when Arduino starts."},
+  {q:"Which resistor changes resistance with light?", options:["LDR","Photodiode","Ultrasonic Sensor","IR Sensor"], answer:0, explanation:"LDR decreases resistance when light intensity increases."},
+  {q:"1’s complement of 1101 is:", options:["0010","1101","1111","0000"], answer:0, explanation:"Invert all bits to get 1’s complement → 0010."},
+  {q:"2’s complement of 0110 is:", options:["1010","1001","0101","0110"], answer:1, explanation:"Invert 0110 → 1001, add 1 → 1010."},
+  {q:"Boolean simplification of AB + A'B is:", options:["B","A","A + B","A'B"], answer:0, explanation:"AB + A'B = B (Consensus theorem)."},
+  {q:"Common-Emitter transistor configuration is mainly used for:", options:["Voltage amplification","Current amplification","Both voltage and current amplification","Switching only"], answer:2, explanation:"CE provides both voltage and current gain."},
+  {q:"Which K-map cell corresponds to minterm A'B'C?", options:["000","001","010","011"], answer:1, explanation:"Binary 001 corresponds to A'B'C."},
+  {q:"Which logic gate outputs HIGH only when all inputs are HIGH?", options:["AND","OR","NAND","XOR"], answer:0, explanation:"AND gate outputs 1 only when all inputs are 1."},
+  {q:"Which logic gate outputs LOW only when all inputs are HIGH?", options:["AND","OR","NAND","NOR"], answer:2, explanation:"NAND outputs 0 when all inputs are HIGH."},
+  {q:"Arduino analogWrite(pin,value) is used for:", options:["PWM output","Set digital HIGH","Read analog voltage","Configure pin"], answer:0, explanation:"analogWrite generates PWM signals on pins."},
+  {q:"Which sensor detects obstacle using infrared?", options:["IR sensor","Ultrasonic sensor","LDR","Photodiode"], answer:0, explanation:"IR sensor detects objects using reflected IR light."},
+  {q:"Which sensor detects light intensity?", options:["IR sensor","LDR","Ultrasonic sensor","Photodiode"], answer:1, explanation:"LDR resistance decreases when light intensity increases."},
+  {q:"Gray code changes how many bits between consecutive numbers?", options:["One bit","Two bits","Three bits","All bits"], answer:0, explanation:"Gray code ensures only one bit changes between successive numbers."},
+  {q:"Full-wave bridge rectifier requires how many diodes?", options:["4","2","3","1"], answer:0, explanation:"A full-wave bridge rectifier uses 4 diodes."},
+  {q:"Transistor acts as switch in:", options:["Cut-off and saturation","Active mode","Reverse bias only","Breakdown region"], answer:0, explanation:"Switching occurs in cut-off (OFF) and saturation (ON) states."},
+  {q:"Voltage across resistor in series circuit V=10V, R1=2Ω,R2=3Ω. Current?", options:["2 A","1 A","5 A","10 A"], answer:0, explanation:"I = V/(R1+R2) = 10/5 = 2A."},
+  {q:"Voltage across R2=3Ω in above series circuit?", options:["6 V","4 V","3 V","5 V"], answer:1, explanation:"V=I*R2=2*3=6V → Correct answer index=1 (6 V)"},
+  {q:"NPN transistor current flows from:", options:["Collector to emitter","Emitter to collector","Base to emitter","Base to collector"], answer:0, explanation:"In NPN, current flows from collector to emitter when forward biased."},
+  {q:"Depletion region in PN junction acts as:", options:["Barrier to carrier flow","Conductor","Capacitor only","Resistor"], answer:0, explanation:"It prevents current under reverse bias by forming barrier."},
+  {q:"Boolean simplification: A + AB =", options:["A","B","AB","A+B"], answer:0, explanation:"A + AB = A (Absorption Law)"},
+  {q:"Boolean simplification: A(A + B) =", options:["A","B","AB","A + B"], answer:0, explanation:"A(A+B)=A (Absorption Law)"},
+  {q:"1’s complement of 1010 is:", options:["0101","1010","1111","0000"], answer:0, explanation:"Invert all bits → 0101"},
+  {q:"2’s complement of 1010 is:", options:["0110","0101","1001","1011"], answer:0, explanation:"2’s complement: invert +1 → 0101+1=0110"},
+  {q:"Analog signal characteristic:", options:["Continuous in time and amplitude","Discrete in time and amplitude","Discrete in amplitude only","Continuous in amplitude only"], answer:0, explanation:"Analog signals vary continuously in time and amplitude."},
+  {q:"Digital signal characteristic:", options:["Discrete in time and amplitude","Continuous in amplitude","Continuous in time","None"], answer:0, explanation:"Digital signals have discrete levels."},
+  {q:"IR receiver is used to:", options:["Receive infrared signals","Measure temperature","Detect light intensity","Measure distance"], answer:0, explanation:"IR receiver detects modulated infrared signals."},
+  {q:"Photodiode converts:", options:["Light to current","Sound to voltage","Pressure to current","Heat to voltage"], answer:0, explanation:"Photodiode generates current when exposed to light."},
+  {q:"Arduino loop() function:", options:["Runs repeatedly","Runs once","Sets pin mode","Reads analog input"], answer:0, explanation:"loop() runs repeatedly after setup() execution."},
+  {q:"Transistor Common-Collector configuration:", options:["High input, low output impedance","Low input, high output impedance","Low input, low output impedance","High input, high output impedance"], answer:0, explanation:"Common-Collector has high input and low output impedance."},
+  {q:"Boolean SOP stands for:", options:["Sum of products","Product of sums","Sum of sums","Product of products"], answer:0, explanation:"SOP = Sum of Products"},
+  {q:"Boolean POS stands for:", options:["Product of sums","Sum of products","Product of products","Sum of sums"], answer:0, explanation:"POS = Product of Sums"},
+  {q:"K-map is mainly used for:", options:["Boolean expression minimization","Voltage measurement","Current measurement","Sensor calibration"], answer:0, explanation:"K-map simplifies Boolean expressions."},
+  {q:"Transistor Common-Base configuration has:", options:["Low input impedance","High input impedance","High output impedance","Low output impedance"], answer:0, explanation:"CB configuration has low input impedance."},
+  {q:"Which logic gate is universal?", options:["NAND & NOR","AND & OR","XOR & XNOR","AND & NAND"], answer:0, explanation:"NAND and NOR gates can implement any logic function."},
+  {q:"Full-wave rectifier with center tap requires how many diodes?", options:["2","4","1","3"], answer:0, explanation:"Center-tap full-wave rectifier uses 2 diodes."},
+  {q:"AC voltage Vpeak=10V, RMS value:", options:["7.07 V","5 V","10 V","3.18 V"], answer:0, explanation:"Vrms = Vpeak/√2 ≈ 7.07 V"},
+  {q:"DC voltage from full-wave rectifier Vrms=10V:", options:["8.99 V","5 V","10 V","7.07 V"], answer:0, explanation:"Vdc ≈ 0.9 * Vrms ≈ 8.99 V"},
+  {q:"Arduino function to set pin LOW:", options:["digitalWrite(pin,LOW)","digitalRead(pin)","analogWrite(pin)","pinMode()"], answer:0, explanation:"digitalWrite(pin,LOW) sets pin to 0V."},
+  {q:"Boolean simplification: A'B + AB =", options:["B","A","AB","A'B"], answer:0, explanation:"AB + A'B = B (Consensus theorem)."},
+  {q:"Boolean simplification: AB + AB' =", options:["A","B","AB","A + B"], answer:0, explanation:"AB + AB' = A (Consensus theorem)."},
+  {q:"1’s complement of 1110 is:", options:["0001","1110","1111","0000"], answer:0, explanation:"Invert all bits → 0001"},
+  {q:"2’s complement of 1110 is:", options:["0010","0001","1101","1110"], answer:0, explanation:"Invert +1: 0001 +1 = 0010"},
+  {q:"Ultrasonic sensor measures:", options:["Distance","Light intensity","Current","Temperature"], answer:0, explanation:"It measures distance using ultrasonic waves."},
+  {q:"Arduino pinMode(pin,OUTPUT) sets:", options:["Pin as output","Pin as input","Pin as analog","Pin as PWM"], answer:0, explanation:"Configures pin for digital output."},
+  {q:"K-map cell for minterm A'BC'", options:["010","011","000","001"], answer:0, explanation:"Binary 010 corresponds to A'BC'."},
+  {q:"IR sensor mainly detects:", options:["Obstacles","Temperature","Light intensity","Distance with sound"], answer:0, explanation:"IR sensor detects obstacles via infrared reflection."},
+  {q:"Photodiode output is:", options:["Current","Voltage","Resistance","Capacitance"], answer:0, explanation:"It generates current when exposed to light."},
+  {q:"Logic gate XOR outputs 1 when:", options:["Odd number of 1s","All 1s","All 0s","Even number of 1s"], answer:0, explanation:"XOR outputs 1 when number of 1s is odd."},
+  {q:"NPN transistor emitter is:", options:["Negative terminal","Positive terminal","Neutral","Depends on bias"], answer:0, explanation:"Emitter of NPN emits electrons (negative carriers)."},
+  {q:"Arduino analogRead(pin) reads:", options:["Analog voltage 0-5V","Digital HIGH/LOW","PWM value","Resistance"], answer:0, explanation:"analogRead reads voltage between 0-5V."},
+  {q:"Voltage across resistor in series R1=2Ω, R2=3Ω, V=10V, current I?", options:["2 A","1 A","5 A","10 A"], answer:0, explanation:"I = V / (R1+R2) = 10/5 = 2 A."},
+  {q:"Voltage across R2=3Ω in above circuit?", options:["4 V","6 V","5 V","3 V"], answer:1, explanation:"V=I*R2=2*3=6V"},
+  {q:"Which Arduino pin supports PWM?", options:["Digital pins with ~","All analog pins","All digital pins","Only pin 13"], answer:0, explanation:"Pins with ~ can generate PWM signals."},
+  {q:"Boolean simplification: A + A'B + AB =", options:["A + B","B","A","AB"], answer:0, explanation:"A + A'B + AB = A + B"},
+  {q:"Full-wave rectifier output waveform is:", options:["Both halves positive","Only positive half","Only negative half","DC constant"], answer:0, explanation:"Both halves of AC are rectified to positive."}
+];
+// end QUESTIONS array
+
+/* 300 QUESTIONS: We created 300 items above. */
+
+/* ============== App State ============== */
+/* If you paste the full 300 questions, make sure to update totalQ below automatically. */
+
+const totalQ = QUESTIONS.length || 300;
+document.getElementById('totalQ').innerText = totalQ;
+document.getElementById('badgeCount').innerText = totalQ + " Qs";
+
+/* ============== App State ============== */
+let state = {
+  current: 0,
+  answers: Array(totalQ).fill(null), // user's selected index
+  answeredCorrect: Array(totalQ).fill(false),
+  started: false,
+  startTime: null,
+  elapsedSec: 0,
+  timerInterval: null,
+  idleTimer: null
+};
+
+/* ============== DOM refs ============== */
+const startPage = document.getElementById('startPage');
+const testPage = document.getElementById('testPage');
+const inpName = document.getElementById('inpName');
+const inpReg = document.getElementById('inpReg');
+const inpPic = document.getElementById('inpPic');
+const imgPreview = document.getElementById('imgPreview');
+const btnStart = document.getElementById('btnStart');
+const btnResetStart = document.getElementById('btnResetStart');
+const startErrors = document.getElementById('startErrors');
+
+const showName = document.getElementById('showName');
+const showReg = document.getElementById('showReg');
+const userPicSmall = document.getElementById('userPicSmall');
+const showUser = document.getElementById('showUser');
+
+const timeTop = document.getElementById('timeTop');
+const topCorrect = document.getElementById('topCorrect');
+const topWrong = document.getElementById('topWrong');
+const topProgress = document.getElementById('topProgress');
+const topAttempted = document.getElementById('topAttempted');
+const topQno = document.getElementById('topQno');
+
+const questionText = document.getElementById('questionText');
+const optionsBox = document.getElementById('optionsBox');
+const explainBox = document.getElementById('explainBox');
+const btnPrev = document.getElementById('btnPrev');
+const btnNext = document.getElementById('btnNext');
+const btnShowExplain = document.getElementById('btnShowExplain');
+const btnEndTestTop = document.getElementById('btnEndTestTop');
+
+const curQ = document.getElementById('curQ');
+const correctCountEl = document.getElementById('correctCount');
+const wrongCountEl = document.getElementById('wrongCount');
+const attemptedCountEl = document.getElementById('attemptedCount');
+const timeSpentEl = document.getElementById('timeSpent');
+const scoreInline = document.getElementById('scoreInline');
+const progressPercent = document.getElementById('progressPercent');
+
+const btnSave = document.getElementById('btnSave');
+const btnExport = document.getElementById('btnExport');
+
+const modalRoot = document.getElementById('modalRoot');
+
+/* ============== Helpers ============== */
+function formatTime(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = (sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+function updateTopStatus(){
+  const attempted = state.answers.filter(a=>a!==null).length;
+  const correct = state.answeredCorrect.filter(x=>x).length;
+  const wrong = attempted - correct;
+  topCorrect.innerText = correct;
+  topWrong.innerText = wrong;
+  topAttempted.innerText = attempted;
+  topProgress.innerText = `${Math.round((correct/totalQ)*100)}%`;
+  topQno.innerText = `${state.current+1}/${totalQ}`;
+  // right side small summary
+  correctCountEl.innerText = correct;
+  wrongCountEl.innerText = wrong;
+  attemptedCountEl.innerText = attempted;
+  scoreInline.innerText = correct;
+  curQ.innerText = state.current + 1;
+  progressPercent.innerText = `${Math.round((correct/totalQ)*100)}%`;
+}
+function startTimer(){
+  if(state.timerInterval) return;
+  state.startTime = Date.now() - (state.elapsedSec*1000);
+  state.timerInterval = setInterval(()=>{
+    state.elapsedSec = Math.floor((Date.now()-state.startTime)/1000);
+    timeTop.innerText = formatTime(state.elapsedSec);
+    timeSpentEl.innerText = formatTime(state.elapsedSec);
+  },1000);
+}
+function stopTimer(){
+  if(state.timerInterval){ clearInterval(state.timerInterval); state.timerInterval = null; }
+}
+function resetIdleTimer(){
+  if(state.idleTimer) clearTimeout(state.idleTimer);
+  // show warning if no action for 60s
+  state.idleTimer = setTimeout(()=>{ showWarning("You're idle — please continue answering to use time well."); }, 60000);
+}
+function showWarning(text){
+  // small non-blocking toast modal that disappears
+  const toast = document.createElement('div');
+  toast.style.position='fixed'; toast.style.left='50%'; toast.style.transform='translateX(-50%)'; toast.style.bottom='22px';
+  toast.style.background='rgba(0,0,1,0.8)'; toast.style.padding='12px 16px'; toast.style.borderRadius='10px'; toast.style.color='#fef'; toast.style.zIndex=9999;
+  toast.innerText = "⚠️ " + text;
+  document.body.appendChild(toast);
+  setTimeout(()=>{ toast.style.transition='opacity .4s'; toast.style.opacity='0'; setTimeout(()=>toast.remove(),400); }, 3000);
+}
+
+/* ============== Validation (start page) ============== */
+function validateName(v){
+  if(!v || !v.trim()) return false;
+  // allow letters, spaces, dot and hyphen optional; disallow digits
+  return /^[A-Za-z\s\.\-']+$/.test(v.trim());
+}
+function validateReg(v){
+  return /^\d{8}$/.test(v);
+}
+function checkStartInputs(){
+  const name = inpName.value.trim();
+  const reg = inpReg.value.trim();
+  let ok = true; startErrors.innerText = '';
+  if(!validateName(name)){ ok = false; startErrors.innerText = 'Name invalid: only letters, spaces allowed.'; }
+  else if(!validateReg(reg)){ ok = false; startErrors.innerText = 'Registration invalid: must be exactly 8 digits.'; }
+  btnStart.disabled = !ok;
+}
+
+/* image preview */
+inpPic.addEventListener('change', (e)=>{
+  const f = e.target.files && e.target.files[0];
+  if(!f){ imgPreview.style.display='none'; userPicSmall.style.display='none'; return; }
+  const url = URL.createObjectURL(f);
+  imgPreview.src = url; imgPreview.style.display='block';
+  userPicSmall.src = url; userPicSmall.style.display='block';
+});
+
+/* listen to inputs */
+inpName.addEventListener('input', checkStartInputs);
+inpReg.addEventListener('input', checkStartInputs);
+
+/* ============== Rendering ============== */
+function renderQuestion(idx){
+  resetIdleTimer();
+  const item = QUESTIONS[idx];
+  if(!item){
+    questionText.innerText = 'Question bank not loaded. Paste the QUESTIONS array into the file.';
+    optionsBox.innerHTML = '';
+    return;
+  }
+  questionText.innerHTML = `<span style="opacity:.9">${idx+1}.</span> <span style="margin-left:8px">${item.q}</span>`;
+  showName.innerText = inpName.value || '—';
+  showReg.innerText = inpReg.value || '—';
+  showUser.innerText = `${inpName.value || ''} • ${inpReg.value || ''}`;
+  explainBox.style.display = 'none'; explainBox.innerHTML = '';
+  optionsBox.innerHTML = '';
+
+  item.options.forEach((optText, i)=>{
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.dataset.index = i;
+    div.innerHTML = `<div class="label"><strong>${String.fromCharCode(65+i)}</strong>. ${optText}</div><div class="explainTiny">Explain</div>`;
+    // answer click
+    div.addEventListener('click', (e)=>{
+      if(state.answers[idx] !== null) return; // locked
+      handleAnswer(idx, i);
+    });
+    // explain click
+    div.querySelector('.explainTiny').addEventListener('click', (ev)=>{ ev.stopPropagation(); showExplanation(idx); });
+    optionsBox.appendChild(div);
+  });
+
+  // if answered already, show colors
+  if(state.answers[idx] !== null){
+    const chosen = state.answers[idx];
+    const correct = QUESTIONS[idx].answer;
+    const all = optionsBox.querySelectorAll('.option');
+    all.forEach((od, i)=>{
+      od.classList.remove('correct','wrong');
+      if(i === correct) od.classList.add('correct');
+      if(i === chosen && chosen !== correct) od.classList.add('wrong');
+    });
+    explainBox.innerHTML = `<strong>Explanation:</strong><br>${item.explanation}<br><br><strong>Correct:</strong> ${String.fromCharCode(65+item.answer)}. ${item.options[item.answer]}`;
+    explainBox.style.display = 'none';
+  }
+
+  updateTopStatus();
+}
+
+/* ============== Answer Logic ============== */
+function handleAnswer(qIdx, choiceIdx){
+  // lock once selected
+  if(state.answers[qIdx] !== null) return;
+  state.answers[qIdx] = choiceIdx;
+  const correct = QUESTIONS[qIdx].answer;
+  const wasCorrect = (choiceIdx === correct);
+  state.answeredCorrect[qIdx] = wasCorrect;
+
+  // color options
+  const optDivs = optionsBox.querySelectorAll('.option');
+  optDivs.forEach((od, i)=>{
+    od.classList.remove('correct','wrong');
+    if(i === correct) od.classList.add('correct');
+    if(i === choiceIdx && choiceIdx !== correct) od.classList.add('wrong');
+  });
+
+  updateTopStatus();
+
+  // brief animation & then auto-next after 700ms
+  if(wasCorrect){
+    const correctEl = optionsBox.querySelector('.option.correct');
+    if(correctEl) correctEl.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}], {duration:450, iterations:1, easing:'ease-out'});
+  }
+
+  // small delay then go next (unless last)
+  setTimeout(()=>{
+    if(state.current < totalQ - 1){
+      state.current++;
+      renderQuestion(state.current);
+    } else {
+      // reached end - show modal summary
+      showSummaryModal();
+    }
+  }, 2000);
+}
+
+/* explanation */
+function showExplanation(idx){
+  const item = QUESTIONS[idx];
+  if(!item) return;
+  explainBox.style.display = 'block';
+  explainBox.innerHTML = `<strong>Explanation:</strong><br>${item.explanation}<br><br><strong>Correct:</strong> ${String.fromCharCode(65+item.answer)}. ${item.options[item.answer]}`;
+}
+
+/* ============== Controls ============== */
+btnStart.addEventListener('click', ()=>{
+  // validate again
+  const name = inpName.value.trim();
+  const reg = inpReg.value.trim();
+  if(!validateName(name) || !validateReg(reg)){ alert('Enter valid Name and 8-digit Registration number.'); return; }
+  if(!QUESTIONS || QUESTIONS.length === 0){ alert('Question bank empty. Paste QUESTIONS into the file.'); return; }
+
+  // save user to localStorage (temp)
+  const user = {name, reg, pic: null};
+  if(inpPic.files && inpPic.files[0]){
+    // read as data URL
+    const reader = new FileReader();
+    reader.onload = function(e){
+      user.pic = e.target.result;
+      startTest(user);
+    }
+    reader.readAsDataURL(inpPic.files[0]);
+  } else {
+    startTest(user);
+  }
+});
+function startTest(user){
+  // store last user
+  localStorage.setItem('ECE-249_user', JSON.stringify(user));
+  // show test page
+  startPage.style.display = 'none';
+  testPage.style.display = 'block';
+  if(user.pic){ userPicSmall.src = user.pic; userPicSmall.style.display='block'; }
+  showName.innerText = user.name; showReg.innerText = user.reg; showUser.innerText = `${user.name} • ${user.reg}`;
+  state.started = true; startTimer(); resetIdleTimer(); renderQuestion(state.current); updateTopStatus();
+}
+
+/* Prev/Next */
+btnPrev.addEventListener('click', ()=>{ if(state.current>0){ state.current--; renderQuestion(state.current); } resetIdleTimer();});
+btnNext.addEventListener('click', ()=>{ if(state.current < totalQ - 1){ state.current++; renderQuestion(state.current); } resetIdleTimer();});
+
+/* End Test */
+btnEndTestTop.addEventListener('click', ()=>{ if(!state.started){ alert('Test not started.'); return;} if(!confirm('End test now and save result?')) return; stopTimer(); saveResult(); showSummaryModal(); });
+
+/* Show explain */
+btnShowExplain.addEventListener('click', ()=>{ showExplanation(state.current); });
+
+/* Keyboard navigation */
+document.addEventListener('keydown', (e)=>{ if(e.key === 'ArrowRight') btnNext.click(); if(e.key === 'ArrowLeft') btnPrev.click(); });
+
+/* Reset start page */
+btnResetStart.addEventListener('click', ()=>{ if(confirm('Reset start form?')){ inpName.value=''; inpReg.value=''; inpPic.value=''; imgPreview.style.display='none'; checkStartInputs(); } });
+
+/* Save result to localStorage */
+function saveResult(){
+  const correct = state.answeredCorrect.filter(x=>x).length;
+  const attempted = state.answers.filter(a=>a!==null).length;
+  const user = JSON.parse(localStorage.getItem('ECE-249_user') || '{}');
+  const result = { name: user.name || inpName.value, reg: user.reg || inpReg.value, pic: user.pic || null, correct, attempted, time: formatTime(state.elapsedSec), date: (new Date()).toLocaleString() };
+  const key = 'ECE-249_results';
+  const arr = JSON.parse(localStorage.getItem(key) || '[]');
+  arr.push(result);
+  localStorage.setItem(key, JSON.stringify(arr));
+  alert('Result saved locally.');
+}
+
+/* Export CSV for all saved results */
+btnExport.addEventListener('click', ()=>{
+  const arr = JSON.parse(localStorage.getItem('ece249_results') || '[]');
+  if(arr.length === 0){ alert('No saved results to export.'); return; }
+  const headers = ['Name','Reg','Correct','Attempted','Time','Date'];
+  const rows = arr.map(r => [r.name, r.reg, r.correct, r.attempted, r.time, r.date]);
+  let csv = headers.join(',') + '\n' + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'ece249_results.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+
+/* View summary modal */
+function showSummaryModal(){
+  const correct = state.answeredCorrect.filter(x=>x).length;
+  const attempted = state.answers.filter(a=>a!==null).length;
+  modalRoot.innerHTML = '';
+  const backdrop = document.createElement('div'); backdrop.className = 'modal-backdrop';
+  const modal = document.createElement('div'); modal.className = 'modal';
+  const user = JSON.parse(localStorage.getItem('ece249_user') || '{}');
+  modal.innerHTML = `<h3>Test Summary</h3>
+    <p><strong>Name:</strong> ${user.name || inpName.value} &nbsp; • &nbsp; <strong>Reg:</strong> ${user.reg || inpReg.value}</p>
+    <p><strong>Score:</strong> ${correct} / ${totalQ} &nbsp; • &nbsp; <strong>Attempted:</strong> ${attempted}</p>
+    <p><strong>Time:</strong> ${formatTime(state.elapsedSec)}</p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+      <button id="modalSave" class="btn">Save</button>
+      <button id="modalReview" class="btn ghost">Review Answers</button>
+      <button id="modalClose" class="btn ghost">Close</button>
+    </div>`;
+  backdrop.appendChild(modal); modalRoot.appendChild(backdrop); modalRoot.style.display = 'block';
+  document.getElementById('modalClose').addEventListener('click', ()=>{ modalRoot.innerHTML=''; modalRoot.style.display='none'; });
+  document.getElementById('modalSave').addEventListener('click', ()=>{ saveResult(); modalRoot.innerHTML=''; modalRoot.style.display='none'; });
+  document.getElementById('modalReview').addEventListener('click', ()=>{ modalRoot.innerHTML=''; modalRoot.style.display='none'; reviewAllAnswers(); });
+}
+
+/* Review answers (list with question and selected) */
+function reviewAllAnswers(){
+  modalRoot.innerHTML = ''; const backdrop = document.createElement('div'); backdrop.className='modal-backdrop';
+  const modal = document.createElement('div'); modal.className='modal';
+  modal.innerHTML = `<h3>Review Answers</h3><div style="max-height:60vh;overflow:auto"><table class="results-table"><thead><tr><th>#</th><th>Question</th><th>Your</th><th>Correct</th></tr></thead><tbody id="revBody"></tbody></table></div><div style="display:flex;justify-content:flex-end;margin-top:8px"><button id="closeRev" class="btn ghost">Close</button></div>`;
+  backdrop.appendChild(modal); modalRoot.appendChild(backdrop); modalRoot.style.display='block';
+  const body = modal.querySelector('#revBody');
+  QUESTIONS.forEach((q,i)=>{
+    const your = state.answers[i] === null ? '-' : String.fromCharCode(65 + state.answers[i]) + '. ' + q.options[state.answers[i]];
+    const corr = String.fromCharCode(65 + q.answer) + '. ' + q.options[q.answer];
+    const tr = document.createElement('tr'); tr.innerHTML = `<td>${i+1}</td><td style="max-width:380px">${q.q}</td><td>${your}</td><td>${corr}</td>`;
+    body.appendChild(tr);
+  });
+  document.getElementById('closeRev').addEventListener('click', ()=>{ modalRoot.innerHTML=''; modalRoot.style.display='none'; });
+}
+
+/* review finished. */
+
+/* idle reset on any interaction */
+['click','mousemove','keydown','touchstart'].forEach(ev => document.addEventListener(ev, resetIdleTimer));
+
+/* Before unload confirm if started */
+window.addEventListener('beforeunload', function(e){ if(state.started){ e.preventDefault(); e.returnValue = ''; } });
+
+/* init */
+(function init(){
+  // if previous user exists, prefill name/reg
+  const prevUser = JSON.parse(localStorage.getItem('ECE-249_user') || 'null');
+  if(prevUser){
+    if(prevUser.name) inpName.value = prevUser.name;
+    if(prevUser.reg) inpReg.value = prevUser.reg;
+    if(prevUser.pic){ imgPreview.src = prevUser.pic; imgPreview.style.display='block'; userPicSmall.src = prevUser.pic; userPicSmall.style.display='block'; }
+  }
+  checkStartInputs();
+  curQ.innerText = 0;
+  timeTop.innerText = '00:00';
+  timeSpentEl.innerText = '00:00';
+  topProgress.innerText = '0%';
+  topCorrect.innerText = '0';
+  topWrong.innerText = '0';
+  topAttempted.innerText = '0';
+  topQno.innerText = '0/' + totalQ;
+})();
+</script>
+</body>
+</html>
