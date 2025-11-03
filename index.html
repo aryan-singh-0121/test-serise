@@ -343,6 +343,8 @@ input[type="text"], input[type="file"]{
     .options{grid-template-columns:1fr;} /* Single column for options */
 }
 </style>
+<!-- Supabase client JS (must be above your custom <script>) -->
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="wrap">
@@ -460,7 +462,14 @@ input[type="text"], input[type="file"]{
 
   <!-- modal container -->
   <div id="modalRoot" style="display:none"></div>
+  <!-- 🟢 Supabase Connection Setup -->
+<script>
+const SUPABASE_URL = "https://qxkuauszhsrigeikgfwu.supabase.co"; // Supabase Project URL
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4a3VhdXN6aHNyaWdlaWtnZnd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwODY4OTEsImV4cCI6MjA3NzY2Mjg5MX0.F6oz3zQ-uRxCzLwP4zwzY0uEiJ71JSbOSdOzYHmb1Es"; // Public anon key
 
+// Create Supabase client
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
 <script>const QUESTIONS = [
 
   {
@@ -1837,14 +1846,129 @@ function saveResult(){
   const attempted = state.answers.filter(a=>a!==null).length;
   const user = JSON.parse(localStorage.getItem('ECE-249_user') || '{}');
   const result = { name: user.name || inpName.value, reg: user.reg || inpReg.value, pic: user.pic || null, correct, attempted, time: formatTime(state.elapsedSec), date: (new Date()).toLocaleString() };
-  const key = 'ECE-249_results';
-  const arr = JSON.parse(localStorage.getItem(key) || '[]');
-  arr.push(result);
-  localStorage.setItem(key, JSON.stringify(arr));
-  alert('Result saved locally.');
+  
+  // 🔗 also save online
+  saveResultToSupabase(result); 
+
+  // const key = 'ECE-249_results';
+  // const arr = JSON.parse(localStorage.getItem(key) || '[]');
+  // arr.push(result);
+  // localStorage.setItem(key, JSON.stringify(arr));
+  // alert('Result saved locally.');
 }
 
+// 🌀 Small loader toast (for showing saving progress)
+
+function showLoader(msg, duration = 1500) {
+  const toast = document.createElement('div');
+  toast.style.position = 'fixed';
+  toast.style.left = '50%';
+  toast.style.transform = 'translateX(-50%)';
+  toast.style.bottom = '30px';
+  toast.style.background = 'rgba(0,0,0,0.8)';
+  toast.style.color = '#fff';
+  toast.style.padding = '12px 18px';
+  toast.style.borderRadius = '10px';
+  toast.style.fontSize = '14px';
+  toast.style.zIndex = 9999;
+  toast.innerText = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.transition = 'opacity .4s';
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 400);
+  }, duration);
+}
+
+
+// // 🟢 Supabase Database Save (adds result to test_result table)
+// async function saveResultToSupabase(result) {
+//   try {
+//     // पहले check करो कि यह registration पहले से मौजूद तो नहीं है
+//     const { data: existing, error: fetchError } = await supabase
+//       .from('test_result')
+//       .select('reg')
+//       .eq('reg', result.reg);
+
+//     if (fetchError) throw fetchError;
+
+//     if (existing && existing.length > 0) {
+//       alert('⚠️ This registration number has already submitted a result!');
+//       return;
+//     }
+
+//     // Insert new result
+//     const { data, error } = await supabase
+//       .from('test_result')
+//       .insert([result]);
+
+//     if (error) throw error;
+
+//     alert('✅ Result saved to Supabase database!');
+//   } catch (err) {
+//     console.error('Supabase insert error:', err);
+//     alert('❌ Error saving result to Supabase.');
+//   }
+// }
 /* Export CSV for all saved results */
+
+// 🟢 Supabase Database Save (adds result to test_result table)
+async function saveResultToSupabase(result) {
+  try {
+    showLoader("⏳ Checking registration...");
+
+    // पहले check करो कि यह registration पहले से मौजूद तो नहीं है
+    const { data: existing, error: fetchError } = await supabase
+      .from('test_result')
+      .select('reg')
+      .eq('reg', result.reg);
+
+    if (fetchError) throw fetchError;
+
+    if (existing && existing.length > 0) {
+      showLoader("⚠️ Already submitted!", 2000);
+      alert('⚠️ This registration number has already submitted a result!');
+      return;
+    }
+
+    showLoader("💾 Saving your result...");
+
+    // Insert new result
+    const { data, error } = await supabase
+      .from('test_result')
+      .insert([result]);
+
+    if (error) throw error;
+
+    showLoader("✅ Saved successfully!", 1800);
+    alert('✅ Result saved to Aryan_data_base!');
+
+  } catch (err) {
+    console.error('Aryan_data_base insert error:', err);
+    showLoader("❌ Error saving result!", 2000);
+    alert('❌ Error saving result to Aryan_data_base.');
+  }
+}
+
+// 🟢 Fetch all saved results from Supabase (Leaderboard)
+async function fetchAllResults() {
+  try {
+    showLoader("📡 Fetching results...");
+
+    const { data, error } = await supabase
+      .from('test_result')
+      .select('name, reg, correct, attempted, time, date')
+      .order('correct', { ascending: false }); // Highest score first
+
+    if (error) throw error;
+
+    showResultsTable(data); // show inside modal
+  } catch (err) {
+    console.error("Aryan_database fetch error:", err);
+    alert("❌ Error fetching results from Aryan_database!");
+  }
+}
+
 btnExport.addEventListener('click', ()=>{
   const arr = JSON.parse(localStorage.getItem('ece249_results') || '[]');
   if(arr.length === 0){ alert('No saved results to export.'); return; }
