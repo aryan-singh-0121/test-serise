@@ -1,2050 +1,1525 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ECE249 — Test Series (Units 1-3)</title>
-<style>
-/* ===================== CSS Variables ===================== */
-:root{
-    --bg:#10a482; /* Background main color variable */
-    --card:#0d0e0f; /* Card background color variable */
-    --accent:#1d6c52; /* Main accent color */
-    --accent-600:#059669; /* Darker accent */
-    --accent-400:#44a631; /* Lighter accent */
-    --danger:#d41212b8; /* Error/danger color */
-    --muted:#1e2939; /* Muted text color */
-    --glass:rgba(52, 36, 36, 0.03); /* Glassy overlay color */
-}
+const QUESTIONS = [
+  // --- UNIT 1: INTRODUCTION ---
+  {
+    q: "Environmental Studies is mainly concerned with:",
+    options: ["Space science", "Interaction of humans with environment", "Only plants", "Only animals"],
+    answer: 1, // Interaction...
+    explanation: "Environmental Studies focuses on understanding the complex relationships between humans and the natural world."
+  },
+  {
+    q: "Environmental Science mainly integrates:",
+    options: ["Social sciences only", "Engineering only", "Medical sciences", "Physical, chemical, biological sciences"],
+    answer: 3, // Physical, chemical...
+    explanation: "It is an interdisciplinary field that combines physics, chemistry, and biology to study environmental problems."
+  },
+  {
+    q: "Application of engineering principles to improve environment is called:",
+    options: ["Environmental Engineering", "Environmental Studies", "Ecology", "Environmental Science"],
+    answer: 0, // Environmental Engineering
+    explanation: "Environmental Engineering uses scientific and engineering principles to protect and improve the health of living organisms and the environment."
+  },
+  {
+    q: "Which is NOT a component of natural environment?",
+    options: ["Air", "Water", "Agricultural field", "Forest"],
+    answer: 2, // Agricultural field
+    explanation: "Agricultural fields are man-made (anthropogenic) environments, whereas air, water, and forests are natural."
+  },
+  {
+    q: "Agricultural fields are examples of:",
+    options: ["Natural environment", "Anthropogenic environment", "Aquatic environment", "Atmospheric environment"],
+    answer: 1, // Anthropogenic
+    explanation: "Anthropogenic environments are those that have been modified or created by human activities, like farms and cities."
+  },
+  {
+    q: "Solid land mass of the Earth is called:",
+    options: ["Hydrosphere", "Lithosphere", "Atmosphere", "Biosphere"],
+    answer: 1, // Lithosphere
+    explanation: "The lithosphere refers to the rigid outer part of the earth, consisting of the crust and upper mantle (land and rocks)."
+  },
+  {
+    q: "Which is NOT a layer of atmosphere?",
+    options: ["Troposphere", "Stratosphere", "Mesosphere", "Lithosphere"],
+    answer: 3, // Lithosphere
+    explanation: "The lithosphere is the solid ground, while the troposphere, stratosphere, and mesosphere are layers of gas (atmosphere)."
+  },
+  {
+    q: "Most abundant gas in atmosphere is:",
+    options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"],
+    answer: 0, // Nitrogen
+    explanation: "Nitrogen makes up about 78% of the Earth's atmosphere, followed by Oxygen at 21%."
+  },
+  {
+    q: "Biosphere includes:",
+    options: ["Only plants", "Living organisms", "Only animals", "Non-living matter"],
+    answer: 1, // Living organisms
+    explanation: "The biosphere is the zone of Earth where life exists, including all living organisms (plants, animals, and microbes)."
+  },
 
-/* ===================== Global Styles ===================== */
-*{
-    box-sizing:border-box; /* Padding + border included in element width/height */
-    font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; /* Default font stack */
-}
-html,body{
-    height:100%; /* Full height for page */
-}
-body{
-    margin:0; /* Remove default margin */
-    background:
-        radial-gradient(900px 500px at 10% 10%, rgba(244, 50, 163, 0.04), transparent), /* Decorative radial gradient */
-        linear-gradient(180deg,#5a7ab2 0%, #11bac0 100%); /* Main page gradient background */
-    color:#070b0f; /* Default text color */
-    min-height:100vh; /* Minimum height full viewport */
-    display:flex; /* Flex layout */
-    align-items:center; /* Vertically center content */
-    justify-content:center; /* Horizontally center content */
-    padding:18px; /* Page padding */
-}
+  // --- UNIT 2: SUSTAINABILITY & RESOURCES ---
+  {
+    q: "Sustainability means:",
+    options: ["Using all resources fast", "Industrial growth only", "Meeting present needs without harming future", "Economic growth only"],
+    answer: 2, // Meeting present needs...
+    explanation: "Sustainability is about meeting our current needs without compromising the ability of future generations to meet their own needs."
+  },
+  {
+    q: "Three pillars of sustainability are:",
+    options: ["Water, air, soil", "Plant, animal, human", "Social, economic, environmental", "Energy, food, shelter"],
+    answer: 2, // Social, economic...
+    explanation: "Sustainable development balances three key areas: Social equity, Economic viability, and Environmental protection."
+  },
+  {
+    q: "Carrying capacity refers to:",
+    options: ["Maximum population environment can sustain", "Maximum pollution level", "Total resources on Earth", "Human population only"],
+    answer: 0, // Maximum population...
+    explanation: "Carrying capacity is the maximum population size that an environment can support indefinitely with available resources."
+  },
+  {
+    q: "Which sector consumes maximum water?",
+    options: ["Municipal", "Domestic", "Industrial", "Agriculture"],
+    answer: 3, // Agriculture
+    explanation: "Agriculture is the largest consumer of freshwater globally, used primarily for irrigation of crops."
+  },
+  {
+    q: "Main cause of groundwater depletion:",
+    options: ["Rainfall", "Flood", "Over-exploitation", "Afforestation"],
+    answer: 2, // Over-exploitation
+    explanation: "Groundwater depletion occurs when water is pumped out of aquifers faster than nature can replenish it (over-exploitation)."
+  },
+  {
+    q: "Which is a water-borne disease problem during floods?",
+    options: ["Cancer", "Heart disease", "Diabetes", "Malaria"],
+    answer: 3, // Malaria
+    explanation: "Stagnant water after floods becomes a breeding ground for mosquitoes, leading to diseases like Malaria."
+  },
+  {
+    q: "Meteorological drought is caused by:",
+    options: ["Less rainfall", "Low soil moisture", "Low stream flow", "High temperature only"],
+    answer: 0, // Less rainfall
+    explanation: "Meteorological drought is defined by a prolonged period of less than average precipitation (rainfall)."
+  },
+  {
+    q: "One major disadvantage of dams is:",
+    options: ["Electricity generation", "Displacement of people", "Flood control", "Irrigation"],
+    answer: 1, // Displacement
+    explanation: "Building large dams often submerges vast areas of land, forcing local communities to move (displacement)."
+  },
+  {
+    q: "Rainwater harvesting helps in:",
+    options: ["Soil erosion", "Water pollution", "Groundwater recharge", "Flood increase"],
+    answer: 2, // Groundwater recharge
+    explanation: "Collecting rainwater allows it to seep back into the ground, replenishing the underground water table."
+  },
+  {
+    q: "Study of soil in natural environment is called:",
+    options: ["Ecology", "Geology", "Pedology", "Hydrology"],
+    answer: 2, // Pedology
+    explanation: "Pedology is the scientific study of soil formation, classification, and morphology."
+  },
+  {
+    q: "Removal of top soil layer is known as:",
+    options: ["Weathering", "Soil erosion", "Desertification", "Leaching"],
+    answer: 1, // Soil erosion
+    explanation: "Soil erosion is the wearing away of the topsoil, which is the most fertile layer, by water, wind, or tillage."
+  },
+  {
+    q: "Wind erosion type includes:",
+    options: ["Saltation", "Splash", "Sheet", "Rill"],
+    answer: 0, // Saltation
+    explanation: "Saltation is a specific type of wind erosion where soil particles bounce along the ground."
+  },
+  {
+    q: "Forest cover more than 70% is called:",
+    options: ["Open forest", "Very dense forest", "Moderately dense", "Scrub land"],
+    answer: 1, // Very dense forest
+    explanation: "Forests with a tree canopy density of 70% or more are classified as Very Dense Forests."
+  },
+  {
+    q: "Mangrove forests grow in:",
+    options: ["Deserts", "River deltas", "Mountains", "Grasslands"],
+    answer: 1, // River deltas
+    explanation: "Mangroves are salt-tolerant trees found in coastal areas and river deltas where fresh water mixes with sea water."
+  },
+  {
+    q: "Cutting trees without planning leads to:",
+    options: ["Afforestation", "Reforestation", "Social forestry", "Deforestation"],
+    answer: 3, // Deforestation
+    explanation: "Deforestation is the clearing of forests on a massive scale, often resulting in damage to the quality of the land."
+  },
+  {
+    q: "Coal is a:",
+    options: ["Renewable resource", "Biogas", "Non-renewable resource", "Nuclear fuel"],
+    answer: 2, // Non-renewable
+    explanation: "Coal takes millions of years to form and cannot be replenished within a human lifespan, making it non-renewable."
+  },
+  {
+    q: "Cleanest fossil fuel is:",
+    options: ["Coal", "Natural gas", "Petroleum", "Nuclear fuel"],
+    answer: 1, // Natural gas
+    explanation: "Natural gas emits the least amount of carbon dioxide among fossil fuels."
+  },
+  {
+    q: "Nuclear energy is produced by:",
+    options: ["Fission or fusion", "Combustion", "Photosynthesis", "Oxidation"],
+    answer: 0, // Fission or fusion
+    explanation: "Nuclear energy is released by splitting atoms (fission) or combining them (fusion)."
+  },
+  {
+    q: "Energy from flowing water is:",
+    options: ["Wind energy", "Hydro-electric energy", "Solar energy", "Tidal energy"],
+    answer: 1, // Hydro-electric
+    explanation: "Hydro-electric energy captures the energy of moving water to generate electricity."
+  },
+  {
+    q: "Solar energy is converted to electricity using:",
+    options: ["Turbine", "Photovoltaic cells", "Generator", "Boiler"],
+    answer: 1, // Photovoltaic cells
+    explanation: "Photovoltaic (PV) cells absorb sunlight and convert it directly into electricity."
+  },
+  {
+    q: "Biomass energy source example:",
+    options: ["Coal", "Uranium", "Petrol", "Wood"],
+    answer: 3, // Wood
+    explanation: "Biomass energy comes from organic material like wood, crops, and waste."
+  },
+  {
+    q: "Environmental Studies is a:",
+    options: ["Single discipline", "Pure science", "Multidisciplinary subject", "Engineering subject"],
+    answer: 2, // Multidisciplinary
+    explanation: "It draws knowledge from various fields like biology, chemistry, geology, and sociology."
+  },
+  {
+    q: "Which environment is modified by humans?",
+    options: ["Natural", "Anthropogenic", "Aquatic", "Atmospheric"],
+    answer: 1, // Anthropogenic
+    explanation: "'Anthropogenic' refers to changes or environments resulting from human activity."
+  },
+  {
+    q: "Which sphere includes oceans, rivers, glaciers?",
+    options: ["Atmosphere", "Lithosphere", "Hydrosphere", "Biosphere"],
+    answer: 2, // Hydrosphere
+    explanation: "The hydrosphere encompasses all water on Earth, including oceans, rivers, lakes, and ice."
+  },
+  {
+    q: "Percentage of Nitrogen in atmosphere is:",
+    options: ["21%", "0.03%", "78%", "1%"],
+    answer: 2, // 78%
+    explanation: "Nitrogen is the most abundant gas in the atmosphere, comprising about 78% by volume."
+  },
+  {
+    q: "Sustainable development concept was defined by:",
+    options: ["Brundtland Commission", "Kyoto Protocol", "UNEP", "WHO"],
+    answer: 0, // Brundtland Commission
+    explanation: "The Brundtland Commission defined it in the 1987 report 'Our Common Future'."
+  },
+  {
+    q: "Which is NOT a pillar of sustainability?",
+    options: ["Social", "Technological", "Economic", "Environmental"],
+    answer: 1, // Technological
+    explanation: "The three core pillars are Social, Economic, and Environmental. Technology is a tool, not a pillar."
+  },
+  {
+    q: "Carrying capacity depends on:",
+    options: ["Technology only", "Available resources", "Population only", "Climate only"],
+    answer: 1, // Available resources
+    explanation: "It is determined by the amount of resources (food, water, space) available to support the population."
+  },
+  {
+    q: "Maximum freshwater use is in:",
+    options: ["Domestic", "Power plants", "Industry", "Agriculture"],
+    answer: 3, // Agriculture
+    explanation: "Agriculture accounts for approximately 70% of global freshwater withdrawals."
+  },
+  {
+    q: "Groundwater over-exploitation leads to:",
+    options: ["Ground subsidence", "Flood", "Tsunami", "Cyclone"],
+    answer: 0, // Ground subsidence
+    explanation: "Excessive removal of groundwater can cause the land above to sink or collapse (subsidence)."
+  },
+  {
+    q: "River flood is mainly caused by:",
+    options: ["Heavy rainfall", "Earthquake", "Volcano", "Drought"],
+    answer: 0, // Heavy rainfall
+    explanation: "Excessive rainfall is the primary cause of rivers overflowing their banks."
+  },
+  {
+    q: "Which drought is related to soil moisture?",
+    options: ["Meteorological", "Agricultural", "Hydrological", "Ecological"],
+    answer: 1, // Agricultural
+    explanation: "Agricultural drought occurs when there is not enough soil moisture to support crop growth."
+  },
+  {
+    q: "Major disadvantage of big dams:",
+    options: ["Displacement", "Electricity", "Irrigation", "Water supply"],
+    answer: 0, // Displacement
+    explanation: "Large dams often displace thousands of people and submerge ecosystems."
+  },
+  {
+    q: "Roof-top rainwater harvesting mainly helps in:",
+    options: ["Flood increase", "Pollution", "Groundwater recharge", "Evaporation"],
+    answer: 2, // Groundwater recharge
+    explanation: "It collects rain to seep into the ground, raising the groundwater level."
+  },
+  {
+    q: "Study of soil is called:",
+    options: ["Ecology", "Hydrology", "Meteorology", "Pedology"],
+    answer: 3, // Pedology
+    explanation: "Pedology deals with soil genesis, classification, and distribution."
+  },
+  {
+    q: "Sheet erosion is caused by:",
+    options: ["Wind", "Glacier", "Slow flowing water", "Earthquake"],
+    answer: 2, // Slow flowing water
+    explanation: "Sheet erosion occurs when a thin layer of topsoil is removed by water flowing over the surface."
+  },
+  {
+    q: "Desertification mostly occurs in:",
+    options: ["Coastal areas", "Semi-arid regions", "High rainfall areas", "Polar regions"],
+    answer: 1, // Semi-arid regions
+    explanation: "Semi-arid drylands are most vulnerable to land degradation and desertification."
+  },
+  {
+    q: "Forest with 10–40% canopy cover is:",
+    options: ["Dense forest", "Scrub land", "Open forest", "Mangrove"],
+    answer: 2, // Open forest
+    explanation: "Forests with 10% to 40% canopy density are classified as Open Forests."
+  },
+  {
+    q: "Mangrove forests grow in:",
+    options: ["River deltas", "Mountains", "Deserts", "Grasslands"],
+    answer: 0, // River deltas
+    explanation: "They thrive in the intertidal zones of sheltered coastlines and river deltas."
+  },
+  {
+    q: "Reforestation means:",
+    options: ["Cutting trees", "New forest on barren land", "Urban plantation", "Regrowing forest in deforested area"],
+    answer: 3, // Regrowing forest...
+    explanation: "Reforestation is replanting trees in an area where a forest recently existed but was removed."
+  },
+  {
+    q: "Cleanest fossil fuel is:",
+    options: ["Petroleum", "Natural gas", "Coal", "Nuclear fuel"],
+    answer: 1, // Natural gas
+    explanation: "Natural gas emits the least amount of carbon dioxide among fossil fuels."
+  },
+  {
+    q: "Highest grade of coal is:",
+    options: ["Lignite", "Anthracite", "Bituminous", "Sub-bituminous"],
+    answer: 1, // Anthracite
+    explanation: "Anthracite has the highest carbon content and energy density."
+  },
+  {
+    q: "Nuclear energy is produced by:",
+    options: ["Combustion", "Fission", "Oxidation", "Photosynthesis"],
+    answer: 1, // Fission
+    explanation: "Commercial nuclear power plants use nuclear fission (splitting atoms) to generate heat."
+  },
+  {
+    q: "Energy from sunlight is converted using:",
+    options: ["Turbine", "Generator", "PV cells", "Boiler"],
+    answer: 2, // PV cells
+    explanation: "Photovoltaic (PV) cells are the technology behind solar panels."
+  },
+  {
+    q: "India ranks ___ in wind energy production:",
+    options: ["1st", "4th", "2nd", "3rd"],
+    answer: 1, // 4th
+    explanation: "India is among the top countries globally (currently 4th) in installed wind power capacity."
+  },
+  {
+    q: "RDF stands for:",
+    options: ["Refuse Derived Fuel", "Renewable Development Fuel", "Recycled Domestic Fuel", "Residual Dump Fuel"],
+    answer: 0, // Refuse Derived Fuel
+    explanation: "RDF is fuel produced from combustible components of municipal solid waste."
+  },
 
-/* ===================== Layout Wrappers ===================== */
-.wrap{
-    width:100%; /* Full width */
-    max-width:1100px; /* Max width for large screens */
-    margin:0 auto; /* Center horizontally */
-}
-.card{
-    background:linear-gradient(180deg, rgba(5, 3, 3, 0.02), rgba(0,0,0,0.12)); /* Card gradient */
-    border-radius:14px; /* Rounded corners */
-    padding:18px; /* Inner spacing */
-    box-shadow:0 10px 40px rgba(2,6,23,0.7); /* Shadow under card */
-    border:1px solid rgba(255,255,255,0.03); /* Subtle border */
-}
+  // --- UNIT 3: ECOLOGY ---
+  {
+    q: "The term “Ecology” was coined by:",
+    options: ["Darwin", "Ernst Haeckel", "Linnaeus", "Arthur Tansley"],
+    answer: 1, // Ernst Haeckel
+    explanation: "Ernst Haeckel coined the term in 1866 to describe the study of organisms' relationship with their environment."
+  },
+  {
+    q: "Ecology was coined in the year:",
+    options: ["1865", "1905", "1866", "1859"],
+    answer: 2, // 1866
+    explanation: "The term was introduced by Ernst Haeckel in 1866."
+  },
+  {
+    q: "The Greek word “Oikos” means:",
+    options: ["Nature", "Home", "Earth", "Life"],
+    answer: 1, // Home
+    explanation: "Ecology comes from 'Oikos' (home/household) and 'Logos' (study)."
+  },
+  {
+    q: "Study of a single species is called:",
+    options: ["Population ecology", "Ecology", "Synecology", "Autecology"],
+    answer: 3, // Autecology
+    explanation: "Autecology is the ecological study of an individual species or population."
+  },
+  {
+    q: "Study of multiple species is called:",
+    options: ["Autecology", "Biogeography", "Ethology", "Synecology"],
+    answer: 3, // Synecology
+    explanation: "Synecology is the study of communities (groups of different species) and their environment."
+  },
+  {
+    q: "The term ecosystem was first used by:",
+    options: ["Ernst Haeckel", "Odum", "Arthur Tansley", "Charles Darwin"],
+    answer: 2, // Arthur Tansley
+    explanation: "A.G. Tansley introduced the concept of the ecosystem in 1935."
+  },
+  {
+    q: "Ecosystem is a:",
+    options: ["Genetic unit", "Functional unit only", "Structural and functional unit", "Structural unit only"],
+    answer: 2, // Structural and functional unit
+    explanation: "It involves both the structure (organisms) and function (energy flow/nutrient cycling) of nature."
+  },
+  {
+    q: "Grassland and forest are examples of:",
+    options: ["Engineered ecosystem", "Natural ecosystem", "Artificial ecosystem", "Urban ecosystem"],
+    answer: 1, // Natural ecosystem
+    explanation: "These are ecosystems that occur naturally without human intervention."
+  },
+  {
+    q: "Which is NOT a natural ecosystem?",
+    options: ["Forest", "Pond", "Crop field", "Desert"],
+    answer: 2, // Crop field
+    explanation: "A crop field is an artificial or man-made ecosystem managed for agriculture."
+  },
+  {
+    q: "Marine ecosystem belongs to:",
+    options: ["Artificial", "Desert", "Terrestrial", "Aquatic"],
+    answer: 3, // Aquatic
+    explanation: "Marine ecosystems are aquatic ecosystems found in the ocean (saltwater)."
+  },
+  {
+    q: "Sunlight and temperature are:",
+    options: ["Physical abiotic factors", "Biotic factors", "Chemical factors", "Geographic factors"],
+    answer: 0, // Physical abiotic factors
+    explanation: "Abiotic factors are non-living components; sunlight and temperature are physical aspects."
+  },
+  {
+    q: "Soil moisture and soil type are:",
+    options: ["Climatic factors", "Biotic factors", "Chemical factors", "Edaphic factors"],
+    answer: 3, // Edaphic factors
+    explanation: "Edaphic factors relate to the soil's physical and chemical properties."
+  },
+  {
+    q: "Producers in ecosystem are:",
+    options: ["Decomposers", "Autotrophs", "Herbivores", "Carnivores"],
+    answer: 1, // Autotrophs
+    explanation: "Producers (Autotrophs) make their own food using energy from the sun or chemicals."
+  },
+  {
+    q: "Nitrosomonas is a:",
+    options: ["Chemo-autotroph", "Producer", "Consumer", "Decomposer"],
+    answer: 0, // Chemo-autotroph
+    explanation: "Nitrosomonas bacteria produce energy by oxidizing ammonia (chemical reaction), so they are chemo-autotrophs."
+  },
+  {
+    q: "Animals feeding on plants are:",
+    options: ["Omnivores", "Herbivores", "Carnivores", "Decomposers"],
+    answer: 1, // Herbivores
+    explanation: "Herbivores are primary consumers that eat only plants."
+  },
+  {
+    q: "Food chain represents:",
+    options: ["Matter cycle", "Mineral cycle", "Energy transfer", "Water cycle"],
+    answer: 2, // Energy transfer
+    explanation: "A food chain shows the flow of energy from one organism to another."
+  },
+  {
+    q: "Detritus food chain starts with:",
+    options: ["Dead organic matter", "Plants", "Consumers", "Animals"],
+    answer: 0, // Dead organic matter
+    explanation: "It begins with dead organic material, which serves as food for decomposers."
+  },
+  {
+    q: "Interlinked food chains form:",
+    options: ["Pyramid", "Cycle", "Web", "Level"],
+    answer: 2, // Web
+    explanation: "A food web is a complex network of interconnected food chains in an ecosystem."
+  },
+  {
+    q: "Each step of food chain is called:",
+    options: ["Trophic level", "Habitat", "Niche", "Biome"],
+    answer: 0, // Trophic level
+    explanation: "A trophic level represents the position an organism occupies in a food chain."
+  },
+  {
+    q: "Pyramid that is always upright:",
+    options: ["Biomass", "Numbers", "Carbon", "Energy"],
+    answer: 3, // Energy
+    explanation: "The pyramid of energy is always upright because energy is lost as heat at each transfer (10% law)."
+  },
+  {
+    q: "Pyramid of numbers represents:",
+    options: ["Number of organisms", "Nutrient flow", "Energy flow", "Biomass"],
+    answer: 0, // Number of organisms
+    explanation: "It shows the total number of individual organisms at each trophic level."
+  },
+  {
+    q: "Energy flow in ecosystem is:",
+    options: ["Random", "Uni-directional", "Cyclic", "Reversible"],
+    answer: 1, // Uni-directional
+    explanation: "Energy flows one way: from the sun -> producers -> consumers. It does not cycle back."
+  },
+  {
+    q: "Universal energy flow model shows:",
+    options: ["Single pathway", "Multiple pathways", "Heat loss only", "Nutrient flow"],
+    answer: 1, // Multiple pathways
+    explanation: "It illustrates how energy flows through ecosystems and is partitioned between respiration, growth, and waste."
+  },
+  {
+    q: "Y-shaped model represents:",
+    options: ["Single channel flow", "Nutrient recycling", "Double channel flow", "Energy loss"],
+    answer: 2, // Double channel flow
+    explanation: "The Y-shaped model separates energy flow into two channels: the grazing food chain and the detritus food chain."
+  },
+  {
+    q: "Nitrogen cycle is a:",
+    options: ["Gaseous cycle", "Closed cycle", "Sedimentary cycle", "Local cycle"],
+    answer: 0, // Gaseous cycle
+    explanation: "The main reservoir for nitrogen is the atmosphere (gas), making it a gaseous cycle."
+  },
+  {
+    q: "Phosphorus cycle is a:",
+    options: ["Carbon cycle", "Hydrological cycle", "Gaseous cycle", "Sedimentary cycle"],
+    answer: 3, // Sedimentary cycle
+    explanation: "Phosphorus is stored in rocks and soil (sediments), not in the atmosphere."
+  },
+  {
+    q: "Biomass produced by plants is:",
+    options: ["Secondary production", "Net production", "Primary production", "Tertiary production"],
+    answer: 2, // Primary production
+    explanation: "Primary production refers to the creation of biomass by autotrophs (plants)."
+  },
+  {
+    q: "Biomass produced by consumers is:",
+    options: ["Gross", "Secondary", "Net", "Primary"],
+    answer: 1, // Secondary
+    explanation: "Secondary production is the generation of biomass by heterotrophic consumers (animals)."
+  },
+  {
+    q: "Homeostasis means:",
+    options: ["Stability", "Competition", "Adaptation", "Growth"],
+    answer: 0, // Stability
+    explanation: "Homeostasis is the ability of an ecosystem to maintain a state of equilibrium or stability."
+  },
+  {
+    q: "Term homeostasis was first used by:",
+    options: ["Walter Cannon", "Claude Bernard", "Haeckel", "Odum"],
+    answer: 0, // Walter Cannon
+    explanation: "Walter Cannon coined the term to describe self-regulating processes."
+  },
+  {
+    q: "Negative feedback helps in:",
+    options: ["Stability", "Sudden change", "Disturbance", "Succession"],
+    answer: 0, // Stability
+    explanation: "Negative feedback mechanisms counteract changes, helping to maintain stability in a system."
+  },
+  {
+    q: "Succession on bare rock is called:",
+    options: ["Lithosere", "Hydrosere", "Halosere", "Xerosere"],
+    answer: 0, // Lithosere
+    explanation: "Lithosere is a type of xerosere (dry succession) that starts specifically on bare rock."
+  },
+  {
+    q: "First community in succession is:",
+    options: ["Climax", "Pioneer", "Seral", "Stable"],
+    answer: 1, // Pioneer
+    explanation: "Pioneer species are the first to colonize a barren environment."
+  },
+  {
+    q: "Final stable community is:",
+    options: ["Seral", "Temporary", "Climax", "Pioneer"],
+    answer: 2, // Climax
+    explanation: "The climax community is the final, stable stage of ecological succession."
+  },
+  {
+    q: "Succession on previously occupied land is:",
+    options: ["Primary", "Secondary", "Lithic", "Tertiary"],
+    answer: 1, // Secondary
+    explanation: "Secondary succession occurs in areas where a community previously existed but was removed (e.g., after a fire)."
+  },
+  {
+    q: "Formation of bare area is:",
+    options: ["Nudation", "Invasion", "Reaction", "Stabilization"],
+    answer: 0, // Nudation
+    explanation: "Nudation is the first step of succession, involving the creation of a bare area without life."
+  },
+  {
+    q: "Establishment of organisms is:",
+    options: ["Aggregation", "Reaction", "Migration", "Ecesis"],
+    answer: 3, // Ecesis
+    explanation: "Ecesis refers to the successful establishment and growth of a species in a new area."
+  },
+  {
+    q: "Primary consumers in forest are:",
+    options: ["Tiger", "Deer", "Snake", "Eagle"],
+    answer: 1, // Deer
+    explanation: "Deer eat plants, making them herbivores or primary consumers."
+  },
+  {
+    q: "Tertiary consumers are:",
+    options: ["Snake", "Tiger", "Deer", "Herbs"],
+    answer: 1, // Tiger
+    explanation: "Tigers are top predators that eat other consumers, placing them at the tertiary level."
+  },
+  {
+    q: "Tropical rainforests are found near:",
+    options: ["Tropic lines", "Poles", "Equator", "Mountains"],
+    answer: 2, // Equator
+    explanation: "Tropical rainforests are located around the equator where the climate is warm and wet."
+  },
+  {
+    q: "Grasslands near equator are:",
+    options: ["Polar", "Tropical", "Desert", "Temperate"],
+    answer: 1, // Tropical
+    explanation: "Grasslands located in tropical regions near the equator are called tropical grasslands or savannas."
+  },
+  {
+    q: "Savannas are:",
+    options: ["Temperate forest", "Tundra", "Tropical grassland", "Desert"],
+    answer: 2, // Tropical grassland
+    explanation: "Savannas are tropical grasslands with scattered trees."
+  },
+  {
+    q: "Permafrost is found in:",
+    options: ["Tropical forest", "Polar grassland", "Desert", "Savanna"],
+    answer: 1, // Polar grassland
+    explanation: "Permafrost (permanently frozen soil) is characteristic of the Tundra biome (Polar grassland)."
+  },
+  {
+    q: "Bottom dwellers are called:",
+    options: ["Nekton", "Plankton", "Neuston", "Benthos"],
+    answer: 3, // Benthos
+    explanation: "Benthos are organisms that live on or in the bottom sediments of a water body."
+  },
+  {
+    q: "Warm surface layer of lake is:",
+    options: ["Thermocline", "Hypolimnion", "Benthic zone", "Epilimnion"],
+    answer: 3, // Epilimnion
+    explanation: "The Epilimnion is the upper, warmer layer of water in a stratified lake."
+  },
+  {
+    q: "Lake with high nutrients is:",
+    options: ["Eutrophic", "Endemic", "Oligotrophic", "Dystrophic"],
+    answer: 0, // Eutrophic
+    explanation: "Eutrophic lakes are rich in nutrients, leading to high biological productivity (like algae blooms)."
+  },
+  {
+    q: "Zone with sufficient sunlight is:",
+    options: ["Bathyal", "Abyssal", "Euphotic", "Hadal"],
+    answer: 2, // Euphotic
+    explanation: "The Euphotic zone is the upper layer of the ocean where there is enough light for photosynthesis."
+  },
+  {
+    q: "Darkest ocean zone is:",
+    options: ["Abyssal", "Coastal", "Bathyal", "Open sea"],
+    answer: 0, // Abyssal
+    explanation: "The Abyssal zone is very deep and dark, receiving no sunlight."
+  },
 
-/* ===================== Header ===================== */
-header{
-    display:flex; /* Flex layout */
-    justify-content:space-between; /* Space between title and other elements */
-    align-items:flex-start; /* Align at top */
-    gap:12px; /* Gap between items */
-}
-.title{
-    display:flex; /* Flex for vertical layout */
-    flex-direction:column; /* Stack title + subtitle vertically */
-}
-h1{
-    margin:0; /* Remove default margin */
-    font-size:20px; /* Title font size */
-}
-.small-by{
-    font-size:12px; /* Small subtitle text */
-    color:var(--muted); /* Muted color */
-    margin-top:6px; /* Space above */
-}
-.accent-badge{
-    background:linear-gradient(90deg,var(--accent-400),var(--accent)); /* Gradient badge */
-    padding:6px 10px; /* Inner spacing */
-    border-radius:8px; /* Rounded corners */
-    color:#022; /* Text color inside badge */
-    font-weight:700; /* Bold */
-}
-
-/* ===================== Start area ===================== */
-.start-area{
-    display:flex; /* Flex layout */
-    gap:14px; /* Gap between inputs/buttons */
-    align-items:flex-start; /* Align at top */
-    margin-top:12px; /* Top spacing */
-}
-.inputs{
-    display:flex; /* Flex layout */
-    flex-direction:column; /* Stack inputs vertically */
-    gap:8px; /* Space between inputs */
-}
-input[type="text"], input[type="file"]{
-    padding:10px; /* Inner spacing */
-    border-radius:8px; /* Rounded corners */
-    border:1px solid rgba(255,255,255,0.05); /* Border style */
-    background:transparent; /* Transparent input background */
-    color:inherit; /* Same as body color */
-    width:280px; /* Fixed input width */
-}
-
-/* ===================== About box ===================== */
-.about{
-    background:linear-gradient(180deg, rgba(204, 66, 66, 0.01), rgba(156, 43, 43, 0.02)); /* Light background gradient */
-    padding:12px; /* Inner spacing */
-    border-radius:10px; /* Rounded corners */
-    border:1px solid rgba(150, 23, 23, 0.02); /* Light border */
-    max-width:600px; /* Max width */
-}
-.about p{
-    margin:6px 0; /* Paragraph spacing */
-    color:var(--muted); /* Muted color */
-    font-size:13px; /* Small text */
-}
-
-/* ===================== Buttons ===================== */
-.btn{
-    padding:10px 14px; /* Inner spacing */
-    border-radius:10px; /* Rounded */
-    border:0; /* No border */
-    cursor:pointer; /* Pointer on hover */
-    font-weight:700; /* Bold */
-    background:var(--accent); /* Main accent color */
-    color:#022; /* Text color */
-    box-shadow:0 6px 20px rgba(14, 239, 164, 0.08); /* Shadow */
-    transition:transform .14s ease, box-shadow .14s ease; /* Smooth interaction */
-}
-.btn:active{
-    transform:translateY(2px); /* Button press effect */
-}
-.btn.ghost{
-    background:transparent; /* Ghost button */
-    border:1px solid rgba(99, 46, 46, 0.06); /* Light border */
-    color:#1a5795; /* Text color */
-}
-.btn.warn{
-    background:var(--danger); /* Red background for warning */
-    color:#52aeb7; /* Text color */
-}
-
-/* ===================== Row flex ===================== */
-.row{
-    display:flex; /* Flex layout */
-    gap:8px; /* Gap between items */
-    align-items:center; /* Vertical center */
-}
-.muted{
-    color:var(--muted); /* Muted text */
-    font-size:13px; /* Small text */
-}
-
-/* ===================== Main Layout ===================== */
-.main{
-    display:flex; /* Flex layout */
-    gap:16px; /* Gap between left and right */
-    margin-top:16px; /* Top spacing */
-}
-.left{
-    flex:1; /* Left area grows */
-}
-.right{
-    width:320px; /* Fixed width for right panel */
-}
-
-/* ===================== Top Status boxes ===================== */
-.topstatus{
-    display:flex;
-    gap:8px;
-    align-items:center;
-    flex-wrap:wrap; /* Wrap to next line if overflow */
-}
-.status-box{
-    background:var(--glass); /* Glassy background */
-    padding:8px 10px; /* Inner padding */
-    border-radius:8px;
-    min-width:80px; /* Minimum width */
-    text-align:center; /* Center text */
-    font-size:13px;
-}
-.status-box .label{
-    color:var(--muted);
-    font-size:12px;
-}
-.status-box .val{
-    font-weight:800;
-    margin-top:4px;
-}
-
-/* ===================== Question Area ===================== */
-.question-area{
-    margin-top:12px;
-    padding:18px;
-    border-radius:12px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
-    border:1px solid rgba(255,255,255,0.02);
-}
-.qtop{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.qtext{
-    font-size:19px;
-    font-weight:700;
-    margin:12px 0;
-}
-.options{
-    display:grid; /* Grid layout */
-    grid-template-columns:1fr 1fr; /* Two columns for options */
-    gap:12px; /* Gap between options */
-}
-.option{
-    padding:12px;
-    border-radius:10px;
-    border:1px solid rgba(91, 206, 248, 0.438);
-    cursor:pointer;
-    background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    transition:transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease, background .18s ease;
-}
-.option:hover{
-    transform:translateY(-4px); /* Hover lift effect */
-    box-shadow:0 10px 30px rgba(12, 49, 217, 0.6);
-}
-.option .label{
-    font-weight:750;
-}
-.option .explainTiny{
-    font-size:12px;
-    color:var(--muted);
-    padding:10px 10px;
-    border-radius:10px;
-    border:5px solid rgba(255,255,255,0.02);
-}
-
-/* ===================== Option states ===================== */
-.option.correct{
-    background:linear-gradient(90deg, rgba(11, 29, 23, 0.12), rgba(22, 69, 53, 0.06));
-    border-color:rgba(16,185,129,0.28);
-    color:var(--accent);
-    box-shadow:0 10px 30px rgba(16,185,129,0.06), 0 0 18px rgba(16,185,129,0.06) inset;
-    animation:glow 900ms ease forwards; /* Green glow animation */
-}
-.option.wrong{
-    background:linear-gradient(90deg, rgba(239,68,68,0.06), rgba(239,68,68,0.03));
-    border-color:rgba(5, 5, 5, 0.22);
-    color:var(--danger);
-    animation:shake .45s linear; /* Red shake animation */
-}
-
-/* ===================== Animations ===================== */
-@keyframes glow{
-    0%{box-shadow:0 0 0 rgba(16,185,129,0)}
-    50%{box-shadow:0 0 20px rgba(113, 234, 194, 0.08)}
-    100%{box-shadow:0 0 6px rgba(16,185,129,0.04)}
-}
-@keyframes shake{
-    0%{transform:translateX(0)}
-    25%{transform:translateX(-6px)}
-    50%{transform:translateX(6px)}
-    75%{transform:translateX(-4px)}
-    100%{transform:translateX(0)}
-}
-
-/* ===================== Explanation box ===================== */
-.explain{
-    font-size:14px;
-    color:var(--muted);
-    margin-top:10px;
-    padding:12px;
-    border-radius:10px;
-    background:rgba(0,0,0,0.05);
-    display:none; /* Hidden by default */
-}
-
-/* ===================== Controls and Footer ===================== */
-.controls{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:14px;
-}
-.nav{
-    display:flex;
-    gap:8px;
-    align-items:center;
-}
-.footer{
-    margin-top:12px;
-    color:var(--muted);
-    font-size:13px;
-}
-
-/* ===================== Modal ===================== */
-.modal-backdrop{
-    position:fixed;
-    inset:0;
-    background:rgba(2,6,23,0.6); /* Semi-transparent backdrop */
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:60;
-}
-.modal{
-    background:#071025;
-    padding:16px;
-    border-radius:12px;
-    width:90%;
-    max-width:720px;
-    border:1px solid rgba(255,255,255,0.03);
-}
-.modal h3{
-    margin:0 0 8px;
-}
-.results-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:8px;
-}
-.results-table th,.results-table td{
-    padding:8px;
-    border-bottom:1px solid rgba(255,255,255,0.03);
-    text-align:left;
-    font-size:13px;
-}
-.img-preview{
-    width:56px;
-    height:56px;
-    border-radius:8px;
-    object-fit:cover;
-    border:1px solid rgba(255,255,255,0.04);
-}
-
-/* ===================== Responsive ===================== */
-@media(max-width:880px){
-    .main{flex-direction:column;} /* Stack left & right vertically */
-    .right{width:100%;} /* Right panel full width */
-    .options{grid-template-columns:1fr;} /* Single column for options */
-}
-</style>
-<!-- Supabase client JS (must be above your custom <script>) -->
-<!-- <script src="https://unpkg.com/@supabase/supabase-js@2"></script> -->
-</head>
-<body>
-  <div class="wrap">
-    <div class="card" id="cardRoot">
-      <header>
-        <div class="title">
-          <div style="display:flex;align-items:center;gap:10px">
-            <h1>ECE249 — Test Series (Units 1-3)</h1>
-            <div class="accent-badge" id="badgeCount">300 Qs</div>
-          </div>
-          <div class="small-by">Created by <strong>Aryan Singh</strong></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-          <div style="font-size:12px;color:var(--muted)">BY:- <strong style="color:var(--accent)">ARYAN SINGH 🥷</strong></div>
-        </div>
-      </header>
-
-      <!-- START PAGE -->
-      <div id="startPage" style="margin-top:12px">
-        <div class="start-area">
-          <div class="inputs">
-            <input id="inpName" type="text" placeholder="Enter full name "  />
-            <input id="inpReg" type="text" placeholder="Registration number" />
-            <div style="display:flex;align-items:center;gap:8px">
-              <input id="inpPic" type="file" accept="image/*" />
-              <img id="imgPreview" class="img-preview" src="" alt="" style="display:none" />
-            </div>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <button id="btnStart" class="btn" disabled>Start Test</button>
-              <button id="btnResetStart" class="btn ghost">Reset</button>
-            </div>
-            <div id="startErrors" style="color:#ffcccb;font-size:13px;margin-top:6px"></div>
-          </div>
-          <div class="about">
-            <strong>About this Test</strong>
-            <p>• 300 MCQs covering Units 1–3. One question at a time.</p>
-            <p>• Name & Registration number are mandatory. Profile picture optional.</p>
-            <p>• No hard time limit, but inactivity of 60s shows a warning.</p>
-            <p>• Wrong answers do not increase progress percentage (progress = correct / total).</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- TEST PAGE (hidden initially) -->
-      <div id="testPage" style="display:none">
-        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap" class="topstatus">
-            <div class="status-box"><div class="label">Time</div><div class="val" id="timeTop">00:00</div></div>
-            <div class="status-box"><div class="label">Correct</div><div class="val" id="topCorrect">0</div></div>
-            <div class="status-box"><div class="label">Wrong</div><div class="val" id="topWrong">0</div></div>
-            <div class="status-box"><div class="label">Progress</div><div class="val" id="topProgress">0%</div></div>
-            <div class="status-box"><div class="label">Attempted</div><div class="val" id="topAttempted">0</div></div>
-            <div class="status-box"><div class="label">Q</div><div class="val" id="topQno">0/300</div></div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="muted" id="showUser">—</div>
-            <button id="btnEndTestTop" class="btn warn">End Test</button>
-          </div>
-        </div>
-
-        <div class="main">
-          <div class="left">
-            <div class="question-area">
-              <div class="qtop">
-                <div class="muted">Name: <span id="showName">—</span> • Reg: <span id="showReg">—</span></div>
-                <div class="muted">Progress: <span id="progressPercent">0%</span></div>
-              </div>
-              <div class="qtext" id="questionText">Loading...</div>
-              <div class="options" id="optionsBox"></div>
-              <div class="explain" id="explainBox"></div>
-
-              <div class="controls">
-                <div class="nav">
-                  <button id="btnPrev" class="btn ghost">Prev</button>
-                  <button id="btnNext" class="btn ghost">Next</button>
-                  <button id="btnShowExplain" class="btn ghost">Show Explanation</button>
-                </div>
-                <div class="muted">Score: <span id="scoreInline">0</span></div>
-              </div>
-            </div>
-            <div class="footer">Tip: Click the correct option — it turns <span style="color:var(--accent);font-weight:700">green</span>. Wrong picks become <span style="color:var(--danger);font-weight:700">red</span>.</div>
-          </div>
-
-          <aside class="right">
-            <div class="scorebox">
-              <div class="row" style="justify-content:space-between;align-items:center">
-                <div style="display:flex;gap:8px;align-items:center">
-                  <div style="display:flex;flex-direction:column"><div class="muted" style="font-size:12px">Questions</div><div style="font-weight:800" id="curQ">0</div></div>
-                  <div style="display:flex;flex-direction:column"><div class="muted" style="font-size:12px">Total</div><div style="font-weight:800" id="totalQ">300</div></div>
-                </div>
-                <img id="userPicSmall" class="img-preview" src="" style="display:none">
-              </div>
-
-              <div style="display:flex;gap:8px;margin-top:8px">
-                <div style="flex:1"><div class="label muted">Correct</div><div id="correctCount" style="font-weight:800">0</div></div>
-                <div style="flex:1"><div class="label muted">Wrong</div><div id="wrongCount" style="font-weight:800">0</div></div>
-              </div>
-
-              <div style="display:flex;gap:8px;margin-top:10px">
-                <div style="flex:1"><div class="label muted">Attempted</div><div id="attemptedCount" style="font-weight:800">0</div></div>
-                <div style="flex:1"><div class="label muted">Time</div><div id="timeSpent" style="font-weight:800">00:00</div></div>
-              </div>
-
-              <div style="margin-top:10px;display:flex;gap:8px">
-                <button id="btnSave" class="btn">Save Result</button>
-                <button id="btnExport" class="btn ghost">Export CSV</button>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- modal container -->
-  <div id="modalRoot" style="display:none"></div>
-  <!-- 🟢 Supabase Connection Setup -->
-<script>
-// const SUPABASE_URL = "https://kqfdyvqrhytbjyszsxmr.supabase.co"; // Supabase Project URL
-// const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxZmR5dnFyaHl0Ymp5c3pzeG1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2NDkzNzQsImV4cCI6MjA4MDIyNTM3NH0.-WpfPxH7Q3xE5UF5448ERdsdSjYTiefF4nVymSM9cu0";
-// Create Supabase client
-// const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-</script>
-<script>const QUESTIONS = [
-
-  {
-    q: "Define P-type semiconductor.",
-    options: ["Has extra electrons", "Has holes as majority carriers", "Insulator", "Conducts only at high temperature"],
-    answer: 1,
-    explanation: "P-type semiconductors have holes as majority carriers due to trivalent doping."
-  },
-  {
-    q: "Define N-type semiconductor.",
-    options: ["Has holes as majority carriers", "Has equal electrons and holes", "Has extra electrons as majority carriers", "Is a perfect insulator"],
-    answer: 2,
-    explanation: "N-type semiconductors have extra electrons as majority carriers due to pentavalent doping."
-  },
-  {
-    q: "A silicon diode has a barrier potential of 0.7V. If input = 10V (rms), find the DC output voltage of a half-wave rectifier.",
-    options: ["10 V", "5.65 V", "9.3 V", "0.7 V"],
-    answer: 2,
-    explanation: "Vdc = Vpeak - 0.7 = 10 - 0.7 = 9.3 V"
-  },
-  {
-    q: "Using KCL, find outgoing current if incoming currents are 2A and 3A, and one outgoing current is 4A.",
-    options: ["6 A", "5 A", "1 A", "2 A"],
-    answer: 2,
-    explanation: "Sum of incoming = sum of outgoing ⇒ 2+3=4+? ⇒ ?=1A"
-  },
-  {
-    q: "Apply KVL to a loop containing 10V source and resistors 2Ω and 3Ω. Find the current.",
-    options: ["10 A", "5 A", "2 A", "1 A"],
-    answer: 2,
-    explanation: "I = V / Rtotal = 10 / (2+3) = 2 A"
-  },
-  {
-    q: "Transistor as a switch is used in which mode?",
-    options: ["Active mode", "Cut-off and Saturation", "Breakdown region", "Reverse bias"],
-    answer: 1,
-    explanation: "Transistor acts as switch in cut-off (OFF) and saturation (ON) modes."
-  },
-  {
-    q: "Which sensor is used to detect distance using ultrasonic waves?",
-    options: ["Photodiode", "IR Receiver", "LDR", "Ultrasonic Sensor"],
-    answer: 3,
-    explanation: "Ultrasonic sensor measures distance using reflected ultrasonic waves."
-  },
-  {
-    q: "Which Arduino function sets pin mode?",
-    options: ["analogRead()", "setup()", "pinMode()", "digitalWrite()"],
-    answer: 2,
-    explanation: "pinMode(pin, INPUT/OUTPUT) sets the pin mode."
-  },
-  {
-    q: "What is a hole in a semiconductor?",
-    options: ["Extra electron", "Proton", "Absence of electron", "Neutral atom"],
-    answer: 2,
-    explanation: "A hole represents the absence of an electron and acts as a positive charge carrier."
-  },
-  {
-    q: "Compare Common-Base, Common-Emitter, and Common-Collector configurations: Which has highest voltage gain?",
-    options: ["Common-Base", "Common-Collector", "All equal", "Common-Emitter"],
-    answer: 3,
-    explanation: "Common-Emitter configuration has highest voltage gain."
-  },
-  {
-    q: "Canonical SOP form is used for:",
-    options: ["Sensor calibration", "Standardized representation of Boolean function", "Transistor biasing", "ADC conversion"],
-    answer: 1,
-    explanation: "SOP canonical form expresses Boolean function as sum of minterms."
-  },
-  {
-    q: "Which is a limitation of 1’s complement?",
-    options: ["Two zeros", "Cannot represent positive numbers", "Complex addition", "Cannot represent negative numbers"],
-    answer: 0,
-    explanation: "1’s complement has both +0 and -0, leading to ambiguity."
-  },
-  {
-    q: "Light Dependent Resistor (LDR) changes resistance with:",
-    options: ["Magnetic field", "Temperature", "Light intensity", "Pressure"],
-    answer: 2,
-    explanation: "LDR decreases resistance when light intensity increases."
-  },
-  {
-    q: "What does `digitalWrite(pin, HIGH)` do in Arduino?",
-    options: ["Resets Arduino", "Sets pin voltage to 5V", "Configures pin as output", "Reads analog value"],
-    answer: 1,
-    explanation: "digitalWrite(pin, HIGH) sets the digital output pin HIGH (5V)."
-  },
-  {
-    q: "Which gate gives output 1 only when both inputs are 1?",
-    options: ["XOR gate", "OR gate", "NAND gate", "AND gate"],
-    answer: 3,
-    explanation: "AND gate output is HIGH only when both inputs are HIGH."
-  },
-  {
-    q: "Gray code is used to:",
-    options: ["Control Arduino pins", "Perform analog conversion", "Minimize bit changes in sequential numbers", "Simplify K-map"],
-    answer: 2,
-    explanation: "Gray code changes only one bit between consecutive numbers."
-  },
-  {
-    q: "What is the average DC output of a half-wave rectifier if input peak voltage is 10V?",
-    options: ["3.18 V", "5 V", "7.07 V", "10 V"],
-    answer: 0,
-    explanation: "Vdc = Vpeak / π ≈ 10/π ≈ 3.18 V"
-  },
-  {
-    q: "Which pin is used to read analog input in Arduino?",
-    options: ["D0-D13", "A0-A5", "GND", "5V"],
-    answer: 1,
-    explanation: "Analog pins A0-A5 are used for analog input readings."
-  },
-  {
-    q: "Difference between Analog and Digital signals:",
-    options: ["Digital is continuous, Analog is discrete", "Analog is continuous, Digital is discrete", "Both are continuous", "Both are discrete"],
-    answer: 1,
-    explanation: "Analog signals vary continuously; Digital signals have discrete levels."
-  },
-  {
-    q: "What is the function of depletion region in a PN junction?",
-    options: ["Blocks current flow in reverse bias", "Acts as a heat sink", "Stores charge like a capacitor", "Enhances current flow in forward bias"],
-    answer: 0,
-    explanation: "The depletion region prevents current flow under reverse bias by creating a barrier."
-  },
-  {
-    q: "Transistor biasing: Which configuration has high input impedance?",
-    options: ["Common-Base", "Common-Emitter", "Common-Collector", "All equal"],
-    answer: 2,
-    explanation: "Common-Collector (Emitter Follower) has high input impedance."
-  },
-  {
-    q: "Arduino function to read analog input is:",
-    options: ["digitalRead()", "analogWrite()", "analogRead()", "pinMode()"],
-    answer: 2,
-    explanation: "analogRead(pin) reads voltage from analog pins."
-  },
-  {
-    q: "Which sensor detects light intensity?",
-    options: ["IR Receiver", "LDR", "Ultrasonic Sensor", "Photodiode"],
-    answer: 1,
-    explanation: "LDR resistance decreases when light increases."
-  },
-  {
-    q: "Which Boolean algebra law states A + 0 = A?",
-    options: ["Identity Law", "Complement Law", "Distributive Law", "Associative Law"],
-    answer: 0,
-    explanation: "Identity law: adding 0 leaves A unchanged."
-  },
-  {
-    q: "K-map is used for:",
-    options: ["Sensor calibration", "Boolean function simplification", "Voltage measurement", "Digital to Analog conversion"],
-    answer: 1,
-    explanation: "K-map helps minimize Boolean expressions."
-  },
-  {
-    q: "Which is the main difference between SOP and POS?",
-    options: ["SOP uses AND of ORs, POS uses OR of ANDs", "SOP uses OR of ANDs, POS uses AND of ORs", "Both are same", "Neither of these"],
-    answer: 1,
-    explanation: "SOP = OR of AND terms, POS = AND of OR terms."
-  },
-  {
-    q: "Limitations of 2’s complement include:",
-    options: ["Cannot represent negative numbers", "Complex subtraction", "Overflow problem", "Cannot represent zero"],
-    answer: 2,
-    explanation: "2’s complement arithmetic may cause overflow if result exceeds bit size."
-  },
-  {
-    q: "Which Arduino pin outputs PWM signal?",
-    options: ["Digital pins with ~", "All analog pins", "Only pin 13", "GND"],
-    answer: 0,
-    explanation: "Pins marked with ~ can output PWM using analogWrite()."
-  },
-  {
-    q: "Which gate gives 0 only when both inputs are 1?",
-    options: ["AND", "OR", "NAND", "XOR"],
-    answer: 2,
-    explanation: "NAND gate output is LOW only when both inputs are HIGH."
-  },
-  {
-    q: "IR sensor is used for:",
-    options: ["Obstacle detection", "Temperature measurement", "Humidity detection", "Distance using ultrasonic waves"],
-    answer: 0,
-    explanation: "IR sensors detect obstacles using infrared reflection."
-  },
-  {
-    q: "Photodiode converts:",
-    options: ["Sound to voltage", "Light to current", "Heat to voltage", "Pressure to current"],
-    answer: 1,
-    explanation: "Photodiode generates current when exposed to light."
-  },
-  {
-    q: "Ultrasonic sensor measures:",
-    options: ["Light intensity", "Temperature", "Distance", "Current"],
-    answer: 2,
-    explanation: "Ultrasonic sensors measure distance using reflected ultrasonic waves."
-  },
-  {
-    q: "Sum of 1’s and 2’s complement limitation:",
-    options: ["Two zeros in 1's complement", "Cannot represent negative in 2's complement", "Overflow in both", "Cannot represent positive in 1's complement"],
-    answer: 0,
-    explanation: "1’s complement has both +0 and -0, which is a limitation."
-  },
-  {
-    q: "Conversion from minimal SOP to canonical SOP requires:",
-    options: ["Expanding all minterms", "Simplifying further", "Adding redundant terms", "None of the above"],
-    answer: 0,
-    explanation: "Canonical SOP includes all minterms of the function."
-  },
-  {
-    q: "Conversion from minimal POS to canonical POS requires:",
-    options: ["Expanding all maxterms", "Simplifying further", "Adding redundant terms", "None of the above"],
-    answer: 0,
-    explanation: "Canonical POS includes all maxterms of the function."
-  },
-  {
-    q: "Arduino function to set pin HIGH is:",
-    options: ["pinMode()", "digitalWrite(pin,HIGH)", "analogRead()", "analogWrite()"],
-    answer: 1,
-    explanation: "digitalWrite(pin,HIGH) sets the pin voltage HIGH."
-  },
-  {
-    q: "DC output of full-wave rectifier with RMS 10V is:",
-    options: ["8.99 V", "5 V", "7 V", "10 V"],
-    answer: 0,
-    explanation: "Vdc ≈ 0.9 * Vrms = 0.9 * 10 = 8.99 V"
-  },
-  {
-    q: "NPN transistor biasing diagram is used to:",
-    options: ["Show current flow", "Set operating point", "Show voltage drop", "Measure resistance"],
-    answer: 1,
-    explanation: "Biasing sets the transistor operating point in active region."
-  },
-  {
-    q: "Convert (1011)₂ to decimal.",
-    options: ["12", "11", "13", "10"],
-    answer: 1,
-    explanation: "Binary to decimal: 1*2³ + 0*2² + 1*2¹ + 1*2⁰ = 8 + 0 + 2 + 1 = 11"
-  },
-  { 
-  q: "What does an IR (Infrared) sensor detect?", 
-  options: ["Temperature", "Light intensity", "Obstacle / Object presence", "Sound"], 
-  answer: 2,  // "Obstacle / Object presence"
-  explanation: "IR sensors emit infrared light and detect reflected signals to sense objects or obstacles." 
-   },
-  {
-    q: "3. Convert (319)₁₀ to octal.",
-    options: ["477", "507", "487", "617"],
-    answer: 2,
-    explanation: "Divide by 8 repeatedly: 319/8=39R7, 39/8=4R7, 4/8=0R4 ⇒ (479)₈"
-  },
-  {
-    q: "4. If V = 12V and I = 2A, find R.",
-    options: ["6Ω", "5Ω", "8Ω", "4Ω"],
-    answer: 0,
-    explanation: "R = V/I = 12/2 = 6Ω"
-  },
-  {
-    q: "5. Simplify Boolean expression A + AB.",
-    options: ["A", "AB", "0", "B"],
-    answer: 0,
-    explanation: "A + AB = A(1 + B) = A*1 = A"
-  },
-  {
-    q: "6. Find the output voltage of a full-wave rectifier if Vpeak = 10V.",
-    options: ["6.36V", "7.07V", "5V", "10V"],
-    answer: 1,
-    explanation: "Vdc = 0.636*Vpeak = 0.636*10 ≈ 6.36V"
-  },
-  {
-    q: "7. Convert (47)₁₀ to binary.",
-    options: ["101111", "101101", "111011", "110111"],
-    answer: 0,
-    explanation: "47 ÷ 2 = 23R1, 23 ÷ 2 = 11R1, 11 ÷ 2 = 5R1, 5 ÷ 2 = 2R1, 2 ÷ 2 = 1R0, 1 ÷ 2 = 0R1 ⇒ 101111₂"
-  },
-  {
-    q: "8. An AC voltage has RMS value 220V. Find peak voltage.",
-    options: ["311V", "220V", "154V", "440V"],
-    answer: 0,
-    explanation: "Vp = Vrms * √2 = 220 * 1.414 ≈ 311V"
-  },
-  {
-    q: "9. The K-map has minterms m1, m3, m7. Find simplified expression.",
-    options: ["B'C + AC", "A + B", "AB + C", "A'C'B"],
-    answer: 0,
-    explanation: "Combine minterms: B'C + AC"
-  },
-  {
-    q: "10. If I = 0.25A, V = 5V, find R.",
-    options: ["20Ω", "10Ω", "25Ω", "15Ω"],
-    answer: 0,
-    explanation: "R = V/I = 5/0.25 = 20Ω"
-  },
-  {
-    q: "11. Find total impedance of series R=8Ω, L=20H, C=14μF at f = 50Hz.",
-    options: ["40.807Ω", "408.07Ω", "49Ω", "35Ω"],
-    answer: 0,
-    explanation: "XL=2πfL=2*3.1416*50*20≈6283Ω, XC=1/(2πfC)=1/(2*3.1416*50*14e-6)≈227.32Ω, Z=√(R²+(XL-XC)²)≈40.807Ω"
-  },
-  {
-    q: "12. Convert (1110)₂ to decimal.",
-    options: ["14", "12", "13", "15"],
-    answer: 0,
-    explanation: "1*2³+1*2²+1*2¹+0=8+4+2+0=14"
-  },
-  {
-    q: "13. Calculate voltage across R=10Ω if I=3A in series RLC.",
-    options: ["30V", "15V", "20V", "25V"],
-    answer: 0,
-    explanation: "V = I*R = 3*10 = 30V"
-  },
-  {
-    q: "14. Find RMS current if Ipeak = 5A.",
-    options: ["3.536A", "5A", "7.07A", "2.5A"],
-    answer: 0,
-    explanation: "Irms = Ipeak/√2 = 5/1.414 ≈ 3.536A"
-  },
-  {
-    q: "15. Simplify Boolean: AB + A'B.",
-    options: ["B", "A", "0", "1"],
-    answer: 0,
-    explanation: "AB + A'B = B(A + A') = B*1 = B"
-  },
-  {
-    q: "16. Arduino digital pin outputs HIGH 5V. Current drawn = 20mA. Find power.",
-    options: ["0.1W", "0.5W", "0.2W", "1W"],
-    answer: 2,
-    explanation: "P=VI=5*0.02=0.1W"
-  },
-  {
-    q: "17. For RC series, R=10Ω, C=100μF, f=50Hz, find XC.",
-    options: ["31.83Ω", "20Ω", "50Ω", "15Ω"],
-    answer: 0,
-    explanation: "XC=1/(2πfC)=1/(2*3.1416*50*100e-6)≈31.83Ω"
-  },
-  {
-    q: "18. Convert (85)₁₀ to hexadecimal.",
-    options: ["55", "5F", "56", "54"],
-    answer: 0,
-    explanation: "85 ÷ 16 = 5R5 ⇒ 55₁₆"
-  },
-  {
-    q: "19. A diode conducts 10mA at 0.7V. Power dissipated?",
-    options: ["7mW", "70mW", "0.07W", "0.7W"],
-    answer: 1,
-    explanation: "P = V*I = 0.7*0.01 = 0.007W = 7mW"
-  },
-  {
-    q: "20. Convert (255)₁₀ to binary.",
-    options: ["11111111", "11111011", "11110111", "11101111"],
-    answer: 0,
-    explanation: "Divide by 2 repeatedly ⇒ 11111111"
-  },
-  {
-    q: "21. An AC source: Vpeak=50V, find Vrms.",
-    options: ["35.36V", "50V", "25V", "70.7V"],
-    answer: 0,
-    explanation: "Vrms = Vp/√2 = 50/1.414 ≈ 35.36V"
-  },
-  {
-    q: "22. RLC series: R=5Ω, L=0.2H, C=100μF, f=60Hz, find Z.",
-    options: ["5.97Ω", "10Ω", "6Ω", "5Ω"],
-    answer: 0,
-    explanation: "XL=2πfL=2*3.1416*60*0.2≈75.4Ω, XC=1/(2πfC)=1/(2*3.1416*60*100e-6)≈26.5Ω, Z=√(R²+(XL-XC)²)=√(5²+(75.4-26.5)²)=≈50.9Ω"
-  },
-  {
-    q: "23. Convert (1010)₂ to decimal.",
-    options: ["10", "12", "11", "9"],
-    answer: 0,
-    explanation: "1*2³+0*2²+1*2¹+0*2⁰=8+0+2+0=10"
-  },
-  {
-    q: "24. Arduino analog read gives 512. Find voltage if Vref=5V.",
-    options: ["2.5V", "5V", "1V", "0.5V"],
-    answer: 0,
-    explanation: "V = (512/1023)*5 ≈ 2.5V"
-  },
-  {
-    q: "25. Find current in R=8Ω if V=24V.",
-    options: ["3A", "2A", "4A", "5A"],
-    answer: 0,
-    explanation: "I=V/R=24/8=3A"
-  },
-  {
-    q: "26. Convert (1001)₂ to decimal.",
-    options: ["9", "8", "10", "11"],
-    answer: 0,
-    explanation: "1*2³+0*2²+0*2¹+1=8+0+0+1=9"
-  },
-  {
-    q: "27. A 12V battery, resistor 4Ω. Find current.",
-    options: ["3A", "2A", "4A", "1A"],
-    answer: 0,
-    explanation: "I=V/R=12/4=3A"
-  },
-  {
-    q: "28. Rectifier: Vpeak=20V, find Vdc (full-wave).",
-    options: ["12.72V", "14.14V", "10V", "20V"],
-    answer: 0,
-    explanation: "Vdc=0.636*Vpeak=0.636*20≈12.72V"
-  },
-  {
-    q: "29. Logic gate: A=1, B=0. Output of A AND B?",
-    options: ["0", "1", "A", "B"],
-    answer: 0,
-    explanation: "AND: 1 AND 0 = 0"
-  },
-  {
-    q: "30. Logic gate: A=1, B=0. Output of A OR B?",
-    options: ["1", "0", "A", "B"],
-    answer: 0,
-    explanation: "OR: 1 OR 0 = 1"
-  },
-  {
-    q: "31. Convert (77)₁₀ to octal.",
-    options: ["115", "107", "77", "117"],
-    answer: 0,
-    explanation: "77 ÷ 8 = 9R5, 9 ÷ 8 = 1R1 ⇒ 115₈"
-  },
-  {
-    q: "32. Arduino PWM 50% duty, Vmax=5V. Find Vavg.",
-    options: ["2.5V", "5V", "1V", "0V"],
-    answer: 0,
-    explanation: "Vavg = duty*Vmax=0.5*5=2.5V"
-  },
-  {
-    q: "33. RLC series: R=10Ω, L=0.1H, C=100μF, f=50Hz, find reactance difference XL-XC.",
-    options: ["21.83Ω", "10Ω", "25Ω", "20Ω"],
-    answer: 0,
-    explanation: "XL=2πfL≈31.4Ω, XC=1/(2πfC)≈15.9Ω, XL-XC≈15.5Ω"
-  },
-  {
-    q: "34. Find voltage across 5Ω resistor if current = 2A.",
-    options: ["10V", "5V", "8V", "12V"],
-    answer: 0,
-    explanation: "V=IR=2*5=10V"
-  },
-  {
-    q: "35. Convert (123)₁₀ to binary.",
-    options: ["1111011", "1111101", "1011111", "1110111"],
-    answer: 0,
-    explanation: "123 ÷2 repeatedly ⇒ 1111011₂"
-  },
-  {
-    q: "36. AC voltage Vrms=120V. Find Vpeak.",
-    options: ["169.7V", "120V", "240V", "100V"],
-    answer: 0,
-    explanation: "Vpeak=Vrms*√2≈120*1.414≈169.7V"
-  },
-  {
-    q: "37. RLC series: R=20Ω, L=0.1H, C=50μF, f=60Hz. Find Z.",
-    options: ["20.4Ω", "30Ω", "25Ω", "22Ω"],
-    answer: 0,
-    explanation: "XL=2πfL≈37.7Ω, XC≈53Ω, Z=√(R²+(XL-XC)²)=√(400+(-15.3)²)≈22.66Ω"
-  },
-  {
-    q: "38. Simplify Boolean: A + AB + AC",
-    options: ["A", "AB", "AC", "ABC"],
-    answer: 0,
-    explanation: "A + AB + AC = A(1 + B + C) = A"
-  },
-  {
-    q: "39. Logic gate XOR: A=1, B=0, output?",
-    options: ["1", "0", "A", "B"],
-    answer: 0,
-    explanation: "XOR: 1⊕0=1"
-  },
-  {
-    q: "40. Arduino sensor output 1.8V, Vref=5V, find digital value (10-bit ADC).",
-    options: ["368", "512", "1023", "256"],
-    answer: 0,
-    explanation: "Digital = (V/Vref)*1023 = (1.8/5)*1023≈368"
-  },
-  {
-    q: "41. Convert (231)₁₀ to hexadecimal.",
-    options: ["E7", "F3", "DF", "D7"],
-    answer: 0,
-    explanation: "231 ÷16=14R7 ⇒ E7₁₆"
-  },
-  {
-    q: "42. Rectifier full-wave: Vpeak=15V, find Vdc.",
-    options: ["9.54V", "10V", "7.5V", "15V"],
-    answer: 0,
-    explanation: "Vdc=0.636*Vpeak=0.636*15≈9.54V"
-  },
-  {
-    q: "43. R=12Ω, I=0.5A, find voltage.",
-    options: ["6V", "12V", "24V", "8V"],
-    answer: 0,
-    explanation: "V=IR=0.5*12=6V"
-  },
-  {
-    q: "44. Logic gate: NAND, A=1, B=1, output?",
-    options: ["0", "1", "A", "B"],
-    answer: 0,
-    explanation: "NAND: 1 NAND 1 = 0"
-  },
-  {
-    q: "45. Convert (64)₁₀ to binary.",
-    options: ["1000000", "111111", "110000", "101010"],
-    answer: 0,
-    explanation: "64 ÷2 repeatedly ⇒ 1000000₂"
-  },
-  {
-    q: "46. AC circuit: Ipeak=10A, find Irms.",
-    options: ["7.07A", "10A", "5A", "14.14A"],
-    answer: 0,
-    explanation: "Irms=Ipeak/√2=10/1.414≈7.07A"
-  },
-  {
-    q: "47. RLC series: R=15Ω, L=0.05H, C=200μF, f=50Hz, find Z.",
-    options: ["15.68Ω", "20Ω", "16Ω", "18Ω"],
-    answer: 0,
-    explanation: "XL=2πfL≈15.7Ω, XC≈15.9Ω, Z=√(15²+(15.7-15.9)²)≈15.68Ω"
-  },
-  {
-    q: "48. Convert (45)₁₀ to hexadecimal.",
-    options: ["2D", "3C", "2C", "2E"],
-    answer: 0,
-    explanation: "45 ÷16=2R13 ⇒ 2D₁₆"
-  },
-  {
-    q: "49. Rectifier half-wave: Vpeak=10V, find Vdc.",
-    options: ["3.18V", "5V", "6V", "10V"],
-    answer: 0,
-    explanation: "Vdc=0.318*Vpeak=0.318*10≈3.18V"
-  },
-  {
-    q: "50. Find power if V=10V, I=2A.",
-    options: ["20W", "10W", "15W", "25W"],
-    answer: 0,
-    explanation: "P=VI=10*2=20W"
-  },
-  {
-    q: "The material commonly used for making semiconductor devices is —",
-    options: ["Copper", "Silicon", "Mica", "Silver"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "When a PN junction is forward biased, the width of depletion layer —",
-    options: ["Increases", "Decreases", "Remains same", "Becomes zero"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "A diode conducts current in —",
-    options: ["Both directions", "Reverse direction only", "Forward direction only", "None of these"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "In a Zener diode, breakdown occurs due to —",
-    options: ["High current", "Heavy doping", "Reverse bias", "High temperature"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Which of the following is an example of an extrinsic semiconductor?",
-    options: ["Pure silicon", "Pure germanium", "Silicon doped with phosphorus", "Diamond"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Arduino Uno is based on which microcontroller?",
-    options: ["8051", "ATmega328P", "PIC16F877A", "ARM Cortex-M3"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "How many digital I/O pins are available on Arduino Uno?",
-    options: ["10", "12", "14", "20"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Which function in Arduino code runs only once?",
-    options: ["loop()", "setup()", "main()", "start()"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "Which sensor is used to measure distance?",
-    options: ["PIR sensor", "LDR sensor", "Ultrasonic sensor", "IR flame sensor"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "What does PWM stand for in Arduino?",
-    options: ["Pulse Width Modulation", "Power Wave Modulation", "Pulse Wave Management", "Power Width Mode"],
-    answer: 0,
-    explanation: ""
-  },
-  {
-    q: "(1011)₂ = ? (in decimal)",
-    options: ["10", "11", "12", "13"],
-    answer: 1,
-    explanation: "1*2^3 + 0*2^2 + 1*2^1 + 1*2^0 = 8 + 0 + 2 + 1 = 11"
-  },
-  {
-    q: "(47)₁₀ = ? (in octal)",
-    options: ["47", "56", "57", "67"],
-    answer: 1,
-    explanation: "47 ÷ 8 = 5 remainder 7, 5 ÷ 8 = 0 remainder 5 → (57)₈"
-  }, 
-  {
-    q: "1. Convert (1011)₂ to decimal.",
-    options: ["12", "11", "13", "10"],
-    answer: 1,
-    explanation: "Binary to decimal: 1*2³ + 0*2² + 1*2¹ + 1*2⁰ = 8 + 0 + 2 + 1 = 11"
-  },
-  {
-    q: "2. A series circuit has R = 10Ω, L = 0.5H, f = 50Hz. Find XL.",
-    options: ["157.08Ω", "125.6Ω", "50Ω", "78.5Ω"],
-    answer: 0,
-    explanation: "XL = 2πfL = 2*3.1416*50*0.5 = 157.08Ω"
-  },
-  {
-    q: "3. Convert (319)₁₀ to octal.",
-    options: ["477", "507", "487", "617"],
-    answer: 2,
-    explanation: "Divide by 8 repeatedly: 319/8=39R7, 39/8=4R7, 4/8=0R4 ⇒ (479)₈"
-  },
-  {
-    q: "4. If V = 12V and I = 2A, find R.",
-    options: ["6Ω", "5Ω", "8Ω", "4Ω"],
-    answer: 0,
-    explanation: "R = V/I = 12/2 = 6Ω"
-  },
-  {
-    q: "5. Simplify Boolean expression A + AB.",
-    options: ["A", "AB", "0", "B"],
-    answer: 0,
-    explanation: "A + AB = A(1 + B) = A*1 = A"
-  },
-  {
-    q: "The material commonly used for making semiconductor devices is —",
-    options: ["Copper", "Silicon", "Mica", "Silver"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "When a PN junction is forward biased, the width of depletion layer —",
-    options: ["Increases", "Decreases", "Remains same", "Becomes zero"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "A diode conducts current in —",
-    options: ["Both directions", "Reverse direction only", "Forward direction only", "None of these"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "In a Zener diode, breakdown occurs due to —",
-    options: ["High current", "Heavy doping", "Reverse bias", "High temperature"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Which of the following is an example of an extrinsic semiconductor?",
-    options: ["Pure silicon", "Pure germanium", "Silicon doped with phosphorus", "Diamond"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Arduino Uno is based on which microcontroller?",
-    options: ["8051", "ATmega328P", "PIC16F877A", "ARM Cortex-M3"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "How many digital I/O pins are available on Arduino Uno?",
-    options: ["10", "12", "14", "20"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Which function in Arduino code runs only once?",
-    options: ["loop()", "setup()", "main()", "start()"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "Which sensor is used to measure distance?",
-    options: ["PIR sensor", "LDR sensor", "Ultrasonic sensor", "IR flame sensor"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "What does PWM stand for in Arduino?",
-    options: ["Pulse Width Modulation", "Power Wave Modulation", "Pulse Wave Management", "Power Width Mode"],
-    answer: 0,
-    explanation: ""
-  },
-  {
-    q: "(1011)₂ = ? (in decimal)",
-    options: ["10", "11", "12", "13"],
-    answer: 1,
-    explanation: "1×2^3 + 0×2^2 + 1×2^1 + 1×2^0 = 11"
-  },
-  {
-    q: "(47)₁₀ = ? (in octal)",
-    options: ["47", "56", "57", "67"],
-    answer: 2,
-    explanation: "47 ÷ 8 = 5 remainder 7 → (57)₈"
-  },
-  {
-    q: "(A3)₁₆ = ? (in binary)",
-    options: ["10100011", "10101100", "11001100", "10100001"],
-    answer: 0,
-    explanation: ""
-  },
-  {
-    q: "2’s complement of (1101)₂ is —",
-    options: ["0010", "1110", "0101", "0011"],
-    answer: 3,
-    explanation: ""
-  },
-  {
-    q: "A K-map is used to —",
-    options: ["Convert binary to decimal", "Simplify Boolean expressions", "Store binary data", "Design microprocessors"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "The resistance of a semiconductor —",
-    options: ["Increases with temperature", "Decreases with temperature", "Remains same", "Becomes zero"],
-    answer: 1,
-    explanation: "Higher temperature releases more charge carriers → conductivity increases"
-  },
-  {
-    q: "In N-type semiconductor, the majority charge carriers are —",
-    options: ["Holes", "Electrons", "Protons", "None"],
-    answer: 1,
-    explanation: "Donor impurities add extra electrons"
-  },
-  {
-    q: "Forward biased diode acts as —",
-    options: ["Open switch", "Closed switch", "Amplifier", "Oscillator"],
-    answer: 1,
-    explanation: "It conducts current easily in forward bias"
-  },
-  {
-    q: "The barrier potential of a silicon diode is approximately —",
-    options: ["0.1 V", "0.3 V", "0.7 V", "1.1 V"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Which device converts AC to DC?",
-    options: ["Transformer", "Rectifier", "Amplifier", "Oscillator"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "Which language is used for Arduino programming?",
-    options: ["Python", "C / C++", "Assembly", "Java"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "The pin number used for built-in LED on Arduino Uno is —",
-    options: ["10", "11", "12", "13"],
-    answer: 3,
-    explanation: ""
-  },
-  {
-    q: "Which command is used to send data from Arduino to the serial monitor?",
-    options: ["Serial.print()", "Print()", "Monitor()", "SendData()"],
-    answer: 0,
-    explanation: ""
-  },
-  {
-    q: "A temperature sensor like LM35 gives output in —",
-    options: ["Ohms", "Volts", "Amperes", "Bits"],
-    answer: 1,
-    explanation: "LM35 gives 10 mV per °C output"
-  },
-  {
-    q: "A PIR sensor detects —",
-    options: ["Temperature", "Motion", "Light", "Distance"],
-    answer: 1,
-    explanation: "PIR = Passive Infrared Sensor, detects movement of heat-emitting objects"
-  },
-  {
-    q: "Convert (1001)₂ to decimal:",
-    options: ["9", "7", "5", "11"],
-    answer: 0,
-    explanation: "1×2^3 + 0×2^2 + 0×2^1 + 1×2^0 = 9"
-  },
-  {
-    q: "(65)₁₀ = ? (in hexadecimal)",
-    options: ["40", "41", "42", "43"],
-    answer: 1,
-    explanation: "65 ÷ 16 = 4 remainder 1 → (41)₁₆"
-  },
-  {
-    q: "1’s complement of (101100)₂ is —",
-    options: ["010011", "101101", "001101", "110011"],
-    answer: 0,
-    explanation: "In 1’s complement, change all 1→0 and 0→1"
-  },
-  {
-    q: "Which logic gate gives output 1 only when all inputs are 1?",
-    options: ["OR", "NOR", "AND", "XOR"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "In a 3-variable K-map, how many cells are there?",
-    options: ["4", "6", "8", "16"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "The Boolean expression of an OR gate is —",
-    options: ["A + B", "A·B", "A’B", "A⊕B"],
-    answer: 0,
-    explanation: ""
-  },
-  {
-    q: "Simplify: A + A·B = ?",
-    options: ["AB", "A", "B", "A + B"],
-    answer: 1,
-    explanation: "Using absorption law: A + AB = A"
-  },
-  {
-    q: "(256)₁₀ = ? (in binary)",
-    options: ["11111111", "100000000", "10101010", "11000000"],
-    answer: 1,
-    explanation: "2^8 = 256 → 1 followed by 8 zeros"
-  },
-  {
-    q: "The minimal form of A’B + AB’ is —",
-    options: ["A⊕B", "A+B", "A·B", "(A+B)’"],
-    answer: 0,
-    explanation: "XOR definition"
-  },
-  {
-    q: "K-map is mainly used for —",
-    options: ["Designing CPUs", "Minimizing logic expressions", "Multiplying binary numbers", "Programming microcontrollers"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "Which logic gate gives output 1 only when inputs are different?",
-    options: ["AND", "OR", "XOR", "NOR"],
-    answer: 2,
-    explanation: "XOR = 1 when inputs are unequal"
-  },
-  {
-    q: "The output of NOR gate is the complement of —",
-    options: ["AND gate", "OR gate", "XOR gate", "NAND gate"],
-    answer: 1,
-    explanation: "NOR = NOT(OR)"
-  },
-  {
-    q: "The Boolean expression of a NAND gate is —",
-    options: ["(A + B)’", "(A·B)’", "(A’ + B)", "(A + B’)"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "A logic circuit that gives a HIGH output only when all inputs are LOW is —",
-    options: ["OR", "AND", "NOR", "NAND"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Which law is represented by the equation A + A’B = A + B?",
-    options: ["Demorgan’s Law", "Distributive Law", "Absorption Law", "Associative Law"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "What is the output of A + \\bar{A}B?",
-    options: ["B", "A", "A + B", "AB"],
-    answer: 2,
-    explanation: ""
-  },
-  {
-    q: "Simplify A\\bar{B} + AB",
-    options: ["A", "B", "A ⊕ B", "\\bar{B}"],
-    answer: 0,
-    explanation: "A(\\bar{B} + B) = A"
-  },
-  {
-    q: "Which logic gate has the output expression Y = \\bar{A} + \\bar{B}?",
-    options: ["AND", "NOR", "NAND", "OR"],
-    answer: 2,
-    explanation: "Y = (A·B)’ = \\bar{A} + \\bar{B}"
-  },
-  {
-    q: "Which one of the following gates is called a “universal gate”?",
-    options: ["AND", "OR", "XOR", "NAND"],
-    answer: 3,
-    explanation: ""
+  // --- UNIT 4: BIODIVERSITY ---
+  {
+    q: "The term biodiversity is derived from:",
+    options: ["Life + Variety", "Bio + Ecology", "Bio + Diversity", "Bio + Life"],
+    answer: 2, // Bio + Diversity
+    explanation: "It is a contraction of 'Biological Diversity'."
+  },
+  {
+    q: "“Bio” refers to:",
+    options: ["Earth", "Living organisms", "Nature", "Ecosystem"],
+    answer: 1, // Living organisms
+    explanation: "In biological contexts, 'Bio' means life or living organisms."
+  },
+  {
+    q: "Biodiversity includes variability among organisms from:",
+    options: ["Marine ecosystems only", "Terrestrial ecosystems only", "Terrestrial, marine and other ecosystems", "Forest ecosystems only"],
+    answer: 2, // Terrestrial, marine...
+    explanation: "It encompasses all forms of life across all types of ecosystems."
+  },
+  {
+    q: "The term “Biodiversity” was coined by:",
+    options: ["Lovejoy", "Norman Myers", "Walter G. Rosen", "IUCN"],
+    answer: 2, // Walter G. Rosen
+    explanation: "Walter G. Rosen coined the term 'Biodiversity' in 1985."
+  },
+  {
+    q: "Biodiversity term was coined in the year:",
+    options: ["1992", "1980", "1998", "1985"],
+    answer: 3, // 1985
+    explanation: "It was introduced by Walter Rosen in 1985/1986 during a forum."
+  },
+  {
+    q: "“Biological Diversity” term was introduced by:",
+    options: ["Myers", "Lovejoy", "Rosen", "Haeckel"],
+    answer: 1, // Lovejoy
+    explanation: "Thomas Lovejoy introduced the term 'Biological Diversity' in 1980."
+  },
+  {
+    q: "Convention on Biological Diversity took place in:",
+    options: ["Kyoto (1997)", "Stockholm (1972)", "Rio Earth Summit (1992)", "Paris (2015)"],
+    answer: 2, // Rio Earth Summit
+    explanation: "The CBD was a key agreement signed at the Rio Earth Summit in 1992."
+  },
+  {
+    q: "India accounts for how much world land area?",
+    options: ["7%", "2.4%", "1.5%", "5%"],
+    answer: 1, // 2.4%
+    explanation: "India covers about 2.4% of the world's total geographic land area."
+  },
+  {
+    q: "India contributes approximately how much of world species?",
+    options: ["2–3%", "4–5%", "7–8%", "10–12%"],
+    answer: 2, // 7–8%
+    explanation: "Despite small land area, India harbors about 7-8% of all recorded species."
+  },
+  {
+    q: "Number of plant species in India is about:",
+    options: ["45,000", "25,000", "65,000", "35,000"],
+    answer: 0, // 45,000
+    explanation: "India has a rich flora with approximately 45,000 recorded plant species."
+  },
+  {
+    q: "India ranks ______ among plant-rich countries:",
+    options: ["6th", "8th", "12th", "10th"],
+    answer: 3, // 10th
+    explanation: "India is ranked 10th in the world for plant diversity."
+  },
+  {
+    q: "India ranks 11th in:",
+    options: ["Endemic mammals", "Agricultural crops", "Endemic higher vertebrates", "Total species"],
+    answer: 2, // Endemic higher vertebrates
+    explanation: "India holds a high rank for endemic higher vertebrates (animals with backbones found only in India)."
+  },
+  {
+    q: "Mega-biodiverse countries were identified by:",
+    options: ["Conservation International", "WHO", "UNEP", "IUCN"],
+    answer: 0, // Conservation International
+    explanation: "Conservation International identified 17 megadiverse countries that hold the majority of Earth's species."
+  },
+  {
+    q: "Mega-biodiverse countries contain about:",
+    options: ["60% of biodiversity", "50% of biodiversity", "70% of biodiversity", "40% of biodiversity"],
+    answer: 2, // 70%
+    explanation: "These 17 countries shelter about 70% of the world's biodiversity."
+  },
+  {
+    q: "Year of identification of mega-biodiverse countries:",
+    options: ["1985", "1992", "2001", "1998"],
+    answer: 3, // 1998
+    explanation: "The concept was developed in 1998."
+  },
+  {
+    q: "Total biogeographic zones of India are:",
+    options: ["12", "9", "10", "8"],
+    answer: 2, // 10
+    explanation: "India is divided into 10 distinct biogeographic zones based on climate and geography."
+  },
+  {
+    q: "Andaman, Nicobar and Lakshadweep fall under:",
+    options: ["Islands", "Coasts", "Deccan plateau", "Gangetic plains"],
+    answer: 0, // Islands
+    explanation: "These are island groups and form the 'Islands' biogeographic zone."
+  },
+  {
+    q: "Western Ghats belong to:",
+    options: ["Himalayan zone", "Western Ghat zone", "Coastal zone", "Semi-arid zone"],
+    answer: 1, // Western Ghat zone
+    explanation: "The Western Ghats form their own distinct biodiversity-rich zone."
+  },
+  {
+    q: "Variation among genes of same species is:",
+    options: ["Species diversity", "Ecosystem diversity", "Genetic diversity", "Habitat diversity"],
+    answer: 2, // Genetic diversity
+    explanation: "Genetic diversity refers to the variety of genes within a single species."
+  },
+  {
+    q: "Diversity among species in a given area is:",
+    options: ["Community", "Ecosystem", "Genetic", "Species"],
+    answer: 3, // Species
+    explanation: "Species diversity is the number of different species present in a specific location."
+  },
+  {
+    q: "Diversity of habitats is called:",
+    options: ["Population diversity", "Ecosystem diversity", "Genetic diversity", "Species diversity"],
+    answer: 1, // Ecosystem diversity
+    explanation: "Ecosystem diversity refers to the variety of different habitats or ecosystems in a region."
   },
-  {
-    q: "The truth table of an AND gate shows output 1 for —",
-    options: ["All inputs = 0", "Any one input = 1", "All inputs = 1", "Alternate 1 and 0"],
-    answer: 2,
-    explanation: ""
+  {
+    q: "Silk is obtained from:",
+    options: ["Goat", "Insects", "Silk worm", "Sheep"],
+    answer: 2, // Silk worm
+    explanation: "Silk is a natural fiber produced by the silkworm insect."
+  },
+  {
+    q: "Prevention of floods and soil erosion comes under:",
+    options: ["Aesthetic value", "Productive value", "Ecological service", "Ethical value"],
+    answer: 2, // Ecological service
+    explanation: "These are indirect benefits (services) provided by a healthy ecosystem."
+  },
+  {
+    q: "Fossil fuels are products of:",
+    options: ["Species diversity", "Fossilized biodiversity", "Modern biodiversity", "Genetic diversity"],
+    answer: 1, // Fossilized biodiversity
+    explanation: "Fossil fuels are formed from the remains of ancient organisms (biodiversity) over millions of years."
+  },
+  {
+    q: "About how much world population depends on plant-based medicine?",
+    options: ["25%", "60%", "75%", "40%"],
+    answer: 2, // 75%
+    explanation: "According to WHO, about 75-80% of the world's population relies on traditional plant-based medicines."
+  },
+  {
+    q: "Biodiversity hotspot concept was given by:",
+    options: ["Rosen", "IUCN", "Norman Myers", "Lovejoy"],
+    answer: 2, // Norman Myers
+    explanation: "Norman Myers introduced the concept in 1988 to identify priority areas for conservation."
+  },
+  {
+    q: "Year of hotspot concept:",
+    options: ["1985", "1988", "1992", "1980"],
+    answer: 1, // 1988
+    explanation: "The seminal paper by Norman Myers was published in 1988."
+  },
+  {
+    q: "Number of biodiversity hotspots in the world:",
+    options: ["36", "30", "25", "34"],
+    answer: 0, // 36
+    explanation: "There are currently 36 recognized biodiversity hotspots globally."
+  },
+  {
+    q: "Indian biodiversity hotspots include:",
+    options: ["Himalayas", "Indo-Burma", "All of the above", "Western Ghats"],
+    answer: 2, // All of the above
+    explanation: "India has 4 hotspots: Himalayas, Indo-Burma, Western Ghats, and Sundaland (Nicobar)."
+  },
+  {
+    q: "Red Data Book is maintained by:",
+    options: ["WHO", "WWF", "UNEP", "IUCN"],
+    answer: 3, // IUCN
+    explanation: "The IUCN (International Union for Conservation of Nature) compiles the Red List of threatened species."
+  },
+  {
+    q: "Red colour in Red Data Book indicates:",
+    options: ["Rare species", "Vulnerable species", "Extinct species", "Critically endangered species"],
+    answer: 3, // Critically endangered
+    explanation: "Red pages symbolize high risk, typically Critically Endangered or Endangered species."
+  },
+  {
+    q: "Black colour indicates:",
+    options: ["Extinct", "Vulnerable", "Rare", "Endangered"],
+    answer: 0, // Extinct
+    explanation: "Black pages in the Red Data Book are used for species that are confirmed Extinct."
   },
   {
-    q: "If I = 0.5 A and R = 10 Ω, then V = ?",
-    options: ["2.5 V", "5 V", "10 V", "20 V"],
-    answer: 1,
-    explanation: "V = IR = 0.5 × 10 = 5 V"
+    q: "Total IUCN categories are:",
+    options: ["7", "10", "9", "8"],
+    answer: 1, // 9
+    explanation: "There are 9 categories ranging from 'Not Evaluated' to 'Extinct'."
   },
   {
-    q: "A resistor of 100 Ω carries 0.2 A current. Find power.",
-    options: ["2 W", "4 W", "1 W", "0.5 W"],
-    answer: 2,
-    explanation: "P = I^2 × R = 0.2^2 × 100 = 4 W? Correction: P = 0.2^2×100 = 4 → Actually 4 W"
+    q: "Species on verge of extinction are:",
+    options: ["Endemic", "Endangered", "Vulnerable", "Rare"],
+    answer: 1, // Endangered
+    explanation: "Endangered species face a very high risk of extinction in the wild."
   },
   {
-    q: "A 12 V battery supplies current 3 A for 2 hours. Energy consumed = ?",
-    options: ["72 Wh", "24 Wh", "36 Wh", "18 Wh"],
-    answer: 0,
-    explanation: "E = V × I × t = 12 × 3 × 2 = 72 Wh"
+    q: "Black buck is also known as:",
+    options: ["Chinkara", "Nilgai", "Kala hiran", "Barasingha"],
+    answer: 2, // Kala hiran
+    explanation: "In Hindi, the Blackbuck is commonly called 'Kala Hiran'."
   },
   {
-    q: "If V = 5V and I = 0.25A, find R.",
-    options: ["10 Ω", "15 Ω", "20 Ω", "25 Ω"],
-    answer: 2,
-    explanation: "R = V/I = 5 / 0.25 = 20 Ω"
+    q: "Vulnerable species are mainly affected due to:",
+    options: ["Climate change", "Overpopulation", "Habitat loss", "Migration"],
+    answer: 2, // Habitat loss
+    explanation: "Loss of natural habitat is the primary threat driving species towards vulnerability."
   },
   {
-    q: "For a half-wave rectifier, if input = 10 V (rms), output DC voltage ≈ ?",
-    options: ["3.18 V", "6.36 V", "7.07 V", "9 V"],
-    answer: 0,
-    explanation: "V_dc = 0.318 × V_m, V_m = 10 × √2 = 14.14 → 0.318×10 = 3.18V"
-  },
-  {
-    q: "For a full-wave rectifier with V_m = 20V, DC output ≈ ?",
-    options: ["6.36 V", "12.7 V", "18 V", "20 V"],
-    answer: 1,
-    explanation: "V_dc = 0.636 × V_m = 0.636 × 20 = 12.72 V"
-  },
-  {
-    q: "A diode conducts when —",
-    options: ["Reverse biased", "Forward biased", "No bias", "Both"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "If a 220 V AC source has frequency 50 Hz, its time period is —",
-    options: ["0.01 s", "0.02 s", "0.05 s", "0.5 s"],
-    answer: 1,
-    explanation: "T = 1/f = 1/50 = 0.02 s"
-  },
-  {
-    q: "An AC voltage V = 50 sin(100πt). Find frequency.",
-    options: ["25 Hz", "50 Hz", "100 Hz", "150 Hz"],
-    answer: 1,
-    explanation: "ω = 100π → f = ω / 2π = 50 Hz"
-  },
-  {
-    q: "Calculate the impedance of a series circuit with R = 8Ω, X_L = 6Ω.",
-    options: ["2 Ω", "8 Ω", "10 Ω", "14 Ω"],
-    answer: 2,
-    explanation: "Z = √(R^2 + X_L^2) = √(8^2 + 6^2) = 10 Ω"
-  },
-  {
-    q: "Input: 110 V AC across R=8Ω, L=20 H, C=14 μF. Find approximate impedance magnitude.",
-    options: ["40.8 Ω", "408 Ω", "490 Ω", "800 Ω"],
-    answer: 0,
-    explanation: "Z ≈ 40.8 Ω as per RLC formula"
-  },
-  {
-    q: "Arduino Uno has analog resolution of —",
-    options: ["8-bit", "10-bit", "12-bit", "16-bit"],
-    answer: 1,
-    explanation: "Converts 0–5V → 0–1023 levels"
-  },
-  {
-    q: "A 5 V Arduino pin outputs 20 mA. Power delivered = ?",
-    options: ["50 mW", "100 mW", "0.1 W", "1 W"],
-    answer: 0,
-    explanation: "P = V×I = 5×0.02 = 0.1 W = 100 mW"
-  },
-  {
-    q: "LED forward voltage drop = 2 V, resistor = 330 Ω, supply = 5 V. Find current.",
-    options: ["5 mA", "9 mA", "12 mA", "15 mA"],
-    answer: 1,
-    explanation: "I = (5-2)/330 = 9 mA"
-  },
-  {
-    q: "The frequency of output waveform from Arduino tone(pin,1000) is —",
-    options: ["100 Hz", "1 kHz", "10 kHz", "1000 Hz"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "For a 4-input AND gate, output is HIGH when —",
-    options: ["Any input is HIGH", "All inputs HIGH", "One input LOW", "None"],
-    answer: 1,
-    explanation: ""
-  },
-  {
-    q: "Power dissipated in a 5 Ω resistor with 2 A current = ?",
-    options: ["5 W", "10 W", "15 W", "20 W"],
-    answer: 3,
-    explanation: "P = I^2 R = 2^2 × 5 = 20 W"
-  },
-  {
-    q: "If 12 V DC is applied across 6 Ω resistor, find current.",
-    options: ["1 A", "2 A", "3 A", "4 A"],
-    answer: 1,
-    explanation: "I = V/R = 12/6 = 2 A"
-  },
-  {
-    q: "In an RC circuit, R=10 kΩ, C=100 μF. Find time constant.",
-    options: ["0.1 s", "0.5 s", "1 s", "2 s"],
-    answer: 2,
-    explanation: "τ = RC = 10,000 × 100×10⁻⁶ = 1 s"
-  },
-  {
-    q: "When a diode has V_p = 0.7 V and input = 5 V, output = ?",
-    options: ["0.7 V", "4.3 V", "5.7 V", "0 V"],
-    answer: 1,
-    explanation: "Output = V_in - V_drop = 5 - 0.7 = 4.3 V"
-  },{q:"Full-wave rectifier converts:", options:["AC to DC","DC to AC","AC to AC","DC to DC"], answer:0, explanation:"Full-wave rectifier converts AC to DC by inverting negative half-cycles."},
-  {q:"RMS value of sinusoidal AC voltage Vpeak=10V is:", options:["7.07 V","5 V","10 V","3.18 V"], answer:0, explanation:"Vrms = Vpeak / √2 ≈ 10/1.414 ≈ 7.07 V"},
-  {q:"Ohm’s law is:", options:["V = I × R","P = VI","I = V / R²","V = I / R"], answer:0, explanation:"Ohm’s law states V = I × R."},
-  {q:"Which Arduino function runs once at start?", options:["loop()","setup()","pinMode()","analogRead()"], answer:1, explanation:"setup() executes once when Arduino starts."},
-  {q:"Which resistor changes resistance with light?", options:["LDR","Photodiode","Ultrasonic Sensor","IR Sensor"], answer:0, explanation:"LDR decreases resistance when light intensity increases."},
-  {q:"1’s complement of 1101 is:", options:["0010","1101","1111","0000"], answer:0, explanation:"Invert all bits to get 1’s complement → 0010."},
-  {q:"2’s complement of 0110 is:", options:["1010","1001","0101","0110"], answer:1, explanation:"Invert 0110 → 1001, add 1 → 1010."},
-  {q:"Boolean simplification of AB + A'B is:", options:["B","A","A + B","A'B"], answer:0, explanation:"AB + A'B = B (Consensus theorem)."},
-  {q:"Common-Emitter transistor configuration is mainly used for:", options:["Voltage amplification","Current amplification","Both voltage and current amplification","Switching only"], answer:2, explanation:"CE provides both voltage and current gain."},
-  {q:"Which K-map cell corresponds to minterm A'B'C?", options:["000","001","010","011"], answer:1, explanation:"Binary 001 corresponds to A'B'C."},
-  {q:"Which logic gate outputs HIGH only when all inputs are HIGH?", options:["AND","OR","NAND","XOR"], answer:0, explanation:"AND gate outputs 1 only when all inputs are 1."},
-  {q:"Which logic gate outputs LOW only when all inputs are HIGH?", options:["AND","OR","NAND","NOR"], answer:2, explanation:"NAND outputs 0 when all inputs are HIGH."},
-  {q:"Arduino analogWrite(pin,value) is used for:", options:["PWM output","Set digital HIGH","Read analog voltage","Configure pin"], answer:0, explanation:"analogWrite generates PWM signals on pins."},
-  {q:"Which sensor detects obstacle using infrared?", options:["IR sensor","Ultrasonic sensor","LDR","Photodiode"], answer:0, explanation:"IR sensor detects objects using reflected IR light."},
-  {q:"Which sensor detects light intensity?", options:["IR sensor","LDR","Ultrasonic sensor","Photodiode"], answer:1, explanation:"LDR resistance decreases when light intensity increases."},
-  {q:"Gray code changes how many bits between consecutive numbers?", options:["One bit","Two bits","Three bits","All bits"], answer:0, explanation:"Gray code ensures only one bit changes between successive numbers."},
-  {q:"Full-wave bridge rectifier requires how many diodes?", options:["4","2","3","1"], answer:0, explanation:"A full-wave bridge rectifier uses 4 diodes."},
-  {q:"Transistor acts as switch in:", options:["Cut-off and saturation","Active mode","Reverse bias only","Breakdown region"], answer:0, explanation:"Switching occurs in cut-off (OFF) and saturation (ON) states."},
-  {q:"Voltage across resistor in series circuit V=10V, R1=2Ω,R2=3Ω. Current?", options:["2 A","1 A","5 A","10 A"], answer:0, explanation:"I = V/(R1+R2) = 10/5 = 2A."},
-  {q:"Voltage across R2=3Ω in above series circuit?", options:["6 V","4 V","3 V","5 V"], answer:1, explanation:"V=I*R2=2*3=6V → Correct answer index=1 (6 V)"},
-  {q:"NPN transistor current flows from:", options:["Collector to emitter","Emitter to collector","Base to emitter","Base to collector"], answer:0, explanation:"In NPN, current flows from collector to emitter when forward biased."},
-  {q:"Depletion region in PN junction acts as:", options:["Barrier to carrier flow","Conductor","Capacitor only","Resistor"], answer:0, explanation:"It prevents current under reverse bias by forming barrier."},
-  {q:"Boolean simplification: A + AB =", options:["A","B","AB","A+B"], answer:0, explanation:"A + AB = A (Absorption Law)"},
-  {q:"Boolean simplification: A(A + B) =", options:["A","B","AB","A + B"], answer:0, explanation:"A(A+B)=A (Absorption Law)"},
-  {q:"1’s complement of 1010 is:", options:["0101","1010","1111","0000"], answer:0, explanation:"Invert all bits → 0101"},
-  {q:"2’s complement of 1010 is:", options:["0110","0101","1001","1011"], answer:0, explanation:"2’s complement: invert +1 → 0101+1=0110"},
-  {q:"Analog signal characteristic:", options:["Continuous in time and amplitude","Discrete in time and amplitude","Discrete in amplitude only","Continuous in amplitude only"], answer:0, explanation:"Analog signals vary continuously in time and amplitude."},
-  {q:"Digital signal characteristic:", options:["Discrete in time and amplitude","Continuous in amplitude","Continuous in time","None"], answer:0, explanation:"Digital signals have discrete levels."},
-  {q:"IR receiver is used to:", options:["Receive infrared signals","Measure temperature","Detect light intensity","Measure distance"], answer:0, explanation:"IR receiver detects modulated infrared signals."},
-  {q:"Photodiode converts:", options:["Light to current","Sound to voltage","Pressure to current","Heat to voltage"], answer:0, explanation:"Photodiode generates current when exposed to light."},
-  {q:"Arduino loop() function:", options:["Runs repeatedly","Runs once","Sets pin mode","Reads analog input"], answer:0, explanation:"loop() runs repeatedly after setup() execution."},
-  {q:"Transistor Common-Collector configuration:", options:["High input, low output impedance","Low input, high output impedance","Low input, low output impedance","High input, high output impedance"], answer:0, explanation:"Common-Collector has high input and low output impedance."},
-  {q:"Boolean SOP stands for:", options:["Sum of products","Product of sums","Sum of sums","Product of products"], answer:0, explanation:"SOP = Sum of Products"},
-  {q:"Boolean POS stands for:", options:["Product of sums","Sum of products","Product of products","Sum of sums"], answer:0, explanation:"POS = Product of Sums"},
-  {q:"K-map is mainly used for:", options:["Boolean expression minimization","Voltage measurement","Current measurement","Sensor calibration"], answer:0, explanation:"K-map simplifies Boolean expressions."},
-  {q:"Transistor Common-Base configuration has:", options:["Low input impedance","High input impedance","High output impedance","Low output impedance"], answer:0, explanation:"CB configuration has low input impedance."},
-  {q:"Which logic gate is universal?", options:["NAND & NOR","AND & OR","XOR & XNOR","AND & NAND"], answer:0, explanation:"NAND and NOR gates can implement any logic function."},
-  {q:"Full-wave rectifier with center tap requires how many diodes?", options:["2","4","1","3"], answer:0, explanation:"Center-tap full-wave rectifier uses 2 diodes."},
-  {q:"AC voltage Vpeak=10V, RMS value:", options:["7.07 V","5 V","10 V","3.18 V"], answer:0, explanation:"Vrms = Vpeak/√2 ≈ 7.07 V"},
-  {q:"DC voltage from full-wave rectifier Vrms=10V:", options:["8.99 V","5 V","10 V","7.07 V"], answer:0, explanation:"Vdc ≈ 0.9 * Vrms ≈ 8.99 V"},
-  {q:"Arduino function to set pin LOW:", options:["digitalWrite(pin,LOW)","digitalRead(pin)","analogWrite(pin)","pinMode()"], answer:0, explanation:"digitalWrite(pin,LOW) sets pin to 0V."},
-  {q:"Boolean simplification: A'B + AB =", options:["B","A","AB","A'B"], answer:0, explanation:"AB + A'B = B (Consensus theorem)."},
-  {q:"Boolean simplification: AB + AB' =", options:["A","B","AB","A + B"], answer:0, explanation:"AB + AB' = A (Consensus theorem)."},
-  {q:"1’s complement of 1110 is:", options:["0001","1110","1111","0000"], answer:0, explanation:"Invert all bits → 0001"},
-  {q:"2’s complement of 1110 is:", options:["0010","0001","1101","1110"], answer:0, explanation:"Invert +1: 0001 +1 = 0010"},
-  {q:"Ultrasonic sensor measures:", options:["Distance","Light intensity","Current","Temperature"], answer:0, explanation:"It measures distance using ultrasonic waves."},
-  {q:"Arduino pinMode(pin,OUTPUT) sets:", options:["Pin as output","Pin as input","Pin as analog","Pin as PWM"], answer:0, explanation:"Configures pin for digital output."},
-  {q:"K-map cell for minterm A'BC'", options:["010","011","000","001"], answer:0, explanation:"Binary 010 corresponds to A'BC'."},
-  {q:"IR sensor mainly detects:", options:["Obstacles","Temperature","Light intensity","Distance with sound"], answer:0, explanation:"IR sensor detects obstacles via infrared reflection."},
-  {q:"Photodiode output is:", options:["Current","Voltage","Resistance","Capacitance"], answer:0, explanation:"It generates current when exposed to light."},
-  {q:"Logic gate XOR outputs 1 when:", options:["Odd number of 1s","All 1s","All 0s","Even number of 1s"], answer:0, explanation:"XOR outputs 1 when number of 1s is odd."},
-  {q:"NPN transistor emitter is:", options:["Negative terminal","Positive terminal","Neutral","Depends on bias"], answer:0, explanation:"Emitter of NPN emits electrons (negative carriers)."},
-  {q:"Arduino analogRead(pin) reads:", options:["Analog voltage 0-5V","Digital HIGH/LOW","PWM value","Resistance"], answer:0, explanation:"analogRead reads voltage between 0-5V."},
-  {q:"Voltage across resistor in series R1=2Ω, R2=3Ω, V=10V, current I?", options:["2 A","1 A","5 A","10 A"], answer:0, explanation:"I = V / (R1+R2) = 10/5 = 2 A."},
-  {q:"Voltage across R2=3Ω in above circuit?", options:["4 V","6 V","5 V","3 V"], answer:1, explanation:"V=I*R2=2*3=6V"},
-  {q:"Which Arduino pin supports PWM?", options:["Digital pins with ~","All analog pins","All digital pins","Only pin 13"], answer:0, explanation:"Pins with ~ can generate PWM signals."},
-  {q:"Boolean simplification: A + A'B + AB =", options:["A + B","B","A","AB"], answer:0, explanation:"A + A'B + AB = A + B"},
-  {q:"Full-wave rectifier output waveform is:", options:["Both halves positive","Only positive half","Only negative half","DC constant"], answer:0, explanation:"Both halves of AC are rectified to positive."}
-];
-// end QUESTIONS array
-
-/* 300 QUESTIONS: We created 300 items above. */
-
-/* ============== App State ============== */
-/* If you paste the full 300 questions, make sure to update totalQ below automatically. */
-
-const totalQ = QUESTIONS.length || 300;
-document.getElementById('totalQ').innerText = totalQ;
-document.getElementById('badgeCount').innerText = totalQ + " Qs";
-
-/* ============== App State ============== */
-let state = {
-  current: 0,
-  answers: Array(totalQ).fill(null), // user's selected index
-  answeredCorrect: Array(totalQ).fill(false),
-  started: false,
-  startTime: null,
-  elapsedSec: 0,
-  timerInterval: null,
-  idleTimer: null
-};
-
-/* ============== DOM refs ============== */
-const startPage = document.getElementById('startPage');
-const testPage = document.getElementById('testPage');
-const inpName = document.getElementById('inpName');
-const inpReg = document.getElementById('inpReg');
-const inpPic = document.getElementById('inpPic');
-const imgPreview = document.getElementById('imgPreview');
-const btnStart = document.getElementById('btnStart');
-const btnResetStart = document.getElementById('btnResetStart');
-const startErrors = document.getElementById('startErrors');
-
-const showName = document.getElementById('showName');
-const showReg = document.getElementById('showReg');
-const userPicSmall = document.getElementById('userPicSmall');
-const showUser = document.getElementById('showUser');
-
-const timeTop = document.getElementById('timeTop');
-const topCorrect = document.getElementById('topCorrect');
-const topWrong = document.getElementById('topWrong');
-const topProgress = document.getElementById('topProgress');
-const topAttempted = document.getElementById('topAttempted');
-const topQno = document.getElementById('topQno');
-
-const questionText = document.getElementById('questionText');
-const optionsBox = document.getElementById('optionsBox');
-const explainBox = document.getElementById('explainBox');
-const btnPrev = document.getElementById('btnPrev');
-const btnNext = document.getElementById('btnNext');
-const btnShowExplain = document.getElementById('btnShowExplain');
-const btnEndTestTop = document.getElementById('btnEndTestTop');
-
-const curQ = document.getElementById('curQ');
-const correctCountEl = document.getElementById('correctCount');
-const wrongCountEl = document.getElementById('wrongCount');
-const attemptedCountEl = document.getElementById('attemptedCount');
-const timeSpentEl = document.getElementById('timeSpent');
-const scoreInline = document.getElementById('scoreInline');
-const progressPercent = document.getElementById('progressPercent');
-
-const btnSave = document.getElementById('btnSave');
-const btnExport = document.getElementById('btnExport');
-
-const modalRoot = document.getElementById('modalRoot');
-
-/* ============== Helpers ============== */
-function formatTime(sec){
-  const m = Math.floor(sec/60).toString().padStart(2,'0');
-  const s = (sec%60).toString().padStart(2,'0');
-  return `${m}:${s}`;
-}
-function updateTopStatus(){
-  const attempted = state.answers.filter(a=>a!==null).length;
-  const correct = state.answeredCorrect.filter(x=>x).length;
-  const wrong = attempted - correct;
-  topCorrect.innerText = correct;
-  topWrong.innerText = wrong;
-  topAttempted.innerText = attempted;
-  topProgress.innerText = `${Math.round((correct/totalQ)*100)}%`;
-  topQno.innerText = `${state.current+1}/${totalQ}`;
-  // right side small summary
-  correctCountEl.innerText = correct;
-  wrongCountEl.innerText = wrong;
-  attemptedCountEl.innerText = attempted;
-  scoreInline.innerText = correct;
-  curQ.innerText = state.current + 1;
-  progressPercent.innerText = `${Math.round((correct/totalQ)*100)}%`;
-}
-function startTimer(){
-  if(state.timerInterval) return;
-  state.startTime = Date.now() - (state.elapsedSec*1000);
-  state.timerInterval = setInterval(()=>{
-    state.elapsedSec = Math.floor((Date.now()-state.startTime)/1000);
-    timeTop.innerText = formatTime(state.elapsedSec);
-    timeSpentEl.innerText = formatTime(state.elapsedSec);
-  },1000);
-}
-function stopTimer(){
-  if(state.timerInterval){ clearInterval(state.timerInterval); state.timerInterval = null; }
-}
-function resetIdleTimer(){
-  if(state.idleTimer) clearTimeout(state.idleTimer);
-  // show warning if no action for 60s
-  state.idleTimer = setTimeout(()=>{ showWarning("You're idle — please continue answering to use time well."); }, 60000);
-}
-function showWarning(text){
-  // small non-blocking toast modal that disappears
-  const toast = document.createElement('div');
-  toast.style.position='fixed'; toast.style.left='50%'; toast.style.transform='translateX(-50%)'; toast.style.bottom='22px';
-  toast.style.background='rgba(0,0,1,0.8)'; toast.style.padding='12px 16px'; toast.style.borderRadius='10px'; toast.style.color='#fef'; toast.style.zIndex=9999;
-  toast.innerText = "⚠️ " + text;
-  document.body.appendChild(toast);
-  setTimeout(()=>{ toast.style.transition='opacity .4s'; toast.style.opacity='0'; setTimeout(()=>toast.remove(),400); }, 3000);
-}
-
-/* ============== Validation (start page) ============== */
-function validateName(v){
-  if(!v || !v.trim()) return false;
-  // allow letters, spaces, dot and hyphen optional; disallow digits
-  return /^[A-Za-z\s\.\-']+$/.test(v.trim());
-}
-function validateReg(v){
-  return /^\d{8}$/.test(v);
-}
-function checkStartInputs(){
-  const name = inpName.value.trim();
-  const reg = inpReg.value.trim();
-  let ok = true; startErrors.innerText = '';
-  if(!validateName(name)){ ok = false; startErrors.innerText = 'Name invalid: only letters, spaces allowed.'; }
-  else if(!validateReg(reg)){ ok = false; startErrors.innerText = 'Registration invalid: must be exactly 8 digits.'; }
-  btnStart.disabled = !ok;
-}
-
-/* image preview */
-inpPic.addEventListener('change', (e)=>{
-  const f = e.target.files && e.target.files[0];
-  if(!f){ imgPreview.style.display='none'; userPicSmall.style.display='none'; return; }
-  const url = URL.createObjectURL(f);
-  imgPreview.src = url; imgPreview.style.display='block';
-  userPicSmall.src = url; userPicSmall.style.display='block';
-});
-
-/* listen to inputs */
-inpName.addEventListener('input', checkStartInputs);
-inpReg.addEventListener('input', checkStartInputs);
-
-/* ============== Rendering ============== */
-function renderQuestion(idx){
-  resetIdleTimer();
-  const item = QUESTIONS[idx];
-  if(!item){
-    questionText.innerText = 'Question bank not loaded. Paste the QUESTIONS array into the file.';
-    optionsBox.innerHTML = '';
-    return;
-  }
-  questionText.innerHTML = `<span style="opacity:.9">${idx+1}.</span> <span style="margin-left:8px">${item.q}</span>`;
-  showName.innerText = inpName.value || '—';
-  showReg.innerText = inpReg.value || '—';
-  showUser.innerText = `${inpName.value || ''} • ${inpReg.value || ''}`;
-  explainBox.style.display = 'none'; explainBox.innerHTML = '';
-  optionsBox.innerHTML = '';
-
-  item.options.forEach((optText, i)=>{
-    const div = document.createElement('div');
-    div.className = 'option';
-    div.dataset.index = i;
-    div.innerHTML = `<div class="label"><strong>${String.fromCharCode(65+i)}</strong>. ${optText}</div><div class="explainTiny">Explain</div>`;
-    // answer click
-    div.addEventListener('click', (e)=>{
-      if(state.answers[idx] !== null) return; // locked
-      handleAnswer(idx, i);
-    });
-    // explain click
-    div.querySelector('.explainTiny').addEventListener('click', (ev)=>{ ev.stopPropagation(); showExplanation(idx); });
-    optionsBox.appendChild(div);
-  });
-
-  // if answered already, show colors
-  if(state.answers[idx] !== null){
-    const chosen = state.answers[idx];
-    const correct = QUESTIONS[idx].answer;
-    const all = optionsBox.querySelectorAll('.option');
-    all.forEach((od, i)=>{
-      od.classList.remove('correct','wrong');
-      if(i === correct) od.classList.add('correct');
-      if(i === chosen && chosen !== correct) od.classList.add('wrong');
-    });
-    explainBox.innerHTML = `<strong>Explanation:</strong><br>${item.explanation}<br><br><strong>Correct:</strong> ${String.fromCharCode(65+item.answer)}. ${item.options[item.answer]}`;
-    explainBox.style.display = 'none';
-  }
-
-  updateTopStatus();
-}
-
-/* ============== Answer Logic ============== */
-function handleAnswer(qIdx, choiceIdx){
-  // lock once selected
-  if(state.answers[qIdx] !== null) return;
-  state.answers[qIdx] = choiceIdx;
-  const correct = QUESTIONS[qIdx].answer;
-  const wasCorrect = (choiceIdx === correct);
-  state.answeredCorrect[qIdx] = wasCorrect;
-
-  // color options
-  const optDivs = optionsBox.querySelectorAll('.option');
-  optDivs.forEach((od, i)=>{
-    od.classList.remove('correct','wrong');
-    if(i === correct) od.classList.add('correct');
-    if(i === choiceIdx && choiceIdx !== correct) od.classList.add('wrong');
-  });
-
-  updateTopStatus();
-
-  // brief animation & then auto-next after 700ms
-  if(wasCorrect){
-    const correctEl = optionsBox.querySelector('.option.correct');
-    if(correctEl) correctEl.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}], {duration:450, iterations:1, easing:'ease-out'});
-  }
-
-  // small delay then go next (unless last)
-  setTimeout(()=>{
-    if(state.current < totalQ - 1){
-      state.current++;
-      renderQuestion(state.current);
-    } else {
-      // reached end - show modal summary
-      showSummaryModal();
-    }
-  }, 2000);
-}
-
-/* explanation */
-function showExplanation(idx){
-  const item = QUESTIONS[idx];
-  if(!item) return;
-  explainBox.style.display = 'block';
-  explainBox.innerHTML = `<strong>Explanation:</strong><br>${item.explanation}<br><br><strong>Correct:</strong> ${String.fromCharCode(65+item.answer)}. ${item.options[item.answer]}`;
-}
-
-/* ============== Controls ============== */
-btnStart.addEventListener('click', ()=>{
-  // validate again
-  const name = inpName.value.trim();
-  const reg = inpReg.value.trim();
-  if(!validateName(name) || !validateReg(reg)){ alert('Enter valid Name and 8-digit Registration number.'); return; }
-  if(!QUESTIONS || QUESTIONS.length === 0){ alert('Question bank empty. Paste QUESTIONS into the file.'); return; }
-
-  // save user to localStorage (temp)
-  const user = {name, reg, pic: null};
-  if(inpPic.files && inpPic.files[0]){
-    // read as data URL
-    const reader = new FileReader();
-    reader.onload = function(e){
-      user.pic = e.target.result;
-      startTest(user);
-    }
-    reader.readAsDataURL(inpPic.files[0]);
-  } else {
-    startTest(user);
-  }
-});
-function startTest(user){
-  // store last user
-  localStorage.setItem('ECE-249_user', JSON.stringify(user));
-  // show test page
-  startPage.style.display = 'none';
-  testPage.style.display = 'block';
-  if(user.pic){ userPicSmall.src = user.pic; userPicSmall.style.display='block'; }
-  showName.innerText = user.name; showReg.innerText = user.reg; showUser.innerText = `${user.name} • ${user.reg}`;
-  state.started = true; startTimer(); resetIdleTimer(); renderQuestion(state.current); updateTopStatus();
-}
-
-/* Prev/Next */
-btnPrev.addEventListener('click', ()=>{ if(state.current>0){ state.current--; renderQuestion(state.current); } resetIdleTimer();});
-btnNext.addEventListener('click', ()=>{ if(state.current < totalQ - 1){ state.current++; renderQuestion(state.current); } resetIdleTimer();});
-
-/* End Test */
-btnEndTestTop.addEventListener('click', ()=>{ if(!state.started){ alert('Test not started.'); return;} if(!confirm('End test now and save result?')) return; stopTimer(); saveResult(); showSummaryModal(); });
-
-/* Show explain */
-btnShowExplain.addEventListener('click', ()=>{ showExplanation(state.current); });
-
-/* Keyboard navigation */
-document.addEventListener('keydown', (e)=>{ if(e.key === 'ArrowRight') btnNext.click(); if(e.key === 'ArrowLeft') btnPrev.click(); });
-
-/* Reset start page */
-btnResetStart.addEventListener('click', ()=>{ if(confirm('Reset start form?')){ inpName.value=''; inpReg.value=''; inpPic.value=''; imgPreview.style.display='none'; checkStartInputs(); } });
-
-/* Save result to localStorage */
-function saveResult(){
-  const correct = state.answeredCorrect.filter(x=>x).length;
-  const attempted = state.answers.filter(a=>a!==null).length;
-  const user = JSON.parse(localStorage.getItem('ECE-249_user') || '{}');
-  const result = { name: user.name || inpName.value, reg: user.reg || inpReg.value, pic: user.pic || null, correct, attempted, time: formatTime(state.elapsedSec), date: (new Date()).toLocaleString() };
+    q: "Species restricted to a particular region are:",
+    options: ["Rare", "Endemic", "Vulnerable", "Endangered"],
+    answer: 1, // Endemic
+    explanation: "Endemic species are found in only one specific geographic location and nowhere else."
+  },
+  {
+    q: "Protection in natural habitat is:",
+    options: ["Ex-situ", "Genetic", "In-situ", "Artificial"],
+    answer: 2, // In-situ
+    explanation: "In-situ conservation protects species within their natural surroundings (e.g., National Parks)."
+  },
+  {
+    q: "Total national parks in India:",
+    options: ["106", "120", "90", "100"],
+    answer: 0, // 106
+    explanation: "As of recent data, there are 106 National Parks in India."
+  },
+  {
+    q: "Number of wildlife sanctuaries in India:",
+    options: ["650", "500", "573", "450"],
+    answer: 2, // 573
+    explanation: "There are over 570 wildlife sanctuaries in India (approx 573)."
+  },
+  {
+    q: "Number of biosphere reserves in India:",
+    options: ["12", "18", "25", "15"],
+    answer: 1, // 18
+    explanation: "India has 18 notified Biosphere Reserves."
+  },
+  {
+    q: "Human activity is completely prohibited in:",
+    options: ["Core zone", "Transition zone", "Restoration zone", "Buffer zone"],
+    answer: 0, // Core zone
+    explanation: "The Core zone of a biosphere reserve is strictly protected with no human activity allowed."
+  },
+  {
+    q: "Conservation outside natural habitat is:",
+    options: ["In-situ", "Ex-situ", "Artificial", "In-vivo"],
+    answer: 1, // Ex-situ
+    explanation: "Ex-situ conservation takes place outside the natural habitat, like in zoos or gene banks."
+  },
+  {
+    q: "Tissue culture is mainly used for:",
+    options: ["Plants", "Bacteria", "Animals", "Fungi"],
+    answer: 0, // Plants
+    explanation: "Tissue culture is a technique used to clone and propagate plants rapidly."
+  },
+  {
+    q: "Total zoological parks in India:",
+    options: ["180", "120", "155", "140"],
+    answer: 2, // 155
+    explanation: "There are around 155 recognized zoos in India."
+  },
+  {
+    q: "Main cause of man-wildlife conflict:",
+    options: ["Tourism", "Climate change", "Migration", "Shrinkage of habitat"],
+    answer: 3, // Shrinkage of habitat
+    explanation: "As human settlements expand into forests (habitat shrinkage), conflicts with wildlife increase."
+  },
+  {
+    q: "Corbett National Park is famous for:",
+    options: ["Elephants", "Man-eater leopards", "Crocodiles", "Tigers"],
+    answer: 3, // Tigers
+    explanation: "Jim Corbett National Park is the oldest national park in India, famous for its Bengal Tigers."
+  },
   
-  // 🔗 also save online
-  saveResultToSupabase(result); 
-
-  // const key = 'ECE-249_results';
-  // const arr = JSON.parse(localStorage.getItem(key) || '[]');
-  // arr.push(result);
-  // localStorage.setItem(key, JSON.stringify(arr));
-  // alert('Result saved locally.');
-}
-
-// 🌀 Small loader toast (for showing saving progress)
-
-function showLoader(msg, duration = 1500) {
-  const toast = document.createElement('div');
-  toast.style.position = 'fixed';
-  toast.style.left = '50%';
-  toast.style.transform = 'translateX(-50%)';
-  toast.style.bottom = '30px';
-  toast.style.background = 'rgba(0,0,0,0.8)';
-  toast.style.color = '#fff';
-  toast.style.padding = '12px 18px';
-  toast.style.borderRadius = '10px';
-  toast.style.fontSize = '14px';
-  toast.style.zIndex = 9999;
-  toast.innerText = msg;
-  document.body.appendChild(toast);
-  setTimeout(() => {
-    toast.style.transition = 'opacity .4s';
-    toast.style.opacity = '0';
-    setTimeout(() => toast.remove(), 400);
-  }, duration);
-}
-
-
-// // 🟢 Supabase Database Save (adds result to test_result table)
-// async function saveResultToSupabase(result) {
-//   try {
-//     // पहले check करो कि यह registration पहले से मौजूद तो नहीं है
-//     const { data: existing, error: fetchError } = await supabase
-//       .from('test_result')
-//       .select('reg')
-//       .eq('reg', result.reg);
-
-//     if (fetchError) throw fetchError;
-
-//     if (existing && existing.length > 0) {
-//       alert('⚠️ This registration number has already submitted a result!');
-//       return;
-//     }
-
-//     // Insert new result
-//     const { data, error } = await supabase
-//       .from('test_result')
-//       .insert([result]);
-
-//     if (error) throw error;
-
-//     alert('✅ Result saved to Supabase database!');
-//   } catch (err) {
-//     console.error('Supabase insert error:', err);
-//     alert('❌ Error saving result to Supabase.');
-//   }
-// }
-/* Export CSV for all saved results */
-
-// 🟢 Supabase Database Save (adds result to test_result table)
-async function saveResultToSupabase(result) {
-  try {
-    showLoader("⏳ Checking registration...");
-
-    // पहले check करो कि यह registration पहले से मौजूद तो नहीं है
-    const { data: existing, error: fetchError } = await supabase
-      .from('test_result')
-      .select('reg')
-      .eq('reg', result.reg);
-
-    if (fetchError) throw fetchError;
-
-    if (existing && existing.length > 0) {
-      showLoader("⚠️ Already submitted!", 2000);
-      alert('⚠️ This registration number has already submitted a result!');
-      return;
-    }
-
-    showLoader("💾 Saving your result...");
-
-    // Insert new result
-    const { data, error } = await supabase
-      .from('test_result')
-      .insert([result]);
-
-    if (error) throw error;
-
-    showLoader("✅ Saved successfully!", 1800);
-    alert('✅ Result saved to Aryan_data_base!');
-
-  } catch (err) {
-    console.error('Aryan_data_base insert error:', err);
-    showLoader("❌ Error saving result!", 2000);
-    alert('❌ Error saving result to Aryan_data_base.');
+  // --- UNIT 5: POLLUTION ---
+  {
+    q: "Pollutants are substances that:",
+    options: ["Improve environment", "Increase biodiversity", "Contaminate environment", "Reduce temperature"],
+    answer: 2, // Contaminate environment
+    explanation: "Pollutants are contaminants that cause adverse changes to the environment."
+  },
+  {
+    q: "Volcanoes and forest fires are:",
+    options: ["Secondary pollutants", "Natural pollutants", "Anthropogenic pollutants", "Persistent pollutants"],
+    answer: 1, // Natural pollutants
+    explanation: "These are natural sources of pollution, not caused by human activity."
+  },
+  {
+    q: "Biodegradable pollutants are:",
+    options: ["Radioactive", "Non-persistent", "Synthetic", "Persistent"],
+    answer: 1, // Non-persistent
+    explanation: "They break down naturally over time, so they are non-persistent."
+  },
+  {
+    q: "Pollution is an undesirable change in:",
+    options: ["Only physical properties", "Only biological properties", "Physical, chemical or biological properties", "Only chemical properties"],
+    answer: 2, // Physical, chemical...
+    explanation: "Pollution affects the physical, chemical, and biological characteristics of air, water, or soil."
+  },
+  {
+    q: "Which is NOT a type of pollution?",
+    options: ["Water", "Soil", "Genetic", "Air"],
+    answer: 2, // Genetic
+    explanation: "While genetic modification exists, 'Genetic pollution' is a specific term, but in general environmental contexts, Water, Soil, and Air are the standard types."
+  },
+  {
+    q: "Air pollution exists when atmospheric substances harm:",
+    options: ["Living beings or materials", "Plants only", "Humans only", "Materials only"],
+    answer: 0, // Living beings...
+    explanation: "Air pollution affects everything: human health, animals, plants, and infrastructure."
+  },
+  {
+    q: "Vehicular exhaust is a major source of:",
+    options: ["NH₃", "SO₂", "CO", "O₃"],
+    answer: 2, // CO
+    explanation: "Vehicles emit Carbon Monoxide (CO) due to incomplete combustion of fuel."
+  },
+  {
+    q: "Methane (CH₄) from microbes is a:",
+    options: ["Secondary pollutant", "Natural cause", "Man-made cause", "Indoor pollutant"],
+    answer: 1, // Natural cause
+    explanation: "Methane produced by microbes (e.g., in wetlands) is a natural emission."
+  },
+  {
+    q: "Bleaching of leaf pigment is caused by:",
+    options: ["NOx", "O₃", "SOx", "CO"],
+    answer: 2, // SOx
+    explanation: "Sulfur Oxides (SOx) damage plants, causing chlorophyll destruction (bleaching)."
+  },
+  {
+    q: "Greenhouse effect leads to:",
+    options: ["Ozone depletion", "Smog", "Acid rain", "Global warming"],
+    answer: 3, // Global warming
+    explanation: "Trapped heat causes the average global temperature to rise (Global Warming)."
+  },
+  {
+    q: "Indoor air pollution can be up to ___ times worse than outdoor:",
+    options: ["5", "2", "10", "20"],
+    answer: 2, // 10
+    explanation: "Due to lack of ventilation, indoor pollution can be 10x more concentrated than outdoors."
+  },
+  {
+    q: "Radon is a major:",
+    options: ["Indoor pollutant", "Particulate", "Secondary pollutant", "Outdoor pollutant"],
+    answer: 0, // Indoor pollutant
+    explanation: "Radon is a radioactive gas that can accumulate in homes (indoor pollution) from the ground."
+  },
+  {
+    q: "Asbestos is used as:",
+    options: ["Fertilizer", "Insulation", "Fuel", "Pesticide"],
+    answer: 1, // Insulation
+    explanation: "Asbestos was widely used in building insulation before its health risks were known."
+  },
+  {
+    q: "Primary pollutants are:",
+    options: ["Always gaseous", "Released directly", "Formed by reactions", "Always secondary"],
+    answer: 1, // Released directly
+    explanation: "Primary pollutants are emitted directly from a source (e.g., factory chimney)."
+  },
+  {
+    q: "Ozone is a:",
+    options: ["Natural pollutant", "Indoor pollutant", "Secondary pollutant", "Primary pollutant"],
+    answer: 2, // Secondary pollutant
+    explanation: "Ground-level ozone is formed by chemical reactions between other pollutants (NOx + VOCs), making it secondary."
+  },
+  {
+    q: "PAN stands for:",
+    options: ["Poly Aromatic Nitrogen", "Photo Active Nitrite", "Peroxy Acetyl Nitrate", "Particulate Air Nitrate"],
+    answer: 2, // Peroxy Acetyl Nitrate
+    explanation: "Peroxy Acetyl Nitrate (PAN) is a component of photochemical smog."
+  },
+  {
+    q: "CFCs mainly destroy:",
+    options: ["Stratospheric clouds", "Ionosphere", "Ozone layer", "Troposphere"],
+    answer: 2, // Ozone layer
+    explanation: "Chlorofluorocarbons break down ozone molecules in the upper atmosphere."
+  },
+  {
+    q: "NO₂ is responsible for:",
+    options: ["Eutrophication", "Blue baby syndrome", "Acid rain & smog", "Fluorosis"],
+    answer: 2, // Acid rain & smog
+    explanation: "Nitrogen Dioxide contributes to both Acid Rain and the formation of Smog."
+  },
+  {
+    q: "Fine particulate matter increases risk of:",
+    options: ["Skin disease", "Flu", "Eye infection", "Heart & lung disease"],
+    answer: 3, // Heart & lung disease
+    explanation: "PM2.5 particles are small enough to enter the bloodstream, affecting the heart and lungs."
+  },
+  {
+    q: "Which is NOT an APC device?",
+    options: ["Cyclone separator", "Bioreactor", "Bag filter", "Electrostatic precipitator"],
+    answer: 1, // Bioreactor
+    explanation: "A Bioreactor is for biological processes; the others are Air Pollution Control (APC) devices."
+  },
+  {
+    q: "Adsorption/absorption control is for:",
+    options: ["Gases", "Particulates", "Radiation", "Noise"],
+    answer: 0, // Gases
+    explanation: "These techniques are used to remove gaseous pollutants from air streams."
+  },
+  {
+    q: "AQI includes PM2.5 and:",
+    options: ["PM1", "PM10", "PM20", "PM5"],
+    answer: 1, // PM10
+    explanation: "AQI measures particulate matter of size 2.5 microns (PM2.5) and 10 microns (PM10)."
+  },
+  {
+    q: "CPCB AQI considers how many pollutants?",
+    options: ["6", "5", "8", "7"],
+    answer: 2, // 8
+    explanation: "India's CPCB AQI is calculated based on 8 parameters (PM10, PM2.5, NO2, SO2, CO, O3, NH3, Pb)."
+  },
+  {
+    q: "Minimum pollutants needed to calculate AQI:",
+    options: ["1", "5", "3", "2"],
+    answer: 2, // 3
+    explanation: "At least 3 parameters (one being PM) are usually required for a valid calculation."
+  },
+  {
+    q: "Water pollution reduces:",
+    options: ["Evaporation", "Rainfall", "Water hardness", "Water usability"],
+    answer: 3, // Water usability
+    explanation: "Pollution makes water unfit for drinking, agriculture, or industrial use."
+  },
+  {
+    q: "BOD measures:",
+    options: ["Oxygen present", "Oxygen required by microbes", "Turbidity", "Chemical toxicity"],
+    answer: 1, // Oxygen required...
+    explanation: "Biochemical Oxygen Demand (BOD) is the oxygen needed by bacteria to break down organic matter."
+  },
+  {
+    q: "DO suitable for active fish is:",
+    options: ["1–2 mg/L", "5–8 mg/L", "10–15 mg/L", "3 mg/L"],
+    answer: 1, // 5–8 mg/L
+    explanation: "Fish typically need Dissolved Oxygen (DO) levels between 5-8 mg/L to survive."
+  },
+  {
+    q: "Excess N & P cause:",
+    options: ["Biomagnification", "Eutrophication", "Salination", "Acid rain"],
+    answer: 1, // Eutrophication
+    explanation: "Excess Nitrogen and Phosphorus lead to algae blooms, a process called Eutrophication."
+  },
+  {
+    q: "Mercury causes:",
+    options: ["Itai-Itai disease", "Blue baby syndrome", "Fluorosis", "Minamata disease"],
+    answer: 3, // Minamata disease
+    explanation: "Minamata disease involves severe neurological damage caused by mercury poisoning."
+  },
+  {
+    q: "Nitrates cause:",
+    options: ["Fluorosis", "Blue baby syndrome", "Cancer", "Jaundice"],
+    answer: 1, // Blue baby syndrome
+    explanation: "High nitrates in water cause Blue Baby Syndrome (Methaemoglobinaemia) in infants."
+  },
+  {
+    q: "Grit removal is part of:",
+    options: ["Secondary treatment", "Anaerobic treatment", "Tertiary treatment", "Primary treatment"],
+    answer: 3, // Primary treatment
+    explanation: "Primary treatment involves physical removal of large solids and grit."
+  },
+  {
+    q: "Activated sludge is:",
+    options: ["Tertiary", "Physical", "Secondary", "Primary"],
+    answer: 2, // Secondary
+    explanation: "Activated sludge is a biological process used in Secondary treatment."
+  },
+  {
+    q: "UASB reactor is:",
+    options: ["Chemical", "Anaerobic", "Aerobic", "Thermal"],
+    answer: 1, // Anaerobic
+    explanation: "UASB stands for Upflow Anaerobic Sludge Blanket (Anaerobic = without oxygen)."
+  },
+  {
+    q: "Thermal pollution mainly reduces:",
+    options: ["Salinity", "DO", "pH", "Turbidity"],
+    answer: 1, // DO
+    explanation: "Warmer water holds less oxygen, so thermal pollution lowers Dissolved Oxygen (DO)."
+  },
+  {
+    q: "About ___ marine pollution originates from land:",
+    options: ["80%", "40%", "90%", "60%"],
+    answer: 0, // 80%
+    explanation: "Approximately 80% of ocean pollution comes from land-based activities (runoff, sewage, etc.)."
+  },
+  {
+    q: "Soil pollution reduces:",
+    options: ["Soil fertility", "Water table", "Wind speed", "Rainfall"],
+    answer: 0, // Soil fertility
+    explanation: "Pollutants kill beneficial soil microbes, reducing fertility."
+  },
+  {
+    q: "Agrochemicals include:",
+    options: ["Plastics", "Detergents", "Fertilizers & pesticides", "Metals"],
+    answer: 2, // Fertilizers & pesticides
+    explanation: "Chemicals used in agriculture like fertilizers and pesticides are agrochemicals."
+  },
+  {
+    q: "Putrescible waste is called:",
+    options: ["Refuse", "Rubbish", "Scrap", "Garbage"],
+    answer: 3, // Garbage
+    explanation: "Garbage refers specifically to food waste or organic waste that can rot (putrefy)."
+  },
+  {
+    q: "Non-putrescible waste is:",
+    options: ["Sludge", "Sewage", "Rubbish", "Garbage"],
+    answer: 2, // Rubbish
+    explanation: "Rubbish consists of dry waste like paper, glass, or metal that does not rot quickly."
+  },
+  {
+    q: "Biomedical waste includes:",
+    options: ["Plastics", "Manure", "Needles & syringes", "Fly ash"],
+    answer: 2, // Needles & syringes
+    explanation: "Waste from hospitals like needles and syringes is biomedical waste."
+  },
+  {
+    q: "SWM main steps include collection, transport and:",
+    options: ["Segregation", "Generation", "Storage", "Disposal"],
+    answer: 3, // Disposal
+    explanation: "The final step of Solid Waste Management is safe Disposal."
+  },
+  {
+    q: "Sanitary landfill prevents:",
+    options: ["Leachate percolation", "Compaction", "Gas formation", "Decomposition"],
+    answer: 0, // Leachate percolation
+    explanation: "Sanitary landfills are lined to prevent toxic liquid (leachate) from leaking into groundwater."
+  },
+  {
+    q: "Incineration disadvantage:",
+    options: ["No pollution", "No residue", "Low cost", "Dioxin formation"],
+    answer: 3, // Dioxin formation
+    explanation: "Burning waste can release harmful toxins like dioxins if not properly controlled."
+  },
+  {
+    q: "Unit of sound pressure level:",
+    options: ["Hz", "dB", "Watt", "Pascal"],
+    answer: 1, // dB
+    explanation: "Sound is measured in Decibels (dB)."
+  },
+  {
+    q: "Noise becomes painful above:",
+    options: ["100 dB", "130 dB", "120 dB", "75 dB"],
+    answer: 2, // 120 dB
+    explanation: "Sounds above 120 dB (like a jet taking off nearby) cause physical pain."
+  },
+  {
+    q: "Noise above ___ dB is pollution:",
+    options: ["60", "65", "55", "70"],
+    answer: 1, // 65
+    explanation: "Generally, sound levels exceeding 65 dB are considered noise pollution."
+  },
+  {
+    q: "Half-life is time for:",
+    options: ["Energy release", "Full decay", "Half atoms to decay", "Radiation stop"],
+    answer: 2, // Half atoms to decay
+    explanation: "Half-life is the time required for half of the radioactive atoms in a sample to decay."
+  },
+  {
+    q: "Unit of radioactive exposure:",
+    options: ["Gray", "Rem", "Sievert", "dB"],
+    answer: 1, // Rem
+    explanation: "Rem (or Sievert) measures the biological effect of radiation exposure."
+  },
+  {
+    q: "Genetic effects of radiation affect:",
+    options: ["DNA", "Skin only", "Organs only", "Body cells"],
+    answer: 0, // DNA
+    explanation: "Radiation can damage DNA in reproductive cells, affecting future generations."
+  },
+  {
+    q: "Radon-222 is a:",
+    options: ["Non-ionizing radiation", "Natural radioactive gas", "Man-made source", "Secondary pollutant"],
+    answer: 1, // Natural radioactive gas
+    explanation: "It is a naturally occurring radioactive gas formed from the decay of uranium."
+  },
+  
+  // --- UNIT 6: DISASTER MANAGEMENT ---
+  {
+    q: "The word “Disaster” is derived from:",
+    options: ["Latin word", "French word “Desastre”", "Greek word", "English word"],
+    answer: 1, // French word
+    explanation: "It comes from the French 'Desastre' (Des=Bad, Astre=Star)."
+  },
+  {
+    q: "“Desastre” means:",
+    options: ["Flood", "Bad wind", "Natural damage", "Evil star"],
+    answer: 3, // Evil star
+    explanation: "It literally translates to 'Bad Star' or 'Evil Star'."
+  },
+  {
+    q: "Disaster is caused due to:",
+    options: ["Climatic causes only", "Natural or man-made causes", "Only natural causes", "Only man-made causes"],
+    answer: 1, // Natural or man-made
+    explanation: "Disasters can be natural (earthquakes) or anthropogenic (chemical spills)."
+  },
+  {
+    q: "A disaster leads to:",
+    options: ["Seasonal variation", "Gradual change", "Sudden disruption of normal life", "Economic growth"],
+    answer: 2, // Sudden disruption
+    explanation: "A disaster is characterized by a sudden event that disrupts community functioning."
+  },
+  {
+    q: "Disaster causes damage to:",
+    options: ["Property only", "Life only", "Infrastructure only", "Life and property"],
+    answer: 3, // Life and property
+    explanation: "Disasters result in widespread loss of both human life and material property."
+  },
+  {
+    q: "Disaster overwhelms:",
+    options: ["Climate cycle", "Government systems", "Natural balance", "Social and economic protection mechanisms"],
+    answer: 3, // Social and economic protection
+    explanation: "It exceeds the affected community's ability to cope using its own resources."
+  },
+  {
+    q: "Disaster can be classified into:",
+    options: ["Small and large scale", "Large scale only", "Medium scale only", "Small scale only"],
+    answer: 0, // Small and large scale
+    explanation: "Disasters vary in magnitude from small, local incidents to large-scale catastrophes."
+  },
+  {
+    q: "Floods, hailstorms and cloudbursts are:",
+    options: ["Hydrological disasters", "Biological disasters", "Industrial disasters", "Geological disasters"],
+    answer: 0, // Hydrological
+    explanation: "These are related to water (hydro) cycles and weather."
+  },
+  {
+    q: "Cyclones fall under:",
+    options: ["Meteorological", "Geological", "Climatological", "Biological"],
+    answer: 0, // Meteorological
+    explanation: "Cyclones are weather-related phenomena (Meteorological)."
+  },
+  {
+    q: "Heat waves, cold waves and droughts are:",
+    options: ["Meteorological", "Climatological", "Geological", "Hydrological"],
+    answer: 1, // Climatological
+    explanation: "These are long-term weather patterns associated with climate (Climatological)."
+  },
+  {
+    q: "Earthquakes and volcanic eruptions are:",
+    options: ["Biological", "Meteorological", "Industrial", "Geological"],
+    answer: 3, // Geological
+    explanation: "These originate from the Earth's crust (Geological)."
+  },
+  {
+    q: "Urban fires and oil spills are:",
+    options: ["Natural disasters", "Man-made disasters", "Hydrological disasters", "Geological disasters"],
+    answer: 1, // Man-made
+    explanation: "These are caused by human error or activity."
+  },
+  {
+    q: "Viral outbreaks and pest invasions are:",
+    options: ["Biological disasters", "Nuclear disasters", "Industrial disasters", "Geological disasters"],
+    answer: 0, // Biological
+    explanation: "They involve living organisms (viruses, pests), so they are biological."
+  },
+  {
+    q: "Chemical mishaps and mining shaft fires are:",
+    options: ["Biological disasters", "Meteorological disasters", "Nuclear disasters", "Industrial disasters"],
+    answer: 3, // Industrial
+    explanation: "These occur in industrial settings."
+  },
+  {
+    q: "Nuclear core meltdown causes:",
+    options: ["Cyclone", "Earthquake", "Radiation illness", "Flood"],
+    answer: 2, // Radiation illness
+    explanation: "A meltdown releases radioactive material, causing radiation sickness."
+  },
+  {
+    q: "Disaster impacts individuals:",
+    options: ["Economically only", "Physically only", "Physically and psychologically", "Psychologically only"],
+    answer: 2, // Physically and psychologically
+    explanation: "Survivors suffer both physical injuries and mental trauma."
+  },
+  {
+    q: "Loss of biodiversity is a:",
+    options: ["Impact of disaster", "Cause of disaster", "Type of disaster", "Control measure"],
+    answer: 0, // Impact of disaster
+    explanation: "Disasters like forest fires destroy habitats, leading to loss of biodiversity."
+  },
+  {
+    q: "Displacement of people is:",
+    options: ["Impact", "Prevention", "Preparedness", "Cause"],
+    answer: 0, // Impact
+    explanation: "People losing homes and moving is a consequence (impact) of disasters."
+  },
+  {
+    q: "Industrialization is a:",
+    options: ["Natural cause", "Cause of disaster", "Effect", "Impact"],
+    answer: 1, // Cause of disaster
+    explanation: "Unplanned industrialization can lead to accidents and environmental disasters."
+  },
+  {
+    q: "Environmental degradation leads to:",
+    options: ["Disaster control", "Disaster occurrence", "Disaster reduction", "Disaster recovery"],
+    answer: 1, // Disaster occurrence
+    explanation: "A degraded environment (e.g., deforestation) increases the likelihood of disasters (e.g., landslides)."
+  },
+  {
+    q: "Political issues can:",
+    options: ["Cause disasters", "Eliminate hazards", "Prevent disasters", "Control environment"],
+    answer: 0, // Cause disasters
+    explanation: "War and civil unrest (political issues) are man-made causes of disaster."
+  },
+  {
+    q: "Disaster management is a:",
+    options: ["Economic process", "Random activity", "Temporary process", "Systematic process"],
+    answer: 3, // Systematic process
+    explanation: "It involves organized planning and action cycles."
+  },
+  {
+    q: "Disaster management aims to:",
+    options: ["Increase disasters", "Control population", "Lessen disaster impact", "Stop development"],
+    answer: 2, // Lessen disaster impact
+    explanation: "The goal is to reduce loss of life and property (mitigate impact)."
+  },
+  {
+    q: "Pre-disaster management occurs:",
+    options: ["At recovery stage", "Before disaster", "After disaster", "During disaster"],
+    answer: 1, // Before disaster
+    explanation: "This phase involves planning and preparation *before* an event happens."
+  },
+  {
+    q: "Management during disaster mainly involves:",
+    options: ["Immediate response", "Policy making", "Planning", "Research"],
+    answer: 0, // Immediate response
+    explanation: "During a disaster, the focus is on rescue and relief (response)."
+  },
+  {
+    q: "Post-disaster management includes:",
+    options: ["Prevention", "Preparedness", "Mitigation", "Recovery"],
+    answer: 3, // Recovery
+    explanation: "Recovery and rehabilitation happen after the disaster is over."
+  },
+  {
+    q: "DRR focuses on:",
+    options: ["Eliminating hazards", "Increasing exposure", "Ignoring risks", "Reducing causal factors"],
+    answer: 3, // Reducing causal factors
+    explanation: "Disaster Risk Reduction (DRR) aims to reduce the underlying causes of risk."
+  },
+  {
+    q: "Mitigation refers to:",
+    options: ["Emergency relief", "Recovery process", "Proactive measures before disaster", "Actions after disaster"],
+    answer: 2, // Proactive measures
+    explanation: "Mitigation involves steps taken in advance to minimize future damage."
+  },
+  {
+    q: "Preparedness helps to:",
+    options: ["Create disasters", "Increase vulnerability", "Stop hazards", "Reduce effects of disasters"],
+    answer: 3, // Reduce effects
+    explanation: "Being prepared ensures a faster response, reducing the overall effect."
+  },
+  {
+    q: "Rescue includes:",
+    options: ["Risk mapping", "Long-term planning", "Evacuation and immediate help", "Infrastructure repair"],
+    answer: 2, // Evacuation and immediate help
+    explanation: "Rescue is saving people from immediate danger."
+  },
+  {
+    q: "Food, water and medicines come under:",
+    options: ["Relief", "Preparedness", "Recovery", "Mitigation"],
+    answer: 0, // Relief
+    explanation: "Providing basic necessities immediately after a disaster is called Relief."
+  },
+  {
+    q: "Repair of damaged infrastructure is:",
+    options: ["Mitigation", "Recovery", "Relief", "Rescue"],
+    answer: 1, // Recovery
+    explanation: "Rebuilding roads and bridges is part of the long-term Recovery phase."
+  },
+  {
+    q: "Risk assessment helps in:",
+    options: ["Identifying vulnerabilities", "Creating disasters", "Ignoring hazards", "Increasing damage"],
+    answer: 0, // Identifying vulnerabilities
+    explanation: "It involves analyzing potential threats and weak points (vulnerabilities)."
+  },
+  {
+    q: "Climate change adaptation is a:",
+    options: ["Cause", "Disaster type", "Impact", "Mitigation measure"],
+    answer: 3, // Mitigation measure
+    explanation: "Adapting to climate change helps mitigate future disaster risks."
+  },
+  {
+    q: "Urban planning helps in:",
+    options: ["Disaster mitigation", "Increasing risk", "Environmental degradation", "Hazard creation"],
+    answer: 0, // Disaster mitigation
+    explanation: "Proper planning prevents construction in high-risk zones, mitigating disaster impact."
+  },
+  {
+    q: "Landslide involves movement of:",
+    options: ["Lava only", "Ice only", "Water only", "Rocks, soil and debris"],
+    answer: 3, // Rocks, soil and debris
+    explanation: "A landslide is the downslope movement of earth materials."
+  },
+  {
+    q: "Landslides can move:",
+    options: ["Only downward", "Only slow", "Only fast", "Slowly or rapidly"],
+    answer: 3, // Slowly or rapidly
+    explanation: "They can range from slow creeps to sudden, rapid falls."
+  },
+  {
+    q: "Landslides do NOT always involve:",
+    options: ["Gravity", "Slope", "Vegetation", "Water"],
+    answer: 3, // Water
+    explanation: "While water often triggers them, landslides can occur without water (e.g., due to earthquakes), but gravity and slope are essential."
+  },
+  {
+    q: "Deforestation increases:",
+    options: ["Rainfall", "Soil fertility", "Stability", "Landslide risk"],
+    answer: 3, // Landslide risk
+    explanation: "Tree roots hold soil together; removing them makes the land unstable."
+  },
+  {
+    q: "Avalanche is movement of:",
+    options: ["Ice and snow", "Soil and water", "Lava", "Rock and mud"],
+    answer: 0, // Ice and snow
+    explanation: "An avalanche is a mass of snow and ice sliding down a mountain."
+  },
+  {
+    q: "Avalanche risk is highest during:",
+    options: ["December–April", "September–October", "June–August", "May–June"],
+    answer: 0, // December–April
+    explanation: "Winter and early spring see the most snow accumulation and instability."
+  },
+  {
+    q: "Loose snow avalanche is:",
+    options: ["Highly dangerous", "Slab-based", "Caused by rain only", "Low volume and speed"],
+    answer: 3, // Low volume and speed
+    explanation: "These start from a point and are generally smaller/slower than slab avalanches."
+  },
+  {
+    q: "Slab avalanche speed can reach:",
+    options: ["10 km/h", "50–100 km/h", "150 km/h", "25 km/h"],
+    answer: 1, // 50–100 km/h
+    explanation: "Large slab avalanches can travel very fast, often exceeding 100 km/h."
+  },
+  {
+    q: "Wet-snow avalanche is triggered by:",
+    options: ["Rising temperature or rain", "Earthquake only", "Wind only", "Snowfall only"],
+    answer: 0, // Rising temperature
+    explanation: "Warmth or rain weakens the snowpack, causing wet slides."
+  },
+  {
+    q: "Heatwave occurs when temperature exceeds normal by:",
+    options: ["3°C or more", "1°C", "2°C", "5°C"],
+    answer: 0, // 3°C or more
+    explanation: "Technically, a departure of 4.5°C or more usually defines a heatwave, but among these options, >3°C is the start."
+  },
+  {
+    q: "Heat index measures:",
+    options: ["Pressure", "Rainfall", "Humidity effect on heat", "Wind speed"],
+    answer: 2, // Humidity effect
+    explanation: "It combines air temperature and relative humidity to determine how hot it truly feels."
+  },
+  {
+    q: "Cold wave in plains occurs below:",
+    options: ["5°C", "12°C", "15°C", "10°C"],
+    answer: 3, // 10°C
+    explanation: "In Indian plains, a cold wave is declared if the minimum temp is 10°C or lower."
+  },
+  {
+    q: "Cold wave is associated with:",
+    options: ["Low pressure", "High humidity", "Frost and icing", "Cyclones"],
+    answer: 2, // Frost and icing
+    explanation: "Freezing temperatures often lead to frost formation."
+  },
+  {
+    q: "Chairperson of NDMA is:",
+    options: ["Prime Minister", "President", "Home Minister", "Governor"],
+    answer: 0, // Prime Minister
+    explanation: "The Prime Minister of India heads the National Disaster Management Authority."
+  },
+  {
+    q: "State Disaster Management Authority is headed by:",
+    options: ["District Collector", "Governor", "Chief Minister", "Prime Minister"],
+    answer: 2, // Chief Minister
+    explanation: "At the state level, the Chief Minister is the chairperson."
+  },
+  {
+    q: "District Disaster Management Chairperson is:",
+    options: ["Principal", "Superintendent of Police", "Deputy Commissioner", "Chief Minister"],
+    answer: 2, // Deputy Commissioner
+    explanation: "The District Collector (DC) or Deputy Commissioner heads the district authority."
+  },
+  {
+    q: "School Disaster Management Chairperson is:",
+    options: ["Teacher", "Administrator", "Principal", "Headmaster"],
+    answer: 2, // Principal
+    explanation: "The Principal or Headmaster is responsible for disaster safety in schools."
   }
-}
-
-// 🟢 Fetch all saved results from Supabase (Leaderboard)
-async function fetchAllResults() {
-  try {
-    showLoader("📡 Fetching results...");
-
-    const { data, error } = await supabase
-      .from('test_result')
-      .select('name, reg, correct, attempted, time, date')
-      .order('correct', { ascending: false }); // Highest score first
-
-    if (error) throw error;
-
-    showResultsTable(data); // show inside modal
-  } catch (err) {
-    console.error("Aryan_database fetch error:", err);
-    alert("❌ Error fetching results from Aryan_database!");
-  }
-}
-
-btnExport.addEventListener('click', ()=>{
-  const arr = JSON.parse(localStorage.getItem('ece249_results') || '[]');
-  if(arr.length === 0){ alert('No saved results to export.'); return; }
-  const headers = ['Name','Reg','Correct','Attempted','Time','Date'];
-  const rows = arr.map(r => [r.name, r.reg, r.correct, r.attempted, r.time, r.date]);
-  let csv = headers.join(',') + '\n' + rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob([csv], {type: 'text/csv'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'ece249_results.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-});
-
-/* View summary modal */
-function showSummaryModal(){
-  const correct = state.answeredCorrect.filter(x=>x).length;
-  const attempted = state.answers.filter(a=>a!==null).length;
-  modalRoot.innerHTML = '';
-  const backdrop = document.createElement('div'); backdrop.className = 'modal-backdrop';
-  const modal = document.createElement('div'); modal.className = 'modal';
-  const user = JSON.parse(localStorage.getItem('ece249_user') || '{}');
-  modal.innerHTML = `<h3>Test Summary</h3>
-    <p><strong>Name:</strong> ${user.name || inpName.value} &nbsp; • &nbsp; <strong>Reg:</strong> ${user.reg || inpReg.value}</p>
-    <p><strong>Score:</strong> ${correct} / ${totalQ} &nbsp; • &nbsp; <strong>Attempted:</strong> ${attempted}</p>
-    <p><strong>Time:</strong> ${formatTime(state.elapsedSec)}</p>
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-      <button id="modalSave" class="btn">Save</button>
-      <button id="modalReview" class="btn ghost">Review Answers</button>
-      <button id="modalClose" class="btn ghost">Close</button>
-    </div>`;
-  backdrop.appendChild(modal); modalRoot.appendChild(backdrop); modalRoot.style.display = 'block';
-  document.getElementById('modalClose').addEventListener('click', ()=>{ modalRoot.innerHTML=''; modalRoot.style.display='none'; });
-  document.getElementById('modalSave').addEventListener('click', ()=>{ saveResult(); modalRoot.innerHTML=''; modalRoot.style.display='none'; });
-  document.getElementById('modalReview').addEventListener('click', ()=>{ modalRoot.innerHTML=''; modalRoot.style.display='none'; reviewAllAnswers(); });
-}
-
-/* Review answers (list with question and selected) */
-function reviewAllAnswers(){
-  modalRoot.innerHTML = ''; const backdrop = document.createElement('div'); backdrop.className='modal-backdrop';
-  const modal = document.createElement('div'); modal.className='modal';
-  modal.innerHTML = `<h3>Review Answers</h3><div style="max-height:60vh;overflow:auto"><table class="results-table"><thead><tr><th>#</th><th>Question</th><th>Your</th><th>Correct</th></tr></thead><tbody id="revBody"></tbody></table></div><div style="display:flex;justify-content:flex-end;margin-top:8px"><button id="closeRev" class="btn ghost">Close</button></div>`;
-  backdrop.appendChild(modal); modalRoot.appendChild(backdrop); modalRoot.style.display='block';
-  const body = modal.querySelector('#revBody');
-  QUESTIONS.forEach((q,i)=>{
-    const your = state.answers[i] === null ? '-' : String.fromCharCode(65 + state.answers[i]) + '. ' + q.options[state.answers[i]];
-    const corr = String.fromCharCode(65 + q.answer) + '. ' + q.options[q.answer];
-    const tr = document.createElement('tr'); tr.innerHTML = `<td>${i+1}</td><td style="max-width:380px">${q.q}</td><td>${your}</td><td>${corr}</td>`;
-    body.appendChild(tr);
-  });
-  document.getElementById('closeRev').addEventListener('click', ()=>{ modalRoot.innerHTML=''; modalRoot.style.display='none'; });
-}
-
-/* review finished. */
-
-/* idle reset on any interaction */
-['click','mousemove','keydown','touchstart'].forEach(ev => document.addEventListener(ev, resetIdleTimer));
-
-/* Before unload confirm if started */
-window.addEventListener('beforeunload', function(e){ if(state.started){ e.preventDefault(); e.returnValue = ''; } });
-
-/* init */
-(function init(){
-  // if previous user exists, prefill name/reg
-  const prevUser = JSON.parse(localStorage.getItem('ECE-249_user') || 'null');
-  if(prevUser){
-    if(prevUser.name) inpName.value = prevUser.name;
-    if(prevUser.reg) inpReg.value = prevUser.reg;
-    if(prevUser.pic){ imgPreview.src = prevUser.pic; imgPreview.style.display='block'; userPicSmall.src = prevUser.pic; userPicSmall.style.display='block'; }
-  }
-  checkStartInputs();
-  curQ.innerText = 0;
-  timeTop.innerText = '00:00';
-  timeSpentEl.innerText = '00:00';
-  topProgress.innerText = '0%';
-  topCorrect.innerText = '0';
-  topWrong.innerText = '0';
-  topAttempted.innerText = '0';
-  topQno.innerText = '0/' + totalQ;
-})();
-</script>
-</body>
-</html>
+];
