@@ -7,14 +7,14 @@
 <style>
 /* ===================== CSS Variables ===================== */
 :root{
-    --bg:#10a482; /* Background main color variable */
-    --card:#0d0e0f; /* Card background color variable */
-    --accent:#1d6c52; /* Main accent color */
+    --bg:#3cd6b2; /* Background main color variable */
+    --card:#000000; /* Card background color variable */
+    --accent:#11b57e; /* Main accent color */
     --accent-600:#059669; /* Darker accent */
-    --accent-400:#44a631; /* Lighter accent */
-    --danger:#d41212b8; /* Error/danger color */
-    --muted:#1e2939; /* Muted text color */
-    --glass:rgba(52, 36, 36, 0.03); /* Glassy overlay color */
+    --accent-400:#0c4102; /* Lighter accent */
+    --danger:#c42606b8; /* Error/danger color */
+    --muted:#233e4f; /* Muted text color */
+    --glass:rgb(63, 118, 185); /* Glassy overlay color */
 }
 
 /* ===================== Global Styles ===================== */
@@ -209,23 +209,23 @@ input[type="text"], input[type="file"]{
 .options{
     display:grid; /* Grid layout */
     grid-template-columns:1fr 1fr; /* Two columns for options */
-    gap:12px; /* Gap between options */
+    gap:5px; /* Gap between options */
 }
 .option{
     padding:12px;
     border-radius:10px;
-    border:1px solid rgba(91, 206, 248, 0.438);
+    border:3px solid rgba(1, 40, 28, 0.438);
     cursor:pointer;
     background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
-    transition:transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease, background .18s ease;
+    gap:20px;
+    transition:transform .20s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease, background .18s ease;
 }
 .option:hover{
     transform:translateY(-4px); /* Hover lift effect */
-    box-shadow:0 10px 30px rgba(24, 54, 185, 0.6);
+    box-shadow:0 15px 35px rgba(162, 66, 6, 0.6);
 }
 .option .label{
     font-weight:750;
