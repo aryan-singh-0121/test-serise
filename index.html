@@ -2895,7 +2895,7 @@ input[type="text"], input[type="file"]{
 /* 300 QUESTIONS: We created 300 items above. */
 /* If you paste the full 300 questions, make sure to update totalQ below automatically. */
 
-const totalQ = QUESTIONS.length || 200;
+const totalQ = QUESTIONS.length || 300;
 document.getElementById('totalQ').innerText = totalQ;
 document.getElementById('badgeCount').innerText = totalQ + " Qs";
 
@@ -3253,7 +3253,7 @@ function showLoader(msg, duration = 1500) {
 // 🟢 Supabase Database Save (adds result to test_result table)
 async function saveResultToSupabase(result) {
   try {
-    showLoader("⏳ Checking registration...");
+    showLoader("⏳ 😄😄Checking registration...");
 
     // पहले check करो कि यह registration पहले से मौजूद तो नहीं है
     const { data: existing, error: fetchError } = await supabase
@@ -3325,7 +3325,7 @@ function showSummaryModal(){
   modalRoot.innerHTML = '';
   const backdrop = document.createElement('div'); backdrop.className = 'modal-backdrop';
   const modal = document.createElement('div'); modal.className = 'modal';
-  const user = JSON.parse(localStorage.getItem('ece249_user') || '{}');
+  const user = JSON.parse(localStorage.getItem('ECE-249_user') || '{}');
   modal.innerHTML = `<h3>Test Summary</h3>
     <p><strong>Name:</strong> ${user.name || inpName.value} &nbsp; • &nbsp; <strong>Reg:</strong> ${user.reg || inpReg.value}</p>
     <p><strong>Score:</strong> ${correct} / ${totalQ} &nbsp; • &nbsp; <strong>Attempted:</strong> ${attempted}</p>
